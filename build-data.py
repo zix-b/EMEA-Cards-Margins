@@ -9,11 +9,11 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "pricing-data.json"
+JS_OUT = ROOT / "pricing-data.js"
 
 MARGIN_FILE = Path(
     "/tmp/codex-remote-attachments/019ec67d-c7cc-7a22-9856-9bb42b6a6700/858EA98C-C692-49FA-9FFE-A649D16DB1FE/1-Cards-Wearables-Costing-Margins-14-April-2026-.xlsx"
 )
-ALLOWED_SKUS = {"CTC-011", "CTC-007", "CRD-012"}
 NS = {
     "a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
@@ -146,8 +146,6 @@ def extract_december_rows() -> list[dict]:
             by_sku.setdefault(sku, []).append((row_num, values))
 
         for sku, sku_rows in by_sku.items():
-            if sku not in ALLOWED_SKUS:
-                continue
             product = sku_rows[0][1].get(4, "")
             cost_rows = [
                 row
@@ -212,7 +210,12 @@ def main() -> None:
         "rows": extract_december_rows(),
     }
     OUT.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    JS_OUT.write_text(
+        "window.PRICING_DATA = " + json.dumps(data, indent=2) + ";\n",
+        encoding="utf-8",
+    )
     print(f"Wrote {len(data['rows'])} pricing rows to {OUT}")
+    print(f"Wrote browser data to {JS_OUT}")
 
 
 if __name__ == "__main__":

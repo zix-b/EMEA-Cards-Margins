@@ -15,11 +15,17 @@ Mobile-friendly pricing lookup tool for quick sales quoting.
 
 ## Current Data Scope
 
-This prototype currently uses the `03 Dec 2025` pricing tab and only includes:
+This prototype currently uses the `03 Dec 2025` pricing tab and includes:
 
-- `CTC-011`
-- `CTC-007`
+- `CRD-004`
 - `CRD-012`
+- `CTC-007`
+- `CTC-008`
+- `CTC-011`
+- `CTC-031`
+- `CTM-003`
+- `CTM-004`
+- `LIC-009`
 
 The revised OPPIOT pricing file is not used yet.
 
