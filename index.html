@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing Lookup Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sales Tool Prototype</p>
+          <h1>Pricing Lookup</h1>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="Search controls">
+        <label>
+          Product
+          <select id="productSelect">
+            <option value="">All products</option>
+          </select>
+        </label>
+
+        <label>
+          Quantity
+          <input id="quantityInput" type="number" min="1" step="1" placeholder="e.g. 5000" />
+        </label>
+
+        <label>
+          EMEA Price Type
+          <select id="tierSelect">
+            <option value="">All EMEA prices</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="results-list" id="resultsBody" aria-label="Pricing results">
+      </section>
+    </main>
+
+    <script src="pricing-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
