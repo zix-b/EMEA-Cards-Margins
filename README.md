@@ -1,4 +1,4 @@
-# Pricing Lookup Prototype
+# EMEA Cards Margins
 
 Mobile-friendly pricing lookup tool for quick sales quoting.
 
