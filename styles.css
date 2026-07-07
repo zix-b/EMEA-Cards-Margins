@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap");
-
 :root {
   color-scheme: light;
-  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #f4f2ed;
   color: #191919;
 }
@@ -41,7 +39,7 @@ body {
 h1 {
   margin: 0;
   font-size: 36px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -57,7 +55,7 @@ label {
   gap: 7px;
   color: #4f4a42;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 input,
@@ -98,7 +96,7 @@ select:focus {
   padding: 14px;
   background: #eee8dc;
   color: #4b463f;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .result-meta div {
@@ -131,13 +129,13 @@ select:focus {
 .price-row span {
   color: #5f584f;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .price-row strong {
   color: #191919;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   text-align: right;
   white-space: nowrap;

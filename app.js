@@ -17,6 +17,10 @@ const currency = new Intl.NumberFormat("en-US", {
 });
 
 function money(value) {
+  return Number.isFinite(value) ? currency.format(value) : "-";
+}
+
+function bracketMoney(value) {
   return Number.isFinite(value) ? `(${currency.format(value)})` : "-";
 }
 
@@ -77,7 +81,7 @@ function renderRows(rows) {
           </div>
           <div class="price-row">
             <span>Gross Profit</span>
-            <strong>${money(row.grossProfit)}</strong>
+            <strong>${bracketMoney(row.grossProfit)}</strong>
           </div>
           <div class="price-row">
             <span>Margin</span>
