@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #120817;
   color: #f8f2ff;
 }
@@ -36,14 +36,14 @@ body {
   margin: 0 0 6px;
   color: #ff5b76;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
 h1 {
   margin: 0;
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
 }
 
@@ -59,7 +59,7 @@ label {
   gap: 7px;
   color: #eadcf2;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 input,
@@ -107,7 +107,7 @@ select option {
   padding: 14px;
   background: #2b1036;
   color: #f4e7fb;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .result-meta div {
@@ -123,6 +123,7 @@ select option {
 .result-meta strong {
   color: #ff5b76;
   font-size: 14px;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
   white-space: nowrap;
@@ -140,13 +141,13 @@ select option {
 .price-row span {
   color: #5c4b61;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .price-row strong {
   color: #18091f;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   text-align: right;
   white-space: nowrap;
