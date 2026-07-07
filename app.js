@@ -16,6 +16,25 @@ const currency = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 4,
 });
 
+const tierOptions = [
+  {
+    value: "Standard Price (EMEA License)",
+    label: "Standard Price (EMEA License)",
+  },
+  {
+    value: "Base Price (EMEA Premium)",
+    label: "Base Price (EMEA Premium)",
+  },
+  {
+    value: "Distributor Price (EMEA)",
+    label: "Distributor Price (EMEA)",
+  },
+  {
+    value: "EMEA Strategic Account (Magic Planet)",
+    label: "EMEA Strategic Account (MAF)",
+  },
+];
+
 function money(value) {
   return Number.isFinite(value) ? currency.format(value) : "-";
 }
@@ -47,10 +66,14 @@ function fillSelect(select, values, firstLabel) {
   select.innerHTML = `<option value="">${firstLabel}</option>`;
   for (const value of values) {
     const option = document.createElement("option");
-    option.value = value;
-    option.textContent = value;
+    option.value = typeof value === "string" ? value : value.value;
+    option.textContent = typeof value === "string" ? value : value.label;
     select.appendChild(option);
   }
+}
+
+function displayTier(tier) {
+  return tierOptions.find((option) => option.value === tier)?.label || tier;
 }
 
 function renderRows(rows) {
@@ -67,7 +90,7 @@ function renderRows(rows) {
           <div class="result-meta">
             <div>
               <span>${row.quantityLabel || "Any quantity"}</span>
-              <span>${row.tier.replace("Base Price ", "").replace("Standard Price ", "")}</span>
+              <span>${displayTier(row.tier)}</span>
             </div>
             <strong>${row.sku}</strong>
           </div>
@@ -77,11 +100,11 @@ function renderRows(rows) {
           </div>
           <div class="price-row">
             <span>Cost Price</span>
-            <strong>${money(row.costPrice)}</strong>
+            <strong>${bracketMoney(row.costPrice)}</strong>
           </div>
           <div class="price-row">
             <span>Gross Profit</span>
-            <strong>${bracketMoney(row.grossProfit)}</strong>
+            <strong>${money(row.grossProfit)}</strong>
           </div>
           <div class="price-row">
             <span>Margin</span>
@@ -122,12 +145,12 @@ function boot() {
     "label"
   );
   fillSelect(el.product, products, "All products");
-  const emeaTiers = uniqueSorted(
-    state.rows.filter((row) => row.tier.includes("EMEA")),
-    "tier"
+  const availableTiers = new Set(
+    state.rows.filter((row) => row.tier.includes("EMEA")).map((row) => row.tier)
   );
+  const emeaTiers = tierOptions.filter((option) => availableTiers.has(option.value));
   fillSelect(el.tier, emeaTiers, "All EMEA prices");
-  if (emeaTiers.includes("Base Price (EMEA Premium)")) {
+  if (availableTiers.has("Base Price (EMEA Premium)")) {
     el.tier.value = "Base Price (EMEA Premium)";
   }
 
