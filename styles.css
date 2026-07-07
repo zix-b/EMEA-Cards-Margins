@@ -1,8 +1,8 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f4f2ed;
-  color: #191919;
+  background: #120817;
+  color: #f8f2ff;
 }
 
 * {
@@ -11,6 +11,10 @@
 
 body {
   margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(177, 28, 62, 0.18), transparent 34rem),
+    linear-gradient(180deg, #190b21 0%, #100713 100%);
+  min-height: 100vh;
 }
 
 .shell {
@@ -25,12 +29,12 @@ body {
   justify-content: space-between;
   gap: 24px;
   padding-bottom: 22px;
-  border-bottom: 1px solid #d8d3c7;
+  border-bottom: 1px solid #4a203d;
 }
 
 .eyebrow {
   margin: 0 0 6px;
-  color: #7a3622;
+  color: #ff5b76;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
@@ -53,7 +57,7 @@ h1 {
 label {
   display: grid;
   gap: 7px;
-  color: #4f4a42;
+  color: #eadcf2;
   font-size: 13px;
   font-weight: 700;
 }
@@ -62,18 +66,23 @@ input,
 select {
   width: 100%;
   min-height: 42px;
-  border: 1px solid #cfc7b8;
+  border: 1px solid #6b2b58;
   border-radius: 8px;
   padding: 0 12px;
-  background: #fffdf8;
-  color: #191919;
+  background: #25102d;
+  color: #fff7ff;
   font: inherit;
 }
 
 input:focus,
 select:focus {
-  outline: 2px solid #2f6f73;
+  outline: 2px solid #ff4968;
   outline-offset: 1px;
+}
+
+select option {
+  background: #25102d;
+  color: #fff7ff;
 }
 
 .results-list {
@@ -82,10 +91,12 @@ select:focus {
 }
 
 .result-card {
-  border: 1px solid #d8d3c7;
+  border: 1px solid #4f2543;
   border-radius: 8px;
-  background: #fffdf8;
+  background: #fbf7ff;
+  color: #18091f;
   overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
 }
 
 .result-meta {
@@ -94,8 +105,8 @@ select:focus {
   justify-content: space-between;
   gap: 12px;
   padding: 14px;
-  background: #eee8dc;
-  color: #4b463f;
+  background: #2b1036;
+  color: #f4e7fb;
   font-weight: 700;
 }
 
@@ -110,7 +121,7 @@ select:focus {
 }
 
 .result-meta strong {
-  color: #191919;
+  color: #ff5b76;
   font-size: 14px;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -123,17 +134,17 @@ select:focus {
   justify-content: space-between;
   gap: 16px;
   padding: 14px;
-  border-top: 1px solid #ebe6dc;
+  border-top: 1px solid #eadff0;
 }
 
 .price-row span {
-  color: #5f584f;
+  color: #5c4b61;
   font-size: 13px;
   font-weight: 700;
 }
 
 .price-row strong {
-  color: #191919;
+  color: #18091f;
   font-size: 20px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -142,11 +153,11 @@ select:focus {
 }
 
 .empty {
-  border: 1px solid #d8d3c7;
+  border: 1px solid #4f2543;
   border-radius: 8px;
   padding: 30px 18px;
-  background: #fffdf8;
-  color: #6f685d;
+  background: #25102d;
+  color: #f0ddeb;
   text-align: center;
 }
 
