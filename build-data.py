@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "pricing-data.json"
 JS_OUT = ROOT / "pricing-data.js"
+EXCLUDED_SKUS = {"CTC-031"}
 
 MARGIN_FILE = Path(
     "/tmp/codex-remote-attachments/019ec67d-c7cc-7a22-9856-9bb42b6a6700/858EA98C-C692-49FA-9FFE-A649D16DB1FE/1-Cards-Wearables-Costing-Margins-14-April-2026-.xlsx"
@@ -146,6 +147,8 @@ def extract_december_rows() -> list[dict]:
             by_sku.setdefault(sku, []).append((row_num, values))
 
         for sku, sku_rows in by_sku.items():
+            if sku in EXCLUDED_SKUS:
+                continue
             product = sku_rows[0][1].get(4, "")
             cost_rows = [
                 row

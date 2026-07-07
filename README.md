@@ -22,7 +22,6 @@ This prototype currently uses the `03 Dec 2025` pricing tab and includes:
 - `CTC-007`
 - `CTC-008`
 - `CTC-011`
-- `CTC-031`
 - `CTM-003`
 - `CTM-004`
 - `LIC-009`

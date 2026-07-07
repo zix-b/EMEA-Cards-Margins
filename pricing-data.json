@@ -4448,22 +4448,6 @@
       "grossProfit": 0.3232,
       "marginPercent": 0.4,
       "vendor": null
-    },
-    {
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "category": "03 Dec 2025",
-      "sku": "CTC-031",
-      "product": "D&B PowerCards",
-      "tier": "Selling Price (To D&B)",
-      "quantityLabel": "1,000,000 and more",
-      "quantityMin": 1000000,
-      "quantityMax": 1000000,
-      "sellingPrice": 0.1875,
-      "costPrice": 0.1189,
-      "grossProfit": 0.0686,
-      "marginPercent": 0.3659,
-      "vendor": null
     }
   ]
 }

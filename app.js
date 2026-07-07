@@ -100,7 +100,7 @@ function applyFilters() {
 
   const filtered = state.rows.filter((row) => {
     if (!row.tier.includes("EMEA")) return false;
-    if (product && `${row.sku} — ${row.product}` !== product) return false;
+    if (product && `${row.sku} - ${row.product}` !== product) return false;
     if (tier && row.tier !== tier) return false;
     if (!inQuantityRange(row, Number.isFinite(qty) && qty > 0 ? qty : null)) return false;
     return true;
@@ -118,7 +118,7 @@ function boot() {
   state.rows = data.rows;
 
   const products = uniqueSorted(
-    state.rows.map((row) => ({ label: `${row.sku} — ${row.product}` })),
+    state.rows.map((row) => ({ label: `${row.sku} - ${row.product}` })),
     "label"
   );
   fillSelect(el.product, products, "All products");
