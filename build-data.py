@@ -15,6 +15,9 @@ EXCLUDED_SKUS = {"CTC-031"}
 MARGIN_FILE = Path(
     "/tmp/codex-remote-attachments/019ec67d-c7cc-7a22-9856-9bb42b6a6700/858EA98C-C692-49FA-9FFE-A649D16DB1FE/1-Cards-Wearables-Costing-Margins-14-April-2026-.xlsx"
 )
+OPPIOT_FILE = Path(
+    "/tmp/codex-remote-attachments/019ec67d-c7cc-7a22-9856-9bb42b6a6700/858EA98C-C692-49FA-9FFE-A649D16DB1FE/2-Revised-OPPIOT_card_pricing_-20260421.xlsx"
+)
 NS = {
     "a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
@@ -114,7 +117,7 @@ def number(value: str | None) -> float | None:
 def parse_range(label: str) -> tuple[int | None, int | None]:
     text = clean_text(label).replace(",", "")
     nums = [int(x) for x in re.findall(r"\d+", text)]
-    if "+" in text and nums:
+    if ("+" in text or "more" in text.lower()) and nums:
         return nums[0], None
     if len(nums) >= 2:
         return nums[0], nums[1]
@@ -123,20 +126,70 @@ def parse_range(label: str) -> tuple[int | None, int | None]:
     return None, None
 
 
+def is_official_quantity_band(label: str) -> bool:
+    text = clean_text(label).lower()
+    if not text or text == "x":
+        return False
+    qty_min, qty_max = parse_range(text)
+    if qty_min is None:
+        return False
+    return qty_max is None or qty_max > qty_min
+
+
+def sku_codes(value: str) -> list[str]:
+    return re.findall(r"\b[A-Z]{3}-\d{3}\b", clean_text(value).upper())
+
+
+def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], float]:
+    costs: dict[tuple[str, int | None, int | None], float] = {}
+    with ZipFile(OPPIOT_FILE) as zf:
+        target = dict(workbook_sheets(zf))["Card Prices"]
+        rows = sheet_rows(zf, target)
+        qty_cols = {
+            col: parse_range(label)
+            for col, label in rows[5].items()
+            if col >= 4 and label and label != "Price"
+        }
+
+        active_skus: list[str] = []
+        for row_num in sorted(rows):
+            values = rows[row_num]
+            row_skus = sku_codes(values.get(1, ""))
+            if row_skus:
+                active_skus = row_skus
+                continue
+
+            date_label = clean_text(values.get(2, "")).replace(" ", "").lower()
+            if date_label != "20th,april,2026":
+                continue
+
+            for col, qty_range in qty_cols.items():
+                cost = number(values.get(col))
+                if cost is None:
+                    continue
+                for sku in active_skus:
+                    costs[(sku, qty_range[0], qty_range[1])] = cost
+    return costs
+
+
 def extract_december_rows() -> list[dict]:
     output = []
+    oppiot_costs = extract_oppiot_card_costs()
     with ZipFile(MARGIN_FILE) as zf:
         target = dict(workbook_sheets(zf))["03 Dec 2025"]
         rows = sheet_rows(zf, target)
-        qty_cols = {
-            col: {
-                "label": rows[11].get(col, ""),
-                "min": parse_range(rows[11].get(col, ""))[0],
-                "max": parse_range(rows[11].get(col, ""))[1],
+        official_quantity_row = rows[11]
+        qty_cols = {}
+        for col in range(9, 25):
+            label = official_quantity_row.get(col, "")
+            if not is_official_quantity_band(label):
+                continue
+            qty_min, qty_max = parse_range(label)
+            qty_cols[col] = {
+                "label": label,
+                "min": qty_min,
+                "max": qty_max,
             }
-            for col in range(9, 25)
-            if rows[11].get(col) and rows[11].get(col) != "X"
-        }
 
         by_sku: dict[str, list[tuple[int, dict[int, str]]]] = {}
         for row_num, values in rows.items():
@@ -181,6 +234,8 @@ def extract_december_rows() -> list[dict]:
                     if selling_price is None:
                         continue
                     cost = number(matching_cost.get(col)) if matching_cost else None
+                    if use_emea_cost:
+                        cost = oppiot_costs.get((sku, qty["min"], qty["max"]), cost)
                     gross_profit = None
                     margin = None
                     if cost is not None:
