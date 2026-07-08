@@ -170,7 +170,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.246,
       "costPrice": 0.179,
       "grossProfit": 0.067,
@@ -204,9 +204,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.472,
-      "costPrice": 0.135,
-      "grossProfit": 0.337,
-      "marginPercent": 0.714,
+      "costPrice": 0.131,
+      "grossProfit": 0.341,
+      "marginPercent": 0.7225,
       "vendor": "OPP"
     },
     {
@@ -220,9 +220,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.48,
-      "costPrice": 0.135,
-      "grossProfit": 0.345,
-      "marginPercent": 0.7188,
+      "costPrice": 0.126,
+      "grossProfit": 0.354,
+      "marginPercent": 0.7375,
       "vendor": "OPP"
     },
     {
@@ -236,9 +236,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.46,
-      "costPrice": 0.127,
-      "grossProfit": 0.333,
-      "marginPercent": 0.7239,
+      "costPrice": 0.119,
+      "grossProfit": 0.341,
+      "marginPercent": 0.7413,
       "vendor": "OPP"
     },
     {
@@ -252,9 +252,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.38,
-      "costPrice": 0.127,
-      "grossProfit": 0.253,
-      "marginPercent": 0.6658,
+      "costPrice": 0.119,
+      "grossProfit": 0.261,
+      "marginPercent": 0.6868,
       "vendor": "OPP"
     },
     {
@@ -268,9 +268,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.36,
-      "costPrice": 0.127,
-      "grossProfit": 0.233,
-      "marginPercent": 0.6472,
+      "costPrice": 0.119,
+      "grossProfit": 0.241,
+      "marginPercent": 0.6694,
       "vendor": "OPP"
     },
     {
@@ -284,9 +284,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.33,
-      "costPrice": 0.126,
-      "grossProfit": 0.204,
-      "marginPercent": 0.6182,
+      "costPrice": 0.118,
+      "grossProfit": 0.212,
+      "marginPercent": 0.6424,
       "vendor": "OPP"
     },
     {
@@ -300,9 +300,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.3,
-      "costPrice": 0.1255,
-      "grossProfit": 0.1745,
-      "marginPercent": 0.5817,
+      "costPrice": 0.118,
+      "grossProfit": 0.182,
+      "marginPercent": 0.6067,
       "vendor": "OPP"
     },
     {
@@ -346,7 +346,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.28,
       "costPrice": 0.1215,
       "grossProfit": 0.1585,
@@ -380,9 +380,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.472,
-      "costPrice": 0.135,
-      "grossProfit": 0.337,
-      "marginPercent": 0.714,
+      "costPrice": 0.131,
+      "grossProfit": 0.341,
+      "marginPercent": 0.7225,
       "vendor": "OPP"
     },
     {
@@ -396,9 +396,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.43,
-      "costPrice": 0.135,
-      "grossProfit": 0.295,
-      "marginPercent": 0.686,
+      "costPrice": 0.126,
+      "grossProfit": 0.304,
+      "marginPercent": 0.707,
       "vendor": "OPP"
     },
     {
@@ -412,9 +412,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.379,
-      "costPrice": 0.127,
-      "grossProfit": 0.252,
-      "marginPercent": 0.6649,
+      "costPrice": 0.119,
+      "grossProfit": 0.26,
+      "marginPercent": 0.686,
       "vendor": "OPP"
     },
     {
@@ -428,9 +428,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.27,
-      "costPrice": 0.127,
-      "grossProfit": 0.143,
-      "marginPercent": 0.5296,
+      "costPrice": 0.119,
+      "grossProfit": 0.151,
+      "marginPercent": 0.5593,
       "vendor": "OPP"
     },
     {
@@ -444,9 +444,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.255,
-      "costPrice": 0.127,
-      "grossProfit": 0.128,
-      "marginPercent": 0.502,
+      "costPrice": 0.119,
+      "grossProfit": 0.136,
+      "marginPercent": 0.5333,
       "vendor": "OPP"
     },
     {
@@ -460,9 +460,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.246,
-      "costPrice": 0.126,
-      "grossProfit": 0.12,
-      "marginPercent": 0.4878,
+      "costPrice": 0.118,
+      "grossProfit": 0.128,
+      "marginPercent": 0.5203,
       "vendor": "OPP"
     },
     {
@@ -476,9 +476,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.246,
-      "costPrice": 0.1255,
-      "grossProfit": 0.1205,
-      "marginPercent": 0.4898,
+      "costPrice": 0.118,
+      "grossProfit": 0.128,
+      "marginPercent": 0.5203,
       "vendor": "OPP"
     },
     {
@@ -522,7 +522,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.246,
       "costPrice": 0.1215,
       "grossProfit": 0.1245,
@@ -698,7 +698,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.246,
       "costPrice": 0.174,
       "grossProfit": 0.072,
@@ -732,9 +732,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.472,
-      "costPrice": 0.13,
-      "grossProfit": 0.342,
-      "marginPercent": 0.7246,
+      "costPrice": 0.126,
+      "grossProfit": 0.346,
+      "marginPercent": 0.7331,
       "vendor": "OPP"
     },
     {
@@ -748,9 +748,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.42,
-      "costPrice": 0.13,
-      "grossProfit": 0.29,
-      "marginPercent": 0.6905,
+      "costPrice": 0.122,
+      "grossProfit": 0.298,
+      "marginPercent": 0.7095,
       "vendor": "OPP"
     },
     {
@@ -764,9 +764,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.4,
-      "costPrice": 0.125,
-      "grossProfit": 0.275,
-      "marginPercent": 0.6875,
+      "costPrice": 0.117,
+      "grossProfit": 0.283,
+      "marginPercent": 0.7075,
       "vendor": "OPP"
     },
     {
@@ -780,9 +780,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.34,
-      "costPrice": 0.122,
-      "grossProfit": 0.218,
-      "marginPercent": 0.6412,
+      "costPrice": 0.114,
+      "grossProfit": 0.226,
+      "marginPercent": 0.6647,
       "vendor": "OPP"
     },
     {
@@ -796,9 +796,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.33,
-      "costPrice": 0.122,
-      "grossProfit": 0.208,
-      "marginPercent": 0.6303,
+      "costPrice": 0.114,
+      "grossProfit": 0.216,
+      "marginPercent": 0.6545,
       "vendor": "OPP"
     },
     {
@@ -812,9 +812,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.31,
-      "costPrice": 0.12,
-      "grossProfit": 0.19,
-      "marginPercent": 0.6129,
+      "costPrice": 0.112,
+      "grossProfit": 0.198,
+      "marginPercent": 0.6387,
       "vendor": "OPP"
     },
     {
@@ -828,9 +828,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.28,
-      "costPrice": 0.12,
-      "grossProfit": 0.16,
-      "marginPercent": 0.5714,
+      "costPrice": 0.112,
+      "grossProfit": 0.168,
+      "marginPercent": 0.6,
       "vendor": "OPP"
     },
     {
@@ -874,7 +874,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.24,
       "costPrice": 0.119,
       "grossProfit": 0.121,
@@ -908,9 +908,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.472,
-      "costPrice": 0.13,
-      "grossProfit": 0.342,
-      "marginPercent": 0.7246,
+      "costPrice": 0.126,
+      "grossProfit": 0.346,
+      "marginPercent": 0.7331,
       "vendor": "OPP"
     },
     {
@@ -924,9 +924,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.425,
-      "costPrice": 0.13,
-      "grossProfit": 0.295,
-      "marginPercent": 0.6941,
+      "costPrice": 0.122,
+      "grossProfit": 0.303,
+      "marginPercent": 0.7129,
       "vendor": "OPP"
     },
     {
@@ -940,9 +940,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.379,
-      "costPrice": 0.125,
-      "grossProfit": 0.254,
-      "marginPercent": 0.6702,
+      "costPrice": 0.117,
+      "grossProfit": 0.262,
+      "marginPercent": 0.6913,
       "vendor": "OPP"
     },
     {
@@ -956,9 +956,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.246,
-      "costPrice": 0.122,
-      "grossProfit": 0.124,
-      "marginPercent": 0.5041,
+      "costPrice": 0.114,
+      "grossProfit": 0.132,
+      "marginPercent": 0.5366,
       "vendor": "OPP"
     },
     {
@@ -972,9 +972,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.246,
-      "costPrice": 0.122,
-      "grossProfit": 0.124,
-      "marginPercent": 0.5041,
+      "costPrice": 0.114,
+      "grossProfit": 0.132,
+      "marginPercent": 0.5366,
       "vendor": "OPP"
     },
     {
@@ -988,9 +988,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.246,
-      "costPrice": 0.12,
-      "grossProfit": 0.126,
-      "marginPercent": 0.5122,
+      "costPrice": 0.112,
+      "grossProfit": 0.134,
+      "marginPercent": 0.5447,
       "vendor": "OPP"
     },
     {
@@ -1004,9 +1004,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.246,
-      "costPrice": 0.12,
-      "grossProfit": 0.126,
-      "marginPercent": 0.5122,
+      "costPrice": 0.112,
+      "grossProfit": 0.134,
+      "marginPercent": 0.5447,
       "vendor": "OPP"
     },
     {
@@ -1050,7 +1050,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.246,
       "costPrice": 0.119,
       "grossProfit": 0.127,
@@ -1226,7 +1226,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.11,
       "costPrice": 0.058,
       "grossProfit": 0.052,
@@ -1260,9 +1260,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.788,
-      "costPrice": 0.07,
-      "grossProfit": 0.718,
-      "marginPercent": 0.9112,
+      "costPrice": 0.067,
+      "grossProfit": 0.721,
+      "marginPercent": 0.915,
       "vendor": "OPP"
     },
     {
@@ -1276,9 +1276,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.37,
-      "costPrice": 0.065,
-      "grossProfit": 0.305,
-      "marginPercent": 0.8243,
+      "costPrice": 0.063,
+      "grossProfit": 0.307,
+      "marginPercent": 0.8297,
       "vendor": "OPP"
     },
     {
@@ -1292,9 +1292,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.34,
-      "costPrice": 0.058,
-      "grossProfit": 0.282,
-      "marginPercent": 0.8294,
+      "costPrice": 0.056,
+      "grossProfit": 0.284,
+      "marginPercent": 0.8353,
       "vendor": "OPP"
     },
     {
@@ -1308,9 +1308,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.29,
-      "costPrice": 0.058,
-      "grossProfit": 0.232,
-      "marginPercent": 0.8,
+      "costPrice": 0.056,
+      "grossProfit": 0.234,
+      "marginPercent": 0.8069,
       "vendor": "OPP"
     },
     {
@@ -1324,9 +1324,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.25,
-      "costPrice": 0.0543,
-      "grossProfit": 0.1957,
-      "marginPercent": 0.7828,
+      "costPrice": 0.052,
+      "grossProfit": 0.198,
+      "marginPercent": 0.792,
       "vendor": "OPP"
     },
     {
@@ -1340,9 +1340,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.235,
-      "costPrice": 0.052,
-      "grossProfit": 0.183,
-      "marginPercent": 0.7787,
+      "costPrice": 0.048,
+      "grossProfit": 0.187,
+      "marginPercent": 0.7957,
       "vendor": "OPP"
     },
     {
@@ -1356,9 +1356,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.235,
-      "costPrice": 0.0515,
-      "grossProfit": 0.1835,
-      "marginPercent": 0.7809,
+      "costPrice": 0.048,
+      "grossProfit": 0.187,
+      "marginPercent": 0.7957,
       "vendor": "OPP"
     },
     {
@@ -1402,7 +1402,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.235,
       "costPrice": 0.0515,
       "grossProfit": 0.1835,
@@ -1436,9 +1436,9 @@
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 0.788,
-      "costPrice": 0.07,
-      "grossProfit": 0.718,
-      "marginPercent": 0.9112,
+      "costPrice": 0.067,
+      "grossProfit": 0.721,
+      "marginPercent": 0.915,
       "vendor": "OPP"
     },
     {
@@ -1452,9 +1452,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.263,
-      "costPrice": 0.065,
-      "grossProfit": 0.198,
-      "marginPercent": 0.7529,
+      "costPrice": 0.063,
+      "grossProfit": 0.2,
+      "marginPercent": 0.7605,
       "vendor": "OPP"
     },
     {
@@ -1468,9 +1468,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.173,
-      "costPrice": 0.058,
-      "grossProfit": 0.115,
-      "marginPercent": 0.6647,
+      "costPrice": 0.056,
+      "grossProfit": 0.117,
+      "marginPercent": 0.6763,
       "vendor": "OPP"
     },
     {
@@ -1484,9 +1484,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.131,
-      "costPrice": 0.058,
-      "grossProfit": 0.073,
-      "marginPercent": 0.5573,
+      "costPrice": 0.056,
+      "grossProfit": 0.075,
+      "marginPercent": 0.5725,
       "vendor": "OPP"
     },
     {
@@ -1500,9 +1500,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.121,
-      "costPrice": 0.0543,
-      "grossProfit": 0.0667,
-      "marginPercent": 0.5512,
+      "costPrice": 0.052,
+      "grossProfit": 0.069,
+      "marginPercent": 0.5702,
       "vendor": "OPP"
     },
     {
@@ -1516,9 +1516,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.11,
-      "costPrice": 0.052,
-      "grossProfit": 0.058,
-      "marginPercent": 0.5273,
+      "costPrice": 0.048,
+      "grossProfit": 0.062,
+      "marginPercent": 0.5636,
       "vendor": "OPP"
     },
     {
@@ -1532,9 +1532,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.11,
-      "costPrice": 0.0515,
-      "grossProfit": 0.0585,
-      "marginPercent": 0.5318,
+      "costPrice": 0.048,
+      "grossProfit": 0.062,
+      "marginPercent": 0.5636,
       "vendor": "OPP"
     },
     {
@@ -1578,7 +1578,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.11,
       "costPrice": 0.0515,
       "grossProfit": 0.0585,
@@ -1754,7 +1754,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.11,
       "costPrice": 0.058,
       "grossProfit": 0.052,
@@ -1898,7 +1898,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.235,
       "costPrice": 0.065,
       "grossProfit": 0.17,
@@ -2042,7 +2042,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.11,
       "costPrice": 0.065,
       "grossProfit": 0.045,
@@ -2218,7 +2218,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.24,
       "costPrice": 0.1556,
       "grossProfit": 0.0844,
@@ -2236,9 +2236,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.415,
-      "costPrice": 0.127,
-      "grossProfit": 0.288,
-      "marginPercent": 0.694,
+      "costPrice": 0.126,
+      "grossProfit": 0.289,
+      "marginPercent": 0.6964,
       "vendor": "OPP"
     },
     {
@@ -2252,9 +2252,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.37,
-      "costPrice": 0.127,
-      "grossProfit": 0.243,
-      "marginPercent": 0.6568,
+      "costPrice": 0.119,
+      "grossProfit": 0.251,
+      "marginPercent": 0.6784,
       "vendor": "OPP"
     },
     {
@@ -2268,9 +2268,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.119,
+      "grossProfit": 0.121,
+      "marginPercent": 0.5042,
       "vendor": "OPP"
     },
     {
@@ -2284,9 +2284,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.119,
+      "grossProfit": 0.121,
+      "marginPercent": 0.5042,
       "vendor": "OPP"
     },
     {
@@ -2300,9 +2300,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.118,
+      "grossProfit": 0.122,
+      "marginPercent": 0.5083,
       "vendor": "OPP"
     },
     {
@@ -2316,9 +2316,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.118,
+      "grossProfit": 0.122,
+      "marginPercent": 0.5083,
       "vendor": "OPP"
     },
     {
@@ -2362,7 +2362,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.24,
       "costPrice": 0.127,
       "grossProfit": 0.113,
@@ -2380,9 +2380,9 @@
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 0.415,
-      "costPrice": 0.127,
-      "grossProfit": 0.288,
-      "marginPercent": 0.694,
+      "costPrice": 0.126,
+      "grossProfit": 0.289,
+      "marginPercent": 0.6964,
       "vendor": "OPP"
     },
     {
@@ -2396,9 +2396,9 @@
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.37,
-      "costPrice": 0.127,
-      "grossProfit": 0.243,
-      "marginPercent": 0.6568,
+      "costPrice": 0.119,
+      "grossProfit": 0.251,
+      "marginPercent": 0.6784,
       "vendor": "OPP"
     },
     {
@@ -2412,9 +2412,9 @@
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.119,
+      "grossProfit": 0.121,
+      "marginPercent": 0.5042,
       "vendor": "OPP"
     },
     {
@@ -2428,9 +2428,9 @@
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.119,
+      "grossProfit": 0.121,
+      "marginPercent": 0.5042,
       "vendor": "OPP"
     },
     {
@@ -2444,9 +2444,9 @@
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.118,
+      "grossProfit": 0.122,
+      "marginPercent": 0.5083,
       "vendor": "OPP"
     },
     {
@@ -2460,9 +2460,9 @@
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.24,
-      "costPrice": 0.127,
-      "grossProfit": 0.113,
-      "marginPercent": 0.4708,
+      "costPrice": 0.118,
+      "grossProfit": 0.122,
+      "marginPercent": 0.5083,
       "vendor": "OPP"
     },
     {
@@ -2506,7 +2506,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.24,
       "costPrice": 0.127,
       "grossProfit": 0.113,
@@ -2682,7 +2682,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.07,
       "costPrice": null,
       "grossProfit": null,
@@ -2858,7 +2858,7 @@
       "tier": "USA Strategic Account (Pizza Ranch)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.035,
       "costPrice": null,
       "grossProfit": null,
@@ -3034,7 +3034,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.15,
       "costPrice": null,
       "grossProfit": null,
@@ -3210,7 +3210,7 @@
       "tier": "Distributor Price (EMEA)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.1,
       "costPrice": null,
       "grossProfit": null,
@@ -3386,7 +3386,7 @@
       "tier": "EMEA Strategic Account (Magic Planet)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.026,
       "costPrice": null,
       "grossProfit": null,
@@ -3562,7 +3562,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 1.135,
       "costPrice": 0.4848,
       "grossProfit": 0.6502,
@@ -3738,7 +3738,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.908,
       "costPrice": 0.4848,
       "grossProfit": 0.4232,
@@ -3914,7 +3914,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.908,
       "costPrice": 0.4848,
       "grossProfit": 0.4232,
@@ -4090,7 +4090,7 @@
       "tier": "Standard Price (USA Standard)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 1.154,
       "costPrice": 0.4848,
       "grossProfit": 0.6692,
@@ -4266,7 +4266,7 @@
       "tier": "Base Price (EMEA Premium)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.808,
       "costPrice": 0.4848,
       "grossProfit": 0.3232,
@@ -4442,7 +4442,7 @@
       "tier": "Standard Price (EMEA License)",
       "quantityLabel": "1,000,000 and more",
       "quantityMin": 1000000,
-      "quantityMax": 1000000,
+      "quantityMax": null,
       "sellingPrice": 0.808,
       "costPrice": 0.4848,
       "grossProfit": 0.3232,

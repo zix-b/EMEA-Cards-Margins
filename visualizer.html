@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EMEA Cards Margins Data Visualizer</title>
+    <meta property="og:title" content="EMEA Cards Margins Data Visualizer" />
+    <meta property="og:description" content="Internal view of pricing rows, costs, margins, and coverage gaps." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20260708b" />
+  </head>
+  <body>
+    <main class="shell visualizer-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Internal Data Room</p>
+          <h1>Pricing Data Visualizer</h1>
+        </div>
+        <a class="utility-link" href="index.html">Lookup Tool</a>
+      </header>
+
+      <section class="controls visualizer-controls" aria-label="Data filters">
+        <label>
+          Product
+          <select id="productFilter">
+            <option value="">All products</option>
+          </select>
+        </label>
+
+        <label>
+          Price Type
+          <select id="tierFilter">
+            <option value="">All price types</option>
+          </select>
+        </label>
+
+        <label>
+          View
+          <select id="viewFilter">
+            <option value="all">All rows</option>
+            <option value="emea">EMEA only</option>
+            <option value="missing-cost">Missing cost only</option>
+            <option value="low-margin">Margin below 40%</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="stat-grid" id="statGrid" aria-label="Summary stats"></section>
+
+      <section class="viz-grid">
+        <article class="viz-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Coverage</p>
+              <h2>Product Rows</h2>
+            </div>
+            <span id="coverageCount"></span>
+          </div>
+          <div class="bar-list" id="productBars"></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Price Types</p>
+              <h2>Tier Breakdown</h2>
+            </div>
+            <span id="tierCount"></span>
+          </div>
+          <div class="bar-list" id="tierBars"></div>
+        </article>
+      </section>
+
+      <section class="viz-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Margin Map</p>
+            <h2>Rows That Need Attention</h2>
+          </div>
+          <span id="rowCount"></span>
+        </div>
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price Type</th>
+                <th>Sell</th>
+                <th>Cost</th>
+                <th>GP</th>
+                <th>Margin</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="rowsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="pricing-data.js?v=20260708b"></script>
+    <script src="visualizer.js?v=20260708b"></script>
+  </body>
+</html>
