@@ -1,6 +1,8 @@
 const state = {
   rows: [],
+  costBands: [],
   filtered: [],
+  quantity: null,
 };
 
 const el = {
@@ -56,6 +58,34 @@ function inQuantityRange(row, qty) {
   return true;
 }
 
+function findCostBand(sku, qty) {
+  if (!qty) return null;
+  return (
+    state.costBands.find((band) => {
+      if (band.sku !== sku) return false;
+      const min = band.quantityMin ?? 0;
+      const max = band.quantityMax;
+      if (qty < min) return false;
+      if (max !== null && max !== undefined && qty > max) return false;
+      return true;
+    }) || null
+  );
+}
+
+function displayMetrics(row) {
+  const costBand = findCostBand(row.sku, state.quantity);
+  const costPrice = costBand?.costPrice ?? row.costPrice;
+  const grossProfit =
+    Number.isFinite(row.sellingPrice) && Number.isFinite(costPrice)
+      ? row.sellingPrice - costPrice
+      : null;
+  const marginPercent =
+    Number.isFinite(grossProfit) && row.sellingPrice
+      ? grossProfit / row.sellingPrice
+      : null;
+  return { costPrice, grossProfit, marginPercent };
+}
+
 function uniqueSorted(rows, key) {
   return [...new Set(rows.map((row) => row[key]).filter(Boolean))].sort((a, b) =>
     a.localeCompare(b)
@@ -85,33 +115,36 @@ function renderRows(rows) {
 
   el.body.innerHTML = visibleRows
     .map(
-      (row) => `
-        <article class="result-card">
-          <div class="result-meta">
-            <div>
-              <span>${row.quantityLabel || "Any quantity"}</span>
-              <span>${displayTier(row.tier)}</span>
+      (row) => {
+        const metrics = displayMetrics(row);
+        return `
+          <article class="result-card">
+            <div class="result-meta">
+              <div>
+                <span>${row.quantityLabel || "Any quantity"}</span>
+                <span>${displayTier(row.tier)}</span>
+              </div>
+              <strong>${row.sku}</strong>
             </div>
-            <strong>${row.sku}</strong>
-          </div>
-          <div class="price-row">
-            <span>Sell Price</span>
-            <strong>${money(row.sellingPrice)}</strong>
-          </div>
-          <div class="price-row">
-            <span>Cost Price</span>
-            <strong>${bracketMoney(row.costPrice)}</strong>
-          </div>
-          <div class="price-row">
-            <span>Gross Profit</span>
-            <strong>${money(row.grossProfit)}</strong>
-          </div>
-          <div class="price-row">
-            <span>Margin</span>
-            <strong>${percent(row.marginPercent)}</strong>
-          </div>
-        </article>
-      `
+            <div class="price-row">
+              <span>Sell Price</span>
+              <strong>${money(row.sellingPrice)}</strong>
+            </div>
+            <div class="price-row">
+              <span>Cost Price</span>
+              <strong>${bracketMoney(metrics.costPrice)}</strong>
+            </div>
+            <div class="price-row">
+              <span>Gross Profit</span>
+              <strong>${money(metrics.grossProfit)}</strong>
+            </div>
+            <div class="price-row">
+              <span>Margin</span>
+              <strong>${percent(metrics.marginPercent)}</strong>
+            </div>
+          </article>
+        `;
+      }
     )
     .join("");
 }
@@ -120,12 +153,13 @@ function applyFilters() {
   const product = el.product.value;
   const qty = Number(el.quantity.value);
   const tier = el.tier.value;
+  state.quantity = Number.isFinite(qty) && qty > 0 ? qty : null;
 
   const filtered = state.rows.filter((row) => {
     if (!row.tier.includes("EMEA")) return false;
     if (product && `${row.sku} - ${row.product}` !== product) return false;
     if (tier && row.tier !== tier) return false;
-    if (!inQuantityRange(row, Number.isFinite(qty) && qty > 0 ? qty : null)) return false;
+    if (!inQuantityRange(row, state.quantity)) return false;
     return true;
   });
 
@@ -139,6 +173,7 @@ function boot() {
     throw new Error("Pricing data is missing");
   }
   state.rows = data.rows;
+  state.costBands = Array.isArray(data.costBands) ? data.costBands : [];
 
   const products = uniqueSorted(
     state.rows.map((row) => ({ label: `${row.sku} - ${row.product}` })),

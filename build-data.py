@@ -172,6 +172,31 @@ def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], floa
     return costs
 
 
+def cost_for_quantity(
+    costs: dict[tuple[str, int | None, int | None], float],
+    sku: str,
+    qty: int | None,
+) -> float | None:
+    if qty is None:
+        return None
+    for cost_sku, qty_min, qty_max in sorted(
+        costs,
+        key=lambda item: (
+            item[0],
+            item[1] if item[1] is not None else -1,
+            item[2] if item[2] is not None else 10**12,
+        ),
+    ):
+        if cost_sku != sku:
+            continue
+        if qty_min is not None and qty < qty_min:
+            continue
+        if qty_max is not None and qty > qty_max:
+            continue
+        return costs[(cost_sku, qty_min, qty_max)]
+    return None
+
+
 def extract_december_rows() -> list[dict]:
     output = []
     oppiot_costs = extract_oppiot_card_costs()
@@ -235,7 +260,7 @@ def extract_december_rows() -> list[dict]:
                         continue
                     cost = number(matching_cost.get(col)) if matching_cost else None
                     if use_emea_cost:
-                        cost = oppiot_costs.get((sku, qty["min"], qty["max"]), cost)
+                        cost = cost_for_quantity(oppiot_costs, sku, qty["min"]) or cost
                     gross_profit = None
                     margin = None
                     if cost is not None:
@@ -262,10 +287,34 @@ def extract_december_rows() -> list[dict]:
     return output
 
 
+def cost_bands() -> list[dict]:
+    bands = []
+    for (sku, qty_min, qty_max), cost in sorted(
+        extract_oppiot_card_costs().items(),
+        key=lambda item: (
+            item[0][0],
+            item[0][1] if item[0][1] is not None else -1,
+            item[0][2] if item[0][2] is not None else 10**12,
+        ),
+    ):
+        bands.append(
+            {
+                "sku": sku,
+                "quantityMin": qty_min,
+                "quantityMax": qty_max,
+                "costPrice": round(cost, 4),
+                "sourceDate": "2026-04-20",
+                "source": "Revised OPPIOT card pricing",
+            }
+        )
+    return bands
+
+
 def main() -> None:
     data = {
-        "generatedAt": "2026-07-07",
+        "generatedAt": "2026-07-09",
         "rows": extract_december_rows(),
+        "costBands": cost_bands(),
     }
     OUT.write_text(json.dumps(data, indent=2), encoding="utf-8")
     JS_OUT.write_text(
