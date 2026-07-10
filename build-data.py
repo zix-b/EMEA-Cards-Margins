@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from zipfile import ZipFile
 import xml.etree.ElementTree as ET
+from datetime import date
 
 
 ROOT = Path(__file__).resolve().parent
@@ -140,8 +141,41 @@ def sku_codes(value: str) -> list[str]:
     return re.findall(r"\b[A-Z]{3}-\d{3}\b", clean_text(value).upper())
 
 
-def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], float]:
-    costs: dict[tuple[str, int | None, int | None], float] = {}
+def parse_date_label(value: str) -> date | None:
+    text = clean_text(value).replace(",", " ").lower()
+    if not text:
+        return None
+    match = re.search(r"(\d+)(?:st|nd|rd|th)?\s+([a-z]+)\s+(\d{4})", text)
+    if not match:
+        return None
+    months = {
+        "jan": 1,
+        "january": 1,
+        "apr": 4,
+        "april": 4,
+    }
+    month = months.get(match.group(2))
+    if not month:
+        return None
+    return date(int(match.group(3)), month, int(match.group(1)))
+
+
+def set_latest_cost(
+    costs: dict[tuple[str, int | None, int | None], tuple[float, date]],
+    sku: str,
+    qty_min: int | None,
+    qty_max: int | None,
+    cost: float,
+    source_date: date,
+) -> None:
+    key = (sku, qty_min, qty_max)
+    existing = costs.get(key)
+    if existing is None or source_date > existing[1]:
+        costs[key] = (cost, source_date)
+
+
+def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], tuple[float, date]]:
+    costs: dict[tuple[str, int | None, int | None], tuple[float, date]] = {}
     with ZipFile(OPPIOT_FILE) as zf:
         target = dict(workbook_sheets(zf))["Card Prices"]
         rows = sheet_rows(zf, target)
@@ -159,8 +193,8 @@ def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], floa
                 active_skus = row_skus
                 continue
 
-            date_label = clean_text(values.get(2, "")).replace(" ", "").lower()
-            if date_label != "20th,april,2026":
+            source_date = parse_date_label(values.get(2, ""))
+            if source_date is None:
                 continue
 
             for col, qty_range in qty_cols.items():
@@ -168,12 +202,53 @@ def extract_oppiot_card_costs() -> dict[tuple[str, int | None, int | None], floa
                 if cost is None:
                     continue
                 for sku in active_skus:
-                    costs[(sku, qty_range[0], qty_range[1])] = cost
+                    set_latest_cost(costs, sku, qty_range[0], qty_range[1], cost, source_date)
+    return costs
+
+
+def extract_oppiot_new_item_costs() -> dict[tuple[str, int | None, int | None], tuple[float, date]]:
+    costs: dict[tuple[str, int | None, int | None], tuple[float, date]] = {}
+    with ZipFile(OPPIOT_FILE) as zf:
+        target = dict(workbook_sheets(zf))["new items"]
+        rows = sheet_rows(zf, target)
+        qty_cols = {
+            col: parse_range(label)
+            for col, label in rows[3].items()
+            if col >= 5 and label and label != "Photo"
+        }
+
+        active_skus: list[str] = []
+        for row_num in sorted(rows):
+            values = rows[row_num]
+            row_skus = sku_codes(values.get(2, ""))
+            if row_skus:
+                active_skus = row_skus
+                continue
+
+            source_date = parse_date_label(values.get(3, ""))
+            if source_date is None:
+                continue
+
+            for col, qty_range in qty_cols.items():
+                cost = number(values.get(col))
+                if cost is None:
+                    continue
+                for sku in active_skus:
+                    set_latest_cost(costs, sku, qty_range[0], qty_range[1], cost, source_date)
+    return costs
+
+
+def extract_oppiot_costs() -> dict[tuple[str, int | None, int | None], tuple[float, date]]:
+    costs = extract_oppiot_card_costs()
+    for key, value in extract_oppiot_new_item_costs().items():
+        existing = costs.get(key)
+        if existing is None or value[1] > existing[1]:
+            costs[key] = value
     return costs
 
 
 def cost_for_quantity(
-    costs: dict[tuple[str, int | None, int | None], float],
+    costs: dict[tuple[str, int | None, int | None], tuple[float, date]],
     sku: str,
     qty: int | None,
 ) -> float | None:
@@ -193,13 +268,13 @@ def cost_for_quantity(
             continue
         if qty_max is not None and qty > qty_max:
             continue
-        return costs[(cost_sku, qty_min, qty_max)]
+        return costs[(cost_sku, qty_min, qty_max)][0]
     return None
 
 
 def extract_december_rows() -> list[dict]:
     output = []
-    oppiot_costs = extract_oppiot_card_costs()
+    oppiot_costs = extract_oppiot_costs()
     with ZipFile(MARGIN_FILE) as zf:
         target = dict(workbook_sheets(zf))["03 Dec 2025"]
         rows = sheet_rows(zf, target)
@@ -289,8 +364,8 @@ def extract_december_rows() -> list[dict]:
 
 def cost_bands() -> list[dict]:
     bands = []
-    for (sku, qty_min, qty_max), cost in sorted(
-        extract_oppiot_card_costs().items(),
+    for (sku, qty_min, qty_max), (cost, source_date) in sorted(
+        extract_oppiot_costs().items(),
         key=lambda item: (
             item[0][0],
             item[0][1] if item[0][1] is not None else -1,
@@ -303,7 +378,7 @@ def cost_bands() -> list[dict]:
                 "quantityMin": qty_min,
                 "quantityMax": qty_max,
                 "costPrice": round(cost, 4),
-                "sourceDate": "2026-04-20",
+                "sourceDate": source_date.isoformat(),
                 "source": "Revised OPPIOT card pricing",
             }
         )
@@ -312,7 +387,7 @@ def cost_bands() -> list[dict]:
 
 def main() -> None:
     data = {
-        "generatedAt": "2026-07-09",
+        "generatedAt": date.today().isoformat(),
         "rows": extract_december_rows(),
         "costBands": cost_bands(),
     }

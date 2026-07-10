@@ -1,5 +1,5 @@
 window.PRICING_DATA = {
-  "generatedAt": "2026-07-09",
+  "generatedAt": "2026-07-10",
   "rows": [
     {
       "source": "Cards & Wearables Costing & Margins",
@@ -3596,9 +3596,9 @@ window.PRICING_DATA = {
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 1.274,
-      "costPrice": 0.7048,
-      "grossProfit": 0.5692,
-      "marginPercent": 0.4468,
+      "costPrice": 0.6766,
+      "grossProfit": 0.5974,
+      "marginPercent": 0.4689,
       "vendor": null
     },
     {
@@ -3612,9 +3612,9 @@ window.PRICING_DATA = {
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 1.133,
-      "costPrice": 0.6198,
-      "grossProfit": 0.5132,
-      "marginPercent": 0.453,
+      "costPrice": 0.595,
+      "grossProfit": 0.538,
+      "marginPercent": 0.4748,
       "vendor": null
     },
     {
@@ -3628,9 +3628,9 @@ window.PRICING_DATA = {
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.993,
-      "costPrice": 0.5358,
-      "grossProfit": 0.4572,
-      "marginPercent": 0.4604,
+      "costPrice": 0.5144,
+      "grossProfit": 0.4786,
+      "marginPercent": 0.482,
       "vendor": null
     },
     {
@@ -3644,9 +3644,9 @@ window.PRICING_DATA = {
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.993,
-      "costPrice": 0.5358,
-      "grossProfit": 0.4572,
-      "marginPercent": 0.4604,
+      "costPrice": 0.5144,
+      "grossProfit": 0.4786,
+      "marginPercent": 0.482,
       "vendor": null
     },
     {
@@ -3660,9 +3660,9 @@ window.PRICING_DATA = {
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.968,
-      "costPrice": 0.5208,
-      "grossProfit": 0.4472,
-      "marginPercent": 0.462,
+      "costPrice": 0.5,
+      "grossProfit": 0.468,
+      "marginPercent": 0.4835,
       "vendor": null
     },
     {
@@ -3676,9 +3676,9 @@ window.PRICING_DATA = {
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.929,
-      "costPrice": 0.4978,
-      "grossProfit": 0.4312,
-      "marginPercent": 0.4642,
+      "costPrice": 0.4779,
+      "grossProfit": 0.4511,
+      "marginPercent": 0.4856,
       "vendor": null
     },
     {
@@ -3692,9 +3692,9 @@ window.PRICING_DATA = {
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.908,
-      "costPrice": 0.4848,
-      "grossProfit": 0.4232,
-      "marginPercent": 0.4661,
+      "costPrice": 0.4654,
+      "grossProfit": 0.4426,
+      "marginPercent": 0.4874,
       "vendor": null
     },
     {
@@ -3772,9 +3772,9 @@ window.PRICING_DATA = {
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 1.274,
-      "costPrice": 0.7048,
-      "grossProfit": 0.5692,
-      "marginPercent": 0.4468,
+      "costPrice": 0.6766,
+      "grossProfit": 0.5974,
+      "marginPercent": 0.4689,
       "vendor": null
     },
     {
@@ -3788,9 +3788,9 @@ window.PRICING_DATA = {
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 1.133,
-      "costPrice": 0.6198,
-      "grossProfit": 0.5132,
-      "marginPercent": 0.453,
+      "costPrice": 0.595,
+      "grossProfit": 0.538,
+      "marginPercent": 0.4748,
       "vendor": null
     },
     {
@@ -3804,9 +3804,9 @@ window.PRICING_DATA = {
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.993,
-      "costPrice": 0.5358,
-      "grossProfit": 0.4572,
-      "marginPercent": 0.4604,
+      "costPrice": 0.5144,
+      "grossProfit": 0.4786,
+      "marginPercent": 0.482,
       "vendor": null
     },
     {
@@ -3820,9 +3820,9 @@ window.PRICING_DATA = {
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.993,
-      "costPrice": 0.5358,
-      "grossProfit": 0.4572,
-      "marginPercent": 0.4604,
+      "costPrice": 0.5144,
+      "grossProfit": 0.4786,
+      "marginPercent": 0.482,
       "vendor": null
     },
     {
@@ -3836,9 +3836,9 @@ window.PRICING_DATA = {
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.968,
-      "costPrice": 0.5208,
-      "grossProfit": 0.4472,
-      "marginPercent": 0.462,
+      "costPrice": 0.5,
+      "grossProfit": 0.468,
+      "marginPercent": 0.4835,
       "vendor": null
     },
     {
@@ -3852,9 +3852,9 @@ window.PRICING_DATA = {
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.929,
-      "costPrice": 0.4978,
-      "grossProfit": 0.4312,
-      "marginPercent": 0.4642,
+      "costPrice": 0.4779,
+      "grossProfit": 0.4511,
+      "marginPercent": 0.4856,
       "vendor": null
     },
     {
@@ -3868,9 +3868,9 @@ window.PRICING_DATA = {
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.908,
-      "costPrice": 0.4848,
-      "grossProfit": 0.4232,
-      "marginPercent": 0.4661,
+      "costPrice": 0.4654,
+      "grossProfit": 0.4426,
+      "marginPercent": 0.4874,
       "vendor": null
     },
     {
@@ -4124,9 +4124,9 @@ window.PRICING_DATA = {
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 1.175,
-      "costPrice": 0.7048,
-      "grossProfit": 0.4702,
-      "marginPercent": 0.4002,
+      "costPrice": 0.6766,
+      "grossProfit": 0.4984,
+      "marginPercent": 0.4242,
       "vendor": null
     },
     {
@@ -4140,9 +4140,9 @@ window.PRICING_DATA = {
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 1.033,
-      "costPrice": 0.6198,
-      "grossProfit": 0.4132,
-      "marginPercent": 0.4,
+      "costPrice": 0.595,
+      "grossProfit": 0.438,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4156,9 +4156,9 @@ window.PRICING_DATA = {
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.893,
-      "costPrice": 0.5358,
-      "grossProfit": 0.3572,
-      "marginPercent": 0.4,
+      "costPrice": 0.5144,
+      "grossProfit": 0.3786,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4172,9 +4172,9 @@ window.PRICING_DATA = {
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.893,
-      "costPrice": 0.5358,
-      "grossProfit": 0.3572,
-      "marginPercent": 0.4,
+      "costPrice": 0.5144,
+      "grossProfit": 0.3786,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4188,9 +4188,9 @@ window.PRICING_DATA = {
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.868,
-      "costPrice": 0.5208,
-      "grossProfit": 0.3472,
-      "marginPercent": 0.4,
+      "costPrice": 0.5,
+      "grossProfit": 0.368,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4204,9 +4204,9 @@ window.PRICING_DATA = {
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.83,
-      "costPrice": 0.4978,
-      "grossProfit": 0.3322,
-      "marginPercent": 0.4002,
+      "costPrice": 0.4779,
+      "grossProfit": 0.3521,
+      "marginPercent": 0.4242,
       "vendor": null
     },
     {
@@ -4220,9 +4220,9 @@ window.PRICING_DATA = {
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.808,
-      "costPrice": 0.4848,
-      "grossProfit": 0.3232,
-      "marginPercent": 0.4,
+      "costPrice": 0.4654,
+      "grossProfit": 0.3426,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4300,9 +4300,9 @@ window.PRICING_DATA = {
       "quantityMin": 1000,
       "quantityMax": 4999,
       "sellingPrice": 1.175,
-      "costPrice": 0.7048,
-      "grossProfit": 0.4702,
-      "marginPercent": 0.4002,
+      "costPrice": 0.6766,
+      "grossProfit": 0.4984,
+      "marginPercent": 0.4242,
       "vendor": null
     },
     {
@@ -4316,9 +4316,9 @@ window.PRICING_DATA = {
       "quantityMin": 5000,
       "quantityMax": 9999,
       "sellingPrice": 1.033,
-      "costPrice": 0.6198,
-      "grossProfit": 0.4132,
-      "marginPercent": 0.4,
+      "costPrice": 0.595,
+      "grossProfit": 0.438,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4332,9 +4332,9 @@ window.PRICING_DATA = {
       "quantityMin": 10000,
       "quantityMax": 24999,
       "sellingPrice": 0.893,
-      "costPrice": 0.5358,
-      "grossProfit": 0.3572,
-      "marginPercent": 0.4,
+      "costPrice": 0.5144,
+      "grossProfit": 0.3786,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4348,9 +4348,9 @@ window.PRICING_DATA = {
       "quantityMin": 25000,
       "quantityMax": 49999,
       "sellingPrice": 0.893,
-      "costPrice": 0.5358,
-      "grossProfit": 0.3572,
-      "marginPercent": 0.4,
+      "costPrice": 0.5144,
+      "grossProfit": 0.3786,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4364,9 +4364,9 @@ window.PRICING_DATA = {
       "quantityMin": 50000,
       "quantityMax": 99999,
       "sellingPrice": 0.868,
-      "costPrice": 0.5208,
-      "grossProfit": 0.3472,
-      "marginPercent": 0.4,
+      "costPrice": 0.5,
+      "grossProfit": 0.368,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -4380,9 +4380,9 @@ window.PRICING_DATA = {
       "quantityMin": 100000,
       "quantityMax": 249999,
       "sellingPrice": 0.83,
-      "costPrice": 0.4978,
-      "grossProfit": 0.3322,
-      "marginPercent": 0.4002,
+      "costPrice": 0.4779,
+      "grossProfit": 0.3521,
+      "marginPercent": 0.4242,
       "vendor": null
     },
     {
@@ -4396,9 +4396,9 @@ window.PRICING_DATA = {
       "quantityMin": 250000,
       "quantityMax": 499999,
       "sellingPrice": 0.808,
-      "costPrice": 0.4848,
-      "grossProfit": 0.3232,
-      "marginPercent": 0.4,
+      "costPrice": 0.4654,
+      "grossProfit": 0.3426,
+      "marginPercent": 0.424,
       "vendor": null
     },
     {
@@ -5348,6 +5348,998 @@ window.PRICING_DATA = {
       "source": "Revised OPPIOT card pricing"
     },
     {
+      "sku": "CTM-001",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.152,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7726,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.5806,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.5806,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.5806,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.548,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-001",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.548,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.44,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.5809,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.4369,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3663,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.2816,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.2816,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.2514,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.2433,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-002",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2353,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.44,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7726,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.595,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.5,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4779,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-003",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4654,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.44,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7726,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.595,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.5,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4779,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-004",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4654,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.9646,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.7048,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4664,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3704,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3704,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.3646,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3483,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-005",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.3281,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.9646,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.7048,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4664,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3848,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3848,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.379,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3627,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-006",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.3425,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7367,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.5447,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4929,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.4708,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.4708,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.4487,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-007",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4199,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7367,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.5447,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4929,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.4708,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.4708,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.4487,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-008",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4199,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 0.96,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4113,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3153,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3009,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.2529,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.2529,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.25,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.25,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-009",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2433,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 0.672,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.3934,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3454,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3156,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.2571,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.2542,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.2484,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.235,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-010",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2206,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.056,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.6945,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.5025,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4785,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.4564,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.4564,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.442,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-011",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.056,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.6945,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.5025,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.4785,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.4564,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.4564,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.442,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-012",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4343,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.44,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.9838,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.8878,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.8878,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.859,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.859,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.859,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.811,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-013",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.811,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 0.96,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4289,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3521,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.308,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.2705,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.2446,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.2446,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.2398,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-014",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2302,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
       "sku": "CTM-015",
       "quantityMin": 200,
       "quantityMax": 499,
@@ -5433,6 +6425,678 @@ window.PRICING_DATA = {
       "quantityMax": 999999,
       "costPrice": 0.114,
       "sourceDate": "2026-04-20",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.44,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7726,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.595,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.5144,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.5,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.4779,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-017",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.4654,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 0.864,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.7776,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.7296,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.7152,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.6941,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.6941,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.672,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.672,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTM-018",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.6432,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.152,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.8398,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.7438,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.715,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.6382,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.619,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.6094,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.6094,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.5998,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-001",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.5996,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4584,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3614,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3375,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3224,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3153,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.3072,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3022,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2921,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.2871,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-002",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.2869,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.152,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.8398,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.7438,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.715,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.6766,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.6382,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.619,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.6094,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.6094,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.5998,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-003",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.5996,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4584,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3614,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3375,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3224,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3153,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.3072,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3022,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2921,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.2871,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-007",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.2869,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4584,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3614,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3375,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3224,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3153,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.3072,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3022,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2921,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.2871,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-008",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.2869,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 200,
+      "quantityMax": 499,
+      "costPrice": 1.728,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "costPrice": 0.4584,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "costPrice": 0.3614,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "costPrice": 0.3375,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "costPrice": 0.3224,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "costPrice": 0.3153,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "costPrice": 0.3072,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "costPrice": 0.3022,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "costPrice": 0.2921,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 500000,
+      "quantityMax": 699999,
+      "costPrice": 0.2871,
+      "sourceDate": "2026-01-01",
+      "source": "Revised OPPIOT card pricing"
+    },
+    {
+      "sku": "CTW-009",
+      "quantityMin": 700000,
+      "quantityMax": 999999,
+      "costPrice": 0.2869,
+      "sourceDate": "2026-01-01",
       "source": "Revised OPPIOT card pricing"
     }
   ]
