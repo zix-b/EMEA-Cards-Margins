@@ -65,7 +65,7 @@ h1 {
 
 .controls {
   display: grid;
-  grid-template-columns: minmax(260px, 2fr) minmax(140px, 0.8fr) minmax(190px, 1fr);
+  grid-template-columns: minmax(240px, 1.1fr) minmax(140px, 0.65fr) minmax(360px, 1.45fr);
   gap: 14px;
   margin: 24px 0 18px;
 }
