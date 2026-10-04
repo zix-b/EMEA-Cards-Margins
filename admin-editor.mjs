@@ -1,4 +1,4 @@
-import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-grid';
+import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-new-card';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
  let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0,conflict=false;
@@ -6,7 +6,7 @@ export function initEditor(session){
  const node=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
  function sync(){
   const connected=Boolean(session.snapshot());
-  for(const id of ['editorCard','editorAdd','editorEdit','editorCancel','editorSave','editorConfirm','editorBack','editorSku','editorProduct','editorCost','editorBasis'])$(id).disabled=busy;
+  for(const id of ['editorCard','editorAdd','editorEdit','editorCancel','editorSave','editorConfirm','editorBack','editorSku','editorProduct'])$(id).disabled=busy;
   $('editorCard').disabled=busy||editing;$('editorAdd').disabled=busy||editing;$('editorEdit').disabled=busy||editing||!matrix||!$('editorCard').value;
   $('editorSave').disabled=busy||conflict;$('editorFields').hidden=!isNew;
   $('editorActions').hidden=!editing;$('editorEdit').hidden=editing;
@@ -52,20 +52,20 @@ export function initEditor(session){
   poll++;isNew=add;editing=true;prepared=null;conflict=false;draftSnapshot=session.snapshot()||{sha:null,data:JSON.parse(JSON.stringify(session.data()))};
   matrix=createMatrix(draftSnapshot.data,add?'':$('editorCard').value,add);
   $('editorConfirmation').hidden=true;
-  for(const id of ['editorSku','editorProduct','editorCost','editorBasis'])$(id).value='';
+  for(const id of ['editorSku','editorProduct'])$(id).value='';
   if(add)$('editorCardName').textContent='New card';
-  status(add?'Enter all 32 selling prices and one fixed unit cost.':'Edit selling prices. Blank, previously missing bands may stay blank. Existing prices cannot be cleared.');draw();
+  status(add?'Enter the SKU, card product name and selling prices. Margins will be unavailable until cost data is added through ZIP upload.':'Edit selling prices. Blank, previously missing bands may stay blank. Existing prices cannot be cleared.');draw();
   if(add)$('editorSku').focus();
  }
  function review(){
   try{
    const card=cards(draftSnapshot.data).find(c=>c.sku===$('editorCard').value);
-   prepared=prepareEditorUpdate(draftSnapshot.data,{sku:isNew?$('editorSku').value:card.sku,product:isNew?$('editorProduct').value:card.product,matrix,isNew,costPrice:$('editorCost').value,costBasis:$('editorBasis').value});
+   prepared=prepareEditorUpdate(draftSnapshot.data,{sku:isNew?$('editorSku').value:card.sku,product:isNew?$('editorProduct').value:card.product,matrix,isNew});
    if(!session.snapshot()){status('Your draft is ready. Connect GitHub to save it to the live website; your entries will be kept.');session.connect();return;}
    if(conflict)throw new Error('Cancel to reload this card before saving.');
    $('editorChanges').replaceChildren();
    for(const change of prepared.changes){const li=node('li',`${tierLabel(change.tier)} · ${rangeLabel(change.min,change.max)}: ${change.before===null?'not set':change.before} → ${change.after} USD`);$('editorChanges').append(li);}
-   $('editorConfirmText').textContent=`Save ${prepared.changes.length} price change${prepared.changes.length===1?'':'s'} for ${prepared.sku}? Only this card will change. ${isNew?'The new card gets the fixed cost you entered.':'Existing costs remain unchanged.'} Source date: ${prepared.data.generatedAt}. Previous values remain in Git history.`;
+   $('editorConfirmText').textContent=`Save ${prepared.changes.length} price change${prepared.changes.length===1?'':'s'} for ${prepared.sku}? Only this card will change. ${isNew?'No cost is assumed for the new card; margins remain unavailable until cost data is uploaded.':'Existing costs remain unchanged.'} Source date: ${prepared.data.generatedAt}. Previous values remain in Git history.`;
    $('editorConfirmation').hidden=false;sync();$('editorConfirm').focus();status('Review the changes, then confirm the save.');
   }catch(error){prepared=null;status(error.message,true);}
  }
@@ -96,7 +96,7 @@ export function initEditor(session){
  $('editorSave').addEventListener('click',review);$('editorCancel').addEventListener('click',reload);
  $('editorBack').addEventListener('click',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
  $('editorConfirm').addEventListener('click',save);
- for(const id of ['editorSku','editorProduct','editorCost','editorBasis'])$(id).addEventListener('input',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
+ for(const id of ['editorSku','editorProduct'])$(id).addEventListener('input',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
 
  reload();
  return {reload,connected(){

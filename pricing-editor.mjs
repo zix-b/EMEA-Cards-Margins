@@ -37,7 +37,7 @@ function rowFor(segment,value,original,sku,product,date,cost){
  const gp=Number.isFinite(costPrice)?value-costPrice:null;
  return {...original,sku,product,tier:segment.tier,quantityMin:segment.min,quantityMax:segment.max,quantityLabel:rangeLabel(segment.min,segment.max),sellingPrice:value,costPrice,grossProfit:gp,marginPercent:gp===null||value===0?null:gp/value,source:'Admin Price Editor',sourceDate:date,category:'Admin price editor',vendor:original?.vendor||cost?.source||''};
 }
-export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false,costPrice,costBasis},date=new Date().toISOString().slice(0,10)){
+export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false},date=new Date().toISOString().slice(0,10)){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid source date.');
  sku=String(sku).trim();product=String(product).trim();
  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(sku))throw new Error('Enter a valid SKU (letters, numbers, dots, underscores or hyphens).');
@@ -53,8 +53,6 @@ export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false,cost
  });
  if(!changes.length)throw new Error('No prices changed.');
  const data=clone(current);
- let newCost;
- if(isNew){if(!BASES.includes(costBasis))throw new Error('Choose a cost basis for the new card.');newCost={sku,quantityMin:1,quantityMax:null,costPrice:price(costPrice),costBasis,currency:'USD',unit:'Each',source:'Admin Price Editor',sourceDate:date};data.costBands.push(newCost);}
  const changedIndexes=new Set(changes.filter(s=>s.index!==null).map(s=>s.index));
  data.rows=data.rows.flatMap((row,index)=>{
   if(!changedIndexes.has(index))return [row];
