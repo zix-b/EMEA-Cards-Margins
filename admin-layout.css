@@ -1,0 +1,27 @@
+/* Admin-only sizing; the calculator layout stays unchanged. */
+#adminGate {
+  width: min(100%, 364px);
+  margin: clamp(32px, 12vh, 110px) auto 32px;
+  text-align: center;
+}
+#adminGate .hero { padding: 0 0 16px; }
+#adminGate .eyebrow { margin-bottom: 8px; }
+#adminGate h1 { font-size: 30px; letter-spacing: -.8px; margin-bottom: 10px; }
+#adminGate .lede { font-size: 13px; line-height: 1.5; }
+#adminGate .panel { margin: 0; padding: 20px; }
+#gateForm { margin: 0 auto; gap: 12px; width: min(100%, 300px); }
+#gateForm label { gap: 6px; text-align: left; }
+#gatePassword { width: 100%; min-height: 38px; height: 38px; padding: 7px 10px; font-size: 16px; }
+#gateForm button { justify-self: center; min-height: 38px; padding: 8px 22px; }
+#gateError { margin: 0; font-size: 12px; line-height: 1.4; }
+#gateError:empty { display: none; }
+#adminGate > p { margin: 14px 0 0; font-size: 12px; }
+#previewPanel .check-label {
+  width: fit-content;
+  max-width: min(100%, 360px);
+  gap: 8px;
+  margin: 14px 0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+#confirmPublish { width: 15px; height: 15px; min-height: 15px; margin: 1px 0 0; }
