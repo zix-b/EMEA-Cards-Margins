@@ -94,6 +94,7 @@ export function prepareUpdate(incoming,current,{mode,basis},today=new Date().toI
  for(const sku of skus)if(rows.some(r=>r.sku===sku&&r.costPrice===null))warnings.push(`${sku}: some quantities have no cost; their margins will be unavailable.`);
  const removedProducts=mode==='replace'?[...new Set(current.rows.map(r=>r.sku))].filter(s=>!skus.has(s)):[];
  const data={...current,generatedAt:today,rows:[...(mode==='merge'?current.rows.filter(r=>!skus.has(r.sku)):[]),...rows],costBands:[...(mode==='merge'?(current.costBands||[]).filter(r=>!skus.has(r.sku)):[]),...incoming.costBands]};
+ if(Array.isArray(current.cards))data.cards=[...new Map([...(mode==='merge'?current.cards.filter(c=>!skus.has(c.sku)):[]),...incoming.rows.map(({sku,product})=>({sku,product}))].map(c=>[c.sku,c])).values()];
  if(data.rows.length>20000||new TextEncoder().encode(JSON.stringify(data)).length>1000000)fail('Combined dataset is too large (maximum 20,000 selling rows and 1 MB).');
  return {data,products:[...skus].sort(),sellingRecords:incoming.rows.length,costRecords:incoming.costBands.length,outputRecords:rows.length,removedProducts,warnings};
 }

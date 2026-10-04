@@ -148,7 +148,8 @@ function setData(data, initial=false) {
   if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
   const selected=el.product.value, selectedTier=el.tier.value;
   state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];
-  const products=uniqueSorted(state.rows.filter(r=>r.tier.includes('EMEA')).map(r=>({label:`${r.sku} - ${r.product}`})),'label');
+  const registered=[...new Map([...(data.cards||[]),...state.rows.filter(r=>r.tier.includes('EMEA'))].map(r=>[r.sku,r])).values()];
+  const products=uniqueSorted(registered.map(r=>({label:`${r.sku} - ${r.product}`})),'label');
   fillSelect(el.product,products,'All cards');
   el.product.value=initial ? products.find(p=>p.startsWith('CTC-007 - '))||'' : products.includes(selected)?selected:'';
   const available=new Set(state.rows.filter(r=>r.tier.includes('EMEA')).map(r=>r.tier));

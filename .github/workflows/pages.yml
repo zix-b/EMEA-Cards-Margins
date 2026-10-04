@@ -35,6 +35,8 @@ jobs:
           node tests/admin.test.mjs
           node tests/editor.test.mjs
           node tests/editor-ui.test.mjs
+          node tests/cards.test.mjs
+          node tests/cards-ui.test.mjs
 
   deploy:
     needs: test

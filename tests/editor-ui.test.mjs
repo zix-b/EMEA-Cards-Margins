@@ -28,7 +28,6 @@ click('editorEdit');input=get('editorRows').querySelectorAll('input').find(e=>e.
 input.value='.5';input.handlers.input();click('editorSave');assert.equal(get('editorConfirmation').hidden,false);assert.equal(published,0,'Review never publishes');
 failSave=true;await click('editorConfirm');assert.equal(snapshot.data,data);assert.match(get('editorStatus').textContent,/draft has been kept/);assert.equal(input.value,'.5');
 failSave=false;await click('editorConfirm');assert.equal(snapshot.sha,'saved');assert.equal(get('editorRows').querySelectorAll('input').length,0);assert.equal(snapshot.data.rows.find(r=>r.sku==='CTC-007'&&r.tier==='Base Price (EMEA Premium)'&&r.quantityMin===10000).sellingPrice,.5);
-click('editorAdd');get('editorSku').value='TEST-NEW';get('editorProduct').value='Synthetic card';for(const field of get('editorRows').querySelectorAll('input')){field.value='.4';field.handlers.input();}click('editorSave');assert.equal(get('editorConfirmation').hidden,false);await click('editorConfirm');assert.equal(snapshot.data.rows.filter(r=>r.sku==='TEST-NEW').length,32);assert.deepEqual(snapshot.data.costBands,data.costBands);assert.ok(snapshot.data.rows.filter(r=>r.sku==='TEST-NEW').every(r=>r.costPrice===null));
 click('editorEdit');confirmDiscard=false;assert.equal(editor.discard(),false);confirmDiscard=true;assert.equal(editor.discard(),true);
 snapshot=null;editor.reload();assert.equal(get('editorEdit').disabled,false);assert.equal(get('editorAdd').disabled,false);
 get('editorCard').value='CTC-007';change('editorCard');click('editorEdit');input=get('editorRows').querySelectorAll('input').find(e=>e.attrs['aria-label']==='Base Price (EMEA Premium), 10,000–24,999 units');input.value='.52';input.handlers.input();click('editorSave');assert.equal(connectRequests,1);assert.equal(input.value,'.52');
@@ -36,6 +35,6 @@ snapshot={sha:'fresh',tree:'fresh-tree',data};editor.connected();input=get('edit
 // A concurrent selected-card change keeps the draft but prevents accidental overwrite.
 snapshot=null;editor.reload();get('editorCard').value='CTC-007';change('editorCard');click('editorEdit');snapshot={sha:'concurrent',tree:'tree',data:JSON.parse(JSON.stringify(data))};snapshot.data.rows.find(r=>r.sku==='CTC-007').sellingPrice=99;editor.connected();assert.equal(get('editorSave').disabled,true);assert.match(get('editorStatus').textContent,/changed in GitHub/);click('editorCancel');assert.equal(get('editorRows').querySelectorAll('input').length,0);
 
-console.log('Editor UI tests passed: read-only, edit, cancel, validation, explicit confirmation, failed-save draft retention, saved data and new card.');
+console.log('Editor UI tests passed: read-only, edit, cancel, validation, explicit confirmation, failed-save draft retention, saved data.');
 
 const adminHTML=fs.readFileSync('admin.html','utf8');assert.ok(!adminHTML.includes('id="editorCost"')&&!adminHTML.includes('id="editorBasis"'));assert.ok(!adminHTML.includes('id="costBasis"'),'ZIP cost basis selector is removed');assert.ok(adminHTML.includes('<th scope="col">costBasis</th>'),'ZIP template retains its costBasis column');

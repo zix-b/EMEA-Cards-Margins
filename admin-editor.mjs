@@ -1,4 +1,4 @@
-import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-new-card';
+import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-cards';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
  let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0,conflict=false;
@@ -92,7 +92,7 @@ export function initEditor(session){
  }
  $('openPriceEditor').addEventListener('click',()=>{if(!editing)reload();});
  $('editorCard').addEventListener('change',load);
- $('editorEdit').addEventListener('click',()=>begin(false));$('editorAdd').addEventListener('click',()=>begin(true));
+ $('editorEdit').addEventListener('click',()=>begin(false));
  $('editorSave').addEventListener('click',review);$('editorCancel').addEventListener('click',reload);
  $('editorBack').addEventListener('click',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
  $('editorConfirm').addEventListener('click',save);

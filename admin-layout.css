@@ -81,3 +81,12 @@
 .admin-tabs [role="tab"][aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
 .admin-tabs [role="tab"]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 @media (max-width: 400px) { .admin-tabs [role="tab"] { padding: 12px 10px; font-size: 12px; } }
+
+.cards-panel { margin-top: 24px; }
+.cards-panel h3 { margin: 0; }
+.cards-table { margin-top: 18px; max-height: 380px; }
+.cards-table table { width: 100%; }
+.cards-table th { position: sticky; top: 0; }
+.card-row-actions { white-space: nowrap; }
+.card-row-actions button { min-height: 34px; padding: 7px 12px; margin-right: 8px; }
+#cardDetails { margin-top: 20px; }

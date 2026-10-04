@@ -1,3 +1,4 @@
+import {listCards} from './card-management.mjs?v=20261005-cards';
 import {TIERS,BASES} from './pricing-import.mjs';
 export {TIERS,BASES};
 export const QUANTITIES=[0,5000,10000,25000,50000,100000,250000,500000];
@@ -10,9 +11,9 @@ const price=value=>{
  if(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)||!Number.isFinite(Number(text))||Number(text)>1e12)throw new Error('Enter a numeric, non-negative price in every populated cell (no currency symbols or commas).');
  return Number(text);
 };
-export function cards(data){return [...new Map(data.rows.map(r=>[r.sku,{sku:r.sku,product:r.product}])).values()].sort((a,b)=>a.sku.localeCompare(b.sku));}
+export const cards=listCards;
 export function createMatrix(data,sku,isNew=false){
- if(!isNew&&!data.rows.some(r=>r.sku===sku))throw new Error('Select an existing card.');
+ if(!isNew&&!cards(data).some(r=>r.sku===sku))throw new Error('Select an existing card.');
  const rows=isNew?[]:data.rows.map((r,index)=>({...r,index})).filter(r=>r.sku===sku&&TIERS.includes(r.tier));
  // One shared set of column boundaries aligns all four price types without changing any existing bands.
  const cuts=new Set(QUANTITIES.map(q=>q||1));
@@ -25,7 +26,7 @@ export function createMatrix(data,sku,isNew=false){
  });
 }
 export function rebaseDraft(previous,current,sku,matrix,isNew=false){
- const records=data=>({rows:data.rows.filter(r=>r.sku.toLowerCase()===sku.toLowerCase()),costBands:data.costBands.filter(r=>r.sku.toLowerCase()===sku.toLowerCase())});
+ const records=data=>({card:cards(data).find(c=>c.sku.toLowerCase()===sku.toLowerCase()),rows:data.rows.filter(r=>r.sku.toLowerCase()===sku.toLowerCase()),costBands:data.costBands.filter(r=>r.sku.toLowerCase()===sku.toLowerCase())});
  if(JSON.stringify(records(previous))!==JSON.stringify(records(current)))throw new Error('This card changed in GitHub while you were editing. Your draft is still visible. Cancel to reload the current prices before editing again.');
  const next=createMatrix(current,sku,isNew);
  for(let row=0;row<next.length;row++)for(let col=0;col<next[row].cells.length;col++)next[row].cells[col][0].value=matrix[row].cells[col][0].value;
@@ -42,10 +43,10 @@ export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false},dat
  sku=String(sku).trim();product=String(product).trim();
  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(sku))throw new Error('Enter a valid SKU (letters, numbers, dots, underscores or hyphens).');
  if(!product||product.length>300||/[\x00-\x1f]/.test(product))throw new Error('Enter a product name of 1–300 characters.');
- if(isNew&&[...current.rows,...current.costBands].some(r=>r.sku.toLowerCase()===sku.toLowerCase()))throw new Error('That SKU already exists in selling or cost data. Select the existing card or use a ZIP update.');
+ if(isNew&&[...cards(current),...current.costBands].some(r=>r.sku.toLowerCase()===sku.toLowerCase()))throw new Error('That SKU already exists in selling or cost data. Select the existing card or use a ZIP update.');
  const expected=createMatrix(current,sku,isNew);
  if(JSON.stringify(matrix.map(r=>({tier:r.tier,cells:r.cells.map(c=>c.map(({value,...s})=>s))})))!==JSON.stringify(expected.map(r=>({tier:r.tier,cells:r.cells.map(c=>c.map(({value,...s})=>s))}))))throw new Error('The pricing table changed. Reload the card before saving.');
- if(!isNew&&current.rows.find(r=>r.sku===sku)?.product!==product)throw new Error('Existing card names cannot be changed in the price editor.');
+ if(!isNew&&cards(current).find(r=>r.sku===sku)?.product!==product)throw new Error('Existing card names cannot be changed in the price editor.');
  const segments=matrix.flatMap(r=>r.cells.flat());
  const changes=segments.filter(s=>{
   if(String(s.value).trim()===''&&s.original===null&&!isNew)return false;
