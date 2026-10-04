@@ -1,3 +1,4 @@
+function escapeHtml(value) { return String(value ?? "").replace(/[&<>"\']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "\'":"&#39;"}[c])); }
 const visualizerState = {
   rows: [],
 };
@@ -142,7 +143,7 @@ function renderBars(target, groups, labelFn) {
       return `
         <div class="bar-row">
           <div class="bar-copy">
-            <strong>${labelFn(item.key)}</strong>
+            <strong>${escapeHtml(labelFn(item.key))}</strong>
             <span>${item.count} rows · ${item.missing} missing cost · avg ${percent(item.avgMargin)}</span>
           </div>
           <div class="bar-track" aria-hidden="true">
@@ -171,9 +172,9 @@ function renderRows(rows) {
       const status = rowStatus(row);
       return `
         <tr>
-          <td><strong>${row.sku}</strong><span>${row.product}</span></td>
-          <td>${row.quantityLabel}</td>
-          <td>${displayTier(row.tier)}</td>
+          <td><strong>${escapeHtml(row.sku)}</strong><span>${escapeHtml(row.product)}</span></td>
+          <td>${escapeHtml(row.quantityLabel)}</td>
+          <td>${escapeHtml(displayTier(row.tier))}</td>
           <td>${money(row.sellingPrice)}</td>
           <td>${money(row.costPrice)}</td>
           <td>${money(row.grossProfit)}</td>
