@@ -1,7 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Validate and publish EMEA card pricing."><title>Pricing admin · EMEA Cards Margins</title><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; form-action 'none'"><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="styles.css?v=20261004-rebuild"></head>
 <body><main class="shell admin-shell">
-<header class="topbar"><a class="brand" href="index.html">EMBED <span>Sales tools</span></a><nav><span class="pill">EMEA PRICING</span><a href="index.html">Pricing tool</a></nav></header>
+<section id="adminGate" aria-labelledby="gateTitle">
+<div class="hero"><p class="eyebrow">Pricing administration</p><h1 id="gateTitle">Admin access.</h1><p class="lede">Enter the temporary admin password to continue.</p></div>
+<div class="panel"><form id="gateForm"><label>Admin password<input id="gatePassword" type="password" autocomplete="current-password" required aria-describedby="gateError" autofocus></label><p id="gateError" class="error" role="alert"></p><button type="submit">Log in</button></form></div>
+<p><a href="index.html">Back to pricing tool</a></p><noscript><p>Enable JavaScript to sign in to the admin portal.</p></noscript>
+</section>
+<div id="adminPortal" hidden>
+<header class="topbar"><a class="brand" href="index.html">EMBED <span>Sales tools</span></a><nav><span class="pill">EMEA PRICING</span><a href="index.html">Pricing tool</a><button id="gateLogout" class="secondary" type="button">Log out</button></nav></header>
 <section class="hero"><p class="eyebrow">Pricing administration</p><h1>Update your pricing.</h1><p class="lede">Upload a ZIP, check the results, then apply it to the website.</p></section>
 <div class="notice">Preview an upload before applying it. Publishing updates pricing for all users after GitHub Pages finishes deploying.</div>
 <section id="loginPanel" class="panel"><h2>Admin sign-in</h2><p>Connect a GitHub account with permission to update this website. ZIP validation is available before connecting.</p>
@@ -13,4 +19,4 @@
 <p id="message" class="admin-message" role="status" aria-live="polite"></p>
 <section id="previewPanel" class="panel" hidden><p class="eyebrow">Review before applying</p><h2>Upload preview</h2><div id="previewCounts" class="preview-counts"></div><p id="previewSummary"></p><ul id="warnings"></ul><div class="table-wrap"><table><caption>First five imported pricing segments</caption><thead><tr><th>SKU</th><th>Price type</th><th>Quantity</th><th>Sell / unit</th><th>Cost / unit</th><th>Margin</th></tr></thead><tbody id="previewRows"></tbody></table></div><label class="check-label"><input id="confirmPublish" type="checkbox"> I approve these changes and this cost basis for the live website.</label><button id="publishButton" disabled>Apply pricing update</button><p id="publishHint" class="muted">Connect to GitHub and validate again to publish. Current pricing remains in use until an approved upload is deployed.</p><p class="muted">This repository is public. Imported prices and source descriptions will be public too. Git history retains the previous version.</p></section>
 <footer><span>Publishing requires repository write access.</span><a href="https://github.com/zix-b/EMEA-Cards-Margins/actions" target="_blank" rel="noopener noreferrer">View deployment status</a></footer>
-</main><script src="pricing-data.js?v=20261004-rebuild"></script><script type="module" src="admin.mjs?v=20261004-rebuild"></script></body></html>
+</div></main><script src="admin-gate.js?v=20261004"></script><script src="pricing-data.js?v=20261004-rebuild"></script><script type="module" src="admin.mjs?v=20261004-rebuild"></script></body></html>
