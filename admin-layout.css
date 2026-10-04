@@ -25,3 +25,28 @@
   line-height: 1.45;
 }
 #confirmPublish { width: 15px; height: 15px; min-height: 15px; margin: 1px 0 0; }
+
+/* Preview only: preserve the upload form and the downloadable template. */
+.template-actions { position: relative; display: flex; align-items: center; gap: 12px; }
+.template-actions > .button { white-space: nowrap; }
+.template-preview-trigger { min-height: 36px; font-size: 12px; }
+.template-preview-card {
+  position: absolute; left: 0; top: 100%; z-index: 10;
+  width: min(760px, 100%); padding: 16px;
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: 0 12px 32px #26133c24;
+  visibility: hidden; pointer-events: none;
+}
+.template-preview:hover .template-preview-card,
+.template-preview:has(:focus-visible) .template-preview-card { visibility: visible; pointer-events: auto; }
+.template-preview-card > p { margin: 0 0 12px; font-size: 13px; }
+.template-preview-card > p span { display: block; margin-top: 4px; font-size: 11px; line-height: 1.5; color: var(--muted); }
+.template-table-scroll { overflow-x: auto; margin-top: 12px; }
+.template-preview-card table { width: 100%; min-width: 840px; font-size: 11px; }
+.template-preview-card caption { margin-bottom: 6px; font-weight: 700; color: var(--accent); }
+.template-preview-card th, .template-preview-card td { padding: 8px; white-space: nowrap; }
+@media (max-width: 400px) {
+  .template-actions { gap: 6px; }
+  .template-actions > .button { padding: 10px; font-size: 12px; }
+  .template-preview-card { padding: 12px; }
+}
