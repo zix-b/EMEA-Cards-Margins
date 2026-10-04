@@ -4,6 +4,15 @@
   const portal = document.getElementById('adminPortal');
   const password = document.getElementById('gatePassword');
   const error = document.getElementById('gateError');
+  const githubButton = document.getElementById('showGitHub');
+  const githubPanel = document.getElementById('loginPanel');
+
+  githubButton.addEventListener('click', () => {
+    githubPanel.hidden = !githubPanel.hidden;
+    githubButton.setAttribute('aria-expanded', String(!githubPanel.hidden));
+    githubButton.textContent = githubPanel.hidden ? 'Connect GitHub' : 'Hide GitHub connection';
+    if (!githubPanel.hidden) document.getElementById('githubToken').focus();
+  });
 
   function lock() {
     portal.hidden = true;
@@ -11,6 +20,9 @@
     password.value = '';
     password.removeAttribute('aria-invalid');
     error.textContent = '';
+    githubPanel.hidden = true;
+    githubButton.setAttribute('aria-expanded', 'false');
+    githubButton.textContent = 'Connect GitHub';
   }
 
   document.getElementById('gateForm').addEventListener('submit', event => {
@@ -27,7 +39,7 @@
     error.textContent = '';
     gate.hidden = true;
     portal.hidden = false;
-    document.getElementById('githubToken').focus();
+    githubButton.focus();
   });
 
   document.getElementById('gateLogout').addEventListener('click', () => {
