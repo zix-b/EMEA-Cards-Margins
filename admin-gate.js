@@ -25,9 +25,11 @@
     githubButton.textContent = 'Connect GitHub';
   }
 
-  document.getElementById('gateForm').addEventListener('submit', event => {
+  document.getElementById('gateForm').addEventListener('submit', async event => {
     event.preventDefault();
-    if (password.value !== 'admin2026') {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password.value));
+    const passwordHash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+    if (passwordHash !== 'a537b4d494733e5f348c11524294478d59edcba05934d4be3228e3e29a79bb68') {
       error.textContent = 'Incorrect password. Please try again.';
       password.setAttribute('aria-invalid', 'true');
       password.value = '';
