@@ -90,7 +90,7 @@ export function initEditor(session){
   }catch(error){status(`${error.message} Your draft has been kept. Check the repository before retrying if the publication status is uncertain.`,true);}
   finally{session.setBusy(false);}
  }
- $('openPriceEditor').addEventListener('click',()=>{const panel=$('priceEditor');panel.hidden=!panel.hidden;$('openPriceEditor').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden&&!editing)reload();});
+ $('openPriceEditor').addEventListener('click',()=>{if(!editing)reload();});
  $('editorCard').addEventListener('change',load);
  $('editorEdit').addEventListener('click',()=>begin(false));$('editorAdd').addEventListener('click',()=>begin(true));
  $('editorSave').addEventListener('click',review);$('editorCancel').addEventListener('click',reload);

@@ -1,6 +1,6 @@
 import {readZip,prepareUpdate,MAX_UPLOAD} from './pricing-import.mjs';
 import {Repository} from './github-pricing.mjs?v=20261004-editor';
-import {initEditor} from './admin-editor.mjs?v=20261005-new-card';
+import {initEditor} from './admin-editor.mjs?v=20261005-tabs';
 const $=id=>document.getElementById(id);
 let repository=null,snapshot=null,preview=null,busy=false,editor=null;
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className='admin-message'+(error?' error':'');};
