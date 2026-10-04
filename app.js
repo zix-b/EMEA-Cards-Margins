@@ -156,7 +156,9 @@ function setData(data, initial=false) {
   el.tier.value=initial ? available.has(tierOptions[1].value)?tierOptions[1].value:'' : available.has(selectedTier)?selectedTier:'';
   el.product.disabled=false;el.tier.disabled=false;
   const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
-  document.querySelector('#dataNotice').textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : 'Historical data · saved 10 July 2026. Current prices are unverified. Existing OPPIOT cost bands and stored costs are retained.';
+  const notice=document.querySelector('#dataNotice');
+  notice.textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : '';
+  notice.hidden=!uploaded.length;
   document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();
 }
@@ -171,6 +173,7 @@ async function refreshData() {
     if(next!==fingerprint||refreshFailed){setData(data);fingerprint=next;}refreshFailed=false;
   } catch(error) {
     refreshFailed=true;
+    document.querySelector('#dataNotice').hidden=false;
     document.querySelector('#dataNotice').textContent='Pricing could not be refreshed. The previously loaded dataset is still displayed; reload before relying on updated prices.';
   } finally {refreshing=false;}
 }
