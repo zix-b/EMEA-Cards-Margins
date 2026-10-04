@@ -50,3 +50,26 @@
   .template-actions > .button { padding: 10px; font-size: 12px; }
   .template-preview-card { padding: 12px; }
 }
+
+/* Price editor: all styles stay within the admin management panel. */
+.editor-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+.editor-heading .eyebrow { margin-bottom: 8px; }
+.editor-card-controls { display: flex; align-items: end; gap: 12px; }
+.editor-card-controls select { max-width: 360px; }
+.editor-card-controls button { white-space: nowrap; }
+.editor-fields { display: grid; grid-template-columns: 1fr 2fr 1fr 1.5fr; gap: 14px; margin: 20px 0; }
+#editorCardName { margin-top: 22px; }
+.editor-table { max-height: 600px; }
+.editor-table table { min-width: 1400px; }
+.editor-table thead th { position: sticky; top: 0; z-index: 2; }
+.editor-table tr > th:first-child { min-width: 210px; position: sticky; left: 0; z-index: 1; }
+.editor-table thead th:first-child { z-index: 3; }
+.editor-table td { vertical-align: top; min-width: 145px; }
+.editor-cell { display: grid; margin: 0 0 12px; gap: 6px; font-weight: 400; }
+.editor-cell:last-child { margin-bottom: 0; }
+.editor-cell > span { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.editor-cell strong { font-size: 14px; font-weight: 600; }
+.editor-cell input { min-height: 38px; padding: 8px; width: 115px; font-size: 14px; }
+.editor-confirmation { padding: 18px; border: 1px solid #cfc1e4; border-radius: 8px; background: #faf8fc; margin-top: 18px; }
+#editorChanges { max-height: 180px; overflow: auto; padding-left: 20px; font-size: 12px; line-height: 1.7; }
+@media(max-width:700px) { .editor-card-controls { width: 100%; flex-wrap: wrap; } .editor-card-controls label { width: 100%; } .editor-card-controls select { max-width: none; } .editor-fields { grid-template-columns: 1fr; } }

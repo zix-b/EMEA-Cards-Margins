@@ -33,6 +33,8 @@ jobs:
           node tests/import.test.mjs
           node tests/github.test.mjs
           node tests/admin.test.mjs
+          node tests/editor.test.mjs
+          node tests/editor-ui.test.mjs
 
   deploy:
     needs: test

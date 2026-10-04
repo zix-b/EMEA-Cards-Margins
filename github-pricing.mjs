@@ -16,7 +16,7 @@ export class Repository {
   if(!Array.isArray(data.rows)||!Array.isArray(data.costBands))throw new Error('Repository pricing format is unsupported.');
   return {sha:ref.object.sha,tree:commit.tree.sha,data};
  }
- async publish(snapshot,data){
+ async publish(snapshot,data,message='Update pricing through the admin ZIP portal'){
   const ref=await this.api('/git/ref/heads/main');if(ref.object.sha!==snapshot.sha)throw new Error('The repository changed since preview. Reconnect and validate again.');
   const json=JSON.stringify(data,null,2)+'\n';
   const entries=[];
@@ -24,9 +24,9 @@ export class Repository {
    const blob=await this.api('/git/blobs',{method:'POST',body:{content,encoding:'utf-8'}});entries.push({path,mode:'100644',type:'blob',sha:blob.sha});
   }
   const tree=await this.api('/git/trees',{method:'POST',body:{base_tree:snapshot.tree,tree:entries}});
-  const commit=await this.api('/git/commits',{method:'POST',body:{message:'Update pricing through the admin ZIP portal',tree:tree.sha,parents:[snapshot.sha]}});
+  const commit=await this.api('/git/commits',{method:'POST',body:{message,tree:tree.sha,parents:[snapshot.sha]}});
   // Non-force update rejects a concurrent edit; both pricing files move together.
   try{await this.api('/git/refs/heads/main',{method:'PATCH',body:{sha:commit.sha,force:false}});}catch(error){throw new Error(`${error.message} Check GitHub for commit ${commit.sha} before retrying.`);}
-  return {sha:commit.sha,url:`https://github.com/zix-b/EMEA-Cards-Margins/commit/${commit.sha}`};
+  return {sha:commit.sha,tree:tree.sha,url:`https://github.com/zix-b/EMEA-Cards-Margins/commit/${commit.sha}`};
  }
 }
