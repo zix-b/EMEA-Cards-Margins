@@ -26,7 +26,7 @@
 }
 #confirmPublish { width: 15px; height: 15px; min-height: 15px; margin: 1px 0 0; }
 
-/* Preview only: preserve the upload form and the downloadable template. */
+/* ZIP template controls and compact CSV preview. */
 .template-actions { position: relative; display: flex; align-items: center; gap: 12px; }
 .template-actions > .button { white-space: nowrap; }
 .template-preview-trigger { min-height: 36px; font-size: 12px; }
@@ -41,7 +41,7 @@
 .template-preview:has(:focus-visible) .template-preview-card { visibility: visible; pointer-events: auto; }
 .template-preview-card > p { margin: 0 0 12px; font-size: 13px; }
 .template-preview-card > p span { display: block; margin-top: 4px; font-size: 11px; line-height: 1.5; color: var(--muted); }
-.template-table-scroll { overflow-x: auto; margin-top: 12px; }
+.template-table-scroll { overflow: auto; max-height: 230px; margin-top: 12px; }
 .template-preview-card table { width: 100%; min-width: 840px; font-size: 11px; }
 .template-preview-card caption { margin-bottom: 6px; font-weight: 700; color: var(--accent); }
 .template-preview-card th, .template-preview-card td { padding: 8px; white-space: nowrap; }
