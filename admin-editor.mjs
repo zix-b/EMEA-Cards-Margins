@@ -1,19 +1,23 @@
-import {cards,createMatrix,prepareEditorUpdate,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs';
+import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-grid';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
- let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0;
+ let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0,conflict=false;
  const status=(text,error=false)=>{$('editorStatus').textContent=text;$('editorStatus').className=error?'error':'muted';};
  const node=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
  function sync(){
   const connected=Boolean(session.snapshot());
   for(const id of ['editorCard','editorAdd','editorEdit','editorCancel','editorSave','editorConfirm','editorBack','editorSku','editorProduct','editorCost','editorBasis'])$(id).disabled=busy;
-  $('editorCard').disabled=busy||editing;$('editorAdd').disabled=busy||editing||!connected;$('editorEdit').disabled=busy||editing||!connected||!$('editorCard').value;
-  $('editorSave').disabled=busy||!connected;$('editorFields').hidden=!isNew;
+  $('editorCard').disabled=busy||editing;$('editorAdd').disabled=busy||editing;$('editorEdit').disabled=busy||editing||!matrix||!$('editorCard').value;
+  $('editorSave').disabled=busy||conflict;$('editorFields').hidden=!isNew;
   $('editorActions').hidden=!editing;$('editorEdit').hidden=editing;
   $('editorConnectionNote').hidden=connected;
   for(const input of $('editorRows').querySelectorAll('input'))input.disabled=busy||Boolean(prepared);
  }
  function draw(){
+  $('editorColumns').replaceChildren();
+  const head=node('tr'),first=node('th','Price Type');first.scope='col';head.append(first);
+  for(const [segment] of matrix?.[0]?.cells||[]){const th=node('th');th.scope='col';th.append(node('span',`QTY ${(segment.min===1?0:segment.min).toLocaleString('en-US')}`));const range=node('small',rangeLabel(segment.min,segment.max));th.append(range);head.append(th);}
+  $('editorColumns').append(head);
   $('editorRows').replaceChildren();
   for(const row of matrix||[]){
    const tr=node('tr'),th=node('th',tierLabel(row.tier));th.scope='row';tr.append(th);
@@ -21,7 +25,6 @@ export function initEditor(session){
     const td=node('td');
     for(const segment of cell){
      const label=node('label');label.className='editor-cell';
-     label.append(node('span',rangeLabel(segment.min,segment.max)));
      if(editing){const input=node('input');input.type='number';input.min='0';input.step='any';input.value=segment.value;input.placeholder='Not set';input.setAttribute('aria-label',`${tierLabel(row.tier)}, ${rangeLabel(segment.min,segment.max)} units`);input.addEventListener('input',()=>{segment.value=input.value;prepared=null;$('editorConfirmation').hidden=true;sync();});label.append(input);}
      else label.append(node('strong',segment.original===null?'—':String(segment.original)));
      td.append(label);
@@ -34,7 +37,7 @@ export function initEditor(session){
  }
  function load(){
   poll++;
-  editing=false;isNew=false;prepared=null;draftSnapshot=null;
+  editing=false;isNew=false;prepared=null;draftSnapshot=null;conflict=false;
   $('editorConfirmation').hidden=true;
   try{const data=session.data();matrix=$('editorCard').value?createMatrix(data,$('editorCard').value):null;const card=cards(data).find(c=>c.sku===$('editorCard').value);$('editorCardName').textContent=card?`${card.sku} · ${card.product}`:'Choose a card';status('Existing selling bands and supplier costs are preserved.');draw();}catch(error){matrix=null;draw();status(error.message,true);}
  }
@@ -45,8 +48,8 @@ export function initEditor(session){
   load();
  }
  function begin(add){
-  if(!session.snapshot()||busy)return;
-  poll++;isNew=add;editing=true;prepared=null;draftSnapshot=session.snapshot();
+  if(busy)return;
+  poll++;isNew=add;editing=true;prepared=null;conflict=false;draftSnapshot=session.snapshot()||{sha:null,data:JSON.parse(JSON.stringify(session.data()))};
   matrix=createMatrix(draftSnapshot.data,add?'':$('editorCard').value,add);
   $('editorConfirmation').hidden=true;
   for(const id of ['editorSku','editorProduct','editorCost','editorBasis'])$(id).value='';
@@ -58,6 +61,8 @@ export function initEditor(session){
   try{
    const card=cards(draftSnapshot.data).find(c=>c.sku===$('editorCard').value);
    prepared=prepareEditorUpdate(draftSnapshot.data,{sku:isNew?$('editorSku').value:card.sku,product:isNew?$('editorProduct').value:card.product,matrix,isNew,costPrice:$('editorCost').value,costBasis:$('editorBasis').value});
+   if(!session.snapshot()){status('Your draft is ready. Connect GitHub to save it to the live website; your entries will be kept.');session.connect();return;}
+   if(conflict)throw new Error('Cancel to reload this card before saving.');
    $('editorChanges').replaceChildren();
    for(const change of prepared.changes){const li=node('li',`${tierLabel(change.tier)} · ${rangeLabel(change.min,change.max)}: ${change.before===null?'not set':change.before} → ${change.after} USD`);$('editorChanges').append(li);}
    $('editorConfirmText').textContent=`Save ${prepared.changes.length} price change${prepared.changes.length===1?'':'s'} for ${prepared.sku}? Only this card will change. ${isNew?'The new card gets the fixed cost you entered.':'Existing costs remain unchanged.'} Source date: ${prepared.data.generatedAt}. Previous values remain in Git history.`;
@@ -74,7 +79,7 @@ export function initEditor(session){
   if(generation===poll)status('Saved to GitHub. Live deployment is still pending or could not be verified. Check deployment status below; do not save again just to retry deployment.');
  }
  async function save(){
-  if(busy||!prepared||!draftSnapshot)return;
+  if(busy||!prepared||!draftSnapshot||!session.snapshot()||conflict)return;
   const update=prepared,base=draftSnapshot;session.setBusy(true);
   try{
    const result=await session.repository().publish(base,update.data,`Update ${update.sku} pricing through the admin editor`);
@@ -88,11 +93,20 @@ export function initEditor(session){
  $('openPriceEditor').addEventListener('click',()=>{const panel=$('priceEditor');panel.hidden=!panel.hidden;$('openPriceEditor').setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden&&!editing)reload();});
  $('editorCard').addEventListener('change',load);
  $('editorEdit').addEventListener('click',()=>begin(false));$('editorAdd').addEventListener('click',()=>begin(true));
- $('editorSave').addEventListener('click',review);$('editorCancel').addEventListener('click',load);
+ $('editorSave').addEventListener('click',review);$('editorCancel').addEventListener('click',reload);
  $('editorBack').addEventListener('click',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
  $('editorConfirm').addEventListener('click',save);
  for(const id of ['editorSku','editorProduct','editorCost','editorBasis'])$(id).addEventListener('input',()=>{prepared=null;$('editorConfirmation').hidden=true;sync();});
- const head=node('tr');head.append(node('th','Price type / USD per unit'));for(const q of QUANTITIES)head.append(node('th',`QTY ${q.toLocaleString('en-US')}`));$('editorColumns').append(head);
+
  reload();
- return {reload,setBusy(value){busy=value;sync();},stop(){poll++;reload();},discard(){if(!editing)return true;if(!window.confirm('Discard unsaved price-editor changes?'))return false;load();return true;}};
+ return {reload,connected(){
+  if(!editing){reload();return;}
+  const latest=session.snapshot();
+  try{
+   const sku=isNew?$('editorSku').value.trim():$('editorCard').value;
+   matrix=rebaseDraft(draftSnapshot.data,latest.data,sku,matrix,isNew);
+   draftSnapshot=latest;prepared=null;conflict=false;$('editorConfirmation').hidden=true;
+   draw();status('Connected. Your draft was kept. Choose Save to review and confirm the update.');
+  }catch(error){conflict=true;prepared=null;$('editorConfirmation').hidden=true;sync();status(error.message,true);}
+ },setBusy(value){busy=value;sync();},stop(){poll++;reload();},discard(){if(!editing)return true;if(!window.confirm('Discard unsaved price-editor changes?'))return false;load();return true;}};
 }

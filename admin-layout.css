@@ -67,7 +67,8 @@
 .editor-table td { vertical-align: top; min-width: 145px; }
 .editor-cell { display: grid; margin: 0 0 12px; gap: 6px; font-weight: 400; }
 .editor-cell:last-child { margin-bottom: 0; }
-.editor-cell > span { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.editor-table thead th > span { display: block; white-space: nowrap; }
+.editor-table thead small { display: block; font-size: 10px; font-weight: 400; margin-top: 5px; color: var(--muted); white-space: nowrap; }
 .editor-cell strong { font-size: 14px; font-weight: 600; }
 .editor-cell input { min-height: 38px; padding: 8px; width: 115px; font-size: 14px; }
 .editor-confirmation { padding: 18px; border: 1px solid #cfc1e4; border-radius: 8px; background: #faf8fc; margin-top: 18px; }

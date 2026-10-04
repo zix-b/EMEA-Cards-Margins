@@ -13,17 +13,25 @@ const price=value=>{
 export function cards(data){return [...new Map(data.rows.map(r=>[r.sku,{sku:r.sku,product:r.product}])).values()].sort((a,b)=>a.sku.localeCompare(b.sku));}
 export function createMatrix(data,sku,isNew=false){
  if(!isNew&&!data.rows.some(r=>r.sku===sku))throw new Error('Select an existing card.');
- return TIERS.map(tier=>({tier,cells:QUANTITIES.map((q,col)=>{
-  const min=q||1,max=QUANTITIES[col+1]?QUANTITIES[col+1]-1:null;
-  const rows=isNew?[]:data.rows.map((r,index)=>({...r,index})).filter(r=>r.sku===sku&&r.tier===tier);
-  const ordered=[...rows].sort((a,b)=>a.quantityMin-b.quantityMin);
+ const rows=isNew?[]:data.rows.map((r,index)=>({...r,index})).filter(r=>r.sku===sku&&TIERS.includes(r.tier));
+ // One shared set of column boundaries aligns all four price types without changing any existing bands.
+ const cuts=new Set(QUANTITIES.map(q=>q||1));
+ for(const r of rows){cuts.add(Math.max(1,r.quantityMin));if(r.quantityMax!==null)cuts.add(r.quantityMax+1);}
+ const bounds=[...cuts].sort((a,b)=>a-b);
+ return TIERS.map(tier=>{
+  const tierRows=rows.filter(r=>r.tier===tier),ordered=[...tierRows].sort((a,b)=>a.quantityMin-b.quantityMin);
   for(let i=1;i<ordered.length;i++)if(ordered[i].quantityMin<=ceiling(ordered[i-1]))throw new Error('This card has overlapping selling bands. Resolve them through the ZIP import before editing.');
-  const cuts=new Set([min]);
-  for(const r of rows){if(r.quantityMin>min&&r.quantityMin<=(max??Infinity))cuts.add(r.quantityMin);if(r.quantityMax!==null&&r.quantityMax>=min&&r.quantityMax<(max??Infinity))cuts.add(r.quantityMax+1);}
-  const bounds=[...cuts].sort((a,b)=>a-b);
-  return bounds.map((lo,i)=>{const hi=i+1<bounds.length?bounds[i+1]-1:max,r=rows.find(r=>lo>=r.quantityMin&&lo<=ceiling(r));return {tier,min:lo,max:hi,index:r?.index??null,original:r?.sellingPrice??null,value:r?String(r.sellingPrice):''};});
- })}));
+  return {tier,cells:bounds.map((min,i)=>{const max=i+1<bounds.length?bounds[i+1]-1:null,r=tierRows.find(r=>min>=r.quantityMin&&min<=ceiling(r));return [{tier,min,max,index:r?.index??null,original:r?.sellingPrice??null,value:r?String(r.sellingPrice):''}];})};
+ });
 }
+export function rebaseDraft(previous,current,sku,matrix,isNew=false){
+ const records=data=>({rows:data.rows.filter(r=>r.sku.toLowerCase()===sku.toLowerCase()),costBands:data.costBands.filter(r=>r.sku.toLowerCase()===sku.toLowerCase())});
+ if(JSON.stringify(records(previous))!==JSON.stringify(records(current)))throw new Error('This card changed in GitHub while you were editing. Your draft is still visible. Cancel to reload the current prices before editing again.');
+ const next=createMatrix(current,sku,isNew);
+ for(let row=0;row<next.length;row++)for(let col=0;col<next[row].cells.length;col++)next[row].cells[col][0].value=matrix[row].cells[col][0].value;
+ return next;
+}
+
 function rowFor(segment,value,original,sku,product,date,cost){
  const costPrice=original?original.costPrice:cost?.costPrice??null;
  const gp=Number.isFinite(costPrice)?value-costPrice:null;
