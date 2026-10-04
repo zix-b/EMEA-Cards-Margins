@@ -15,6 +15,7 @@ const el = {
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
+  minimumFractionDigits: 3,
   maximumFractionDigits: 4,
 });
 
@@ -106,100 +107,85 @@ function displayTier(tier) {
   return tierOptions.find((option) => option.value === tier)?.label || tier;
 }
 
+function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[c])); }
+
+const costLabels = {oppiot:'OPPIOT supplier cost', supplier_purchase:'Supplier purchase price', average_cost:'Average cost', last_purchase:'Last purchase price'};
+function bandLabel(row) {
+  return row.quantityMax == null ? `${(row.quantityMin ?? 1).toLocaleString()}+` : `${(row.quantityMin ?? 1).toLocaleString()}–${row.quantityMax.toLocaleString()}`;
+}
 function renderRows(rows) {
-  const visibleRows = rows.slice(0, 150);
-  if (!visibleRows.length) {
-    el.body.innerHTML = `<div class="empty">No matching results yet.</div>`;
+  if (!rows.length) {
+    el.body.innerHTML = '<div class="empty">No applicable selling price for this quantity and price type.</div>';
     return;
   }
-
-  el.body.innerHTML = visibleRows
-    .map(
-      (row) => {
-        const metrics = displayMetrics(row);
-        return `
-          <article class="result-card">
-            <div class="result-meta">
-              <div>
-                <span>${row.quantityLabel || "Any quantity"}</span>
-                <span>${displayTier(row.tier)}</span>
-              </div>
-              <strong>${row.sku}</strong>
-            </div>
-            <div class="price-row">
-              <span>Sell Price</span>
-              <strong>${money(row.sellingPrice)}</strong>
-            </div>
-            <div class="price-row">
-              <span>Cost Price</span>
-              <strong>${bracketMoney(metrics.costPrice)}</strong>
-            </div>
-            <div class="price-row">
-              <span>Gross Profit</span>
-              <strong>${money(metrics.grossProfit)}</strong>
-            </div>
-            <div class="price-row">
-              <span>Margin</span>
-              <strong>${percent(metrics.marginPercent)}</strong>
-            </div>
-          </article>
-        `;
-      }
-    )
-    .join("");
+  el.body.innerHTML = rows.map(row => {
+    const metrics = displayMetrics(row);
+    const cost = findCostBand(row.sku, state.quantity);
+    const source = cost ? `${costLabels[cost.costBasis] || 'OPPIOT supplier cost'}: ${cost.source} · ${bandLabel(cost)} units · source date ${cost.sourceDate}` : Number.isFinite(row.costPrice) ? `Stored cost from the pricing row · ${row.vendor || row.source} · ${bandLabel(row)} units` : 'No matching cost is available. Margin cannot be determined.';
+    return `<article class="result-card">
+      <div class="result-meta"><div><span class="sku">${escapeHtml(row.sku)}</span><h3>${escapeHtml(row.product)}</h3></div><span class="tier-badge">${escapeHtml(displayTier(row.tier))}</span></div>
+      <div class="metrics"><div class="metric"><span>Sell price</span><strong>${money(row.sellingPrice)}</strong></div><div class="metric"><span>Cost price</span><strong>${bracketMoney(metrics.costPrice)}</strong></div><div class="metric"><span>Unit gross profit</span><strong>${money(metrics.grossProfit)}</strong></div><div class="metric margin"><span>Margin</span><strong>${percent(metrics.marginPercent)}</strong></div></div>
+      ${Number.isFinite(metrics.costPrice) ? '' : '<p class="unavailable">No applicable cost record. Margin unavailable.</p>'}
+      <details><summary>Price sources &amp; quantity bands${state.quantity === null ? ' · '+escapeHtml(bandLabel(row)) : ''}</summary><p>Selling: ${escapeHtml(row.source)} · ${escapeHtml(bandLabel(row))} units · source date ${escapeHtml(row.sourceDate)}</p><p>${escapeHtml(source)}</p></details>
+    </article>`;
+  }).join('');
 }
-
 function applyFilters() {
-  const product = el.product.value;
-  const qty = Number(el.quantity.value);
-  const tier = el.tier.value;
-  state.quantity = Number.isFinite(qty) && qty > 0 ? qty : null;
-
-  const filtered = state.rows.filter((row) => {
-    if (!row.tier.includes("EMEA")) return false;
-    if (product && `${row.sku} - ${row.product}` !== product) return false;
-    if (tier && row.tier !== tier) return false;
-    if (!inQuantityRange(row, state.quantity)) return false;
-    return true;
-  });
-
-  state.filtered = filtered;
-  renderRows(filtered);
+  const product = el.product.value, tier = el.tier.value;
+  const raw = el.quantity.value.trim(), qty = Number(raw);
+  const valid = raw === '' || (Number.isSafeInteger(qty) && qty > 0 && qty <= 1e12);
+  el.quantity.setAttribute('aria-invalid', String(!valid));
+  document.querySelector('#quantityError').textContent = valid ? '' : 'Enter a whole-number quantity between 1 and 1 trillion, or leave blank for all bands.';
+  state.quantity = raw && valid ? qty : null;
+  const products = el.product.options.length - 1;
+  document.querySelector('#cardPosition').textContent = product ? `${el.product.selectedIndex} of ${products} · ${product.split(' - ')[0]}` : `All ${products} cards`;
+  document.querySelector('#resultTitle').textContent = product ? 'Your quote' : 'All cards';
+  if (!valid) { el.body.innerHTML=''; return; }
+  state.filtered = state.rows.filter(row => row.tier.includes('EMEA') && (!product || `${row.sku} - ${row.product}` === product) && (!tier || row.tier === tier) && inQuantityRange(row,state.quantity));
+  renderRows(state.filtered);
 }
-
-function boot() {
-  const data = window.PRICING_DATA;
-  if (!data || !Array.isArray(data.rows)) {
-    throw new Error("Pricing data is missing");
-  }
-  state.rows = data.rows;
-  state.costBands = Array.isArray(data.costBands) ? data.costBands : [];
-
-  const products = uniqueSorted(
-    state.rows.map((row) => ({ label: `${row.sku} - ${row.product}` })),
-    "label"
-  );
-  fillSelect(el.product, products, "All products");
-  const availableTiers = new Set(
-    state.rows.filter((row) => row.tier.includes("EMEA")).map((row) => row.tier)
-  );
-  const emeaTiers = tierOptions.filter((option) => availableTiers.has(option.value));
-  fillSelect(el.tier, emeaTiers, "All EMEA prices");
-  if (availableTiers.has("Base Price (EMEA Premium)")) {
-    el.tier.value = "Base Price (EMEA Premium)";
-  }
-
-  for (const input of [el.product, el.quantity, el.tier]) {
-    input.addEventListener("input", applyFilters);
-    input.addEventListener("change", applyFilters);
-  }
-
+function setData(data, initial=false) {
+  if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
+  const selected=el.product.value, selectedTier=el.tier.value;
+  state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];
+  const products=uniqueSorted(state.rows.filter(r=>r.tier.includes('EMEA')).map(r=>({label:`${r.sku} - ${r.product}`})),'label');
+  fillSelect(el.product,products,'All cards');
+  el.product.value=initial ? products.find(p=>p.startsWith('CTC-007 - '))||'' : products.includes(selected)?selected:'';
+  const available=new Set(state.rows.filter(r=>r.tier.includes('EMEA')).map(r=>r.tier));
+  fillSelect(el.tier,tierOptions.filter(t=>available.has(t.value)),'All EMEA prices');
+  el.tier.value=initial ? available.has(tierOptions[1].value)?tierOptions[1].value:'' : available.has(selectedTier)?selectedTier:'';
+  el.product.disabled=false;el.tier.disabled=false;
+  const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
+  document.querySelector('#dataNotice').textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : 'Historical data · saved 10 July 2026. Current prices are unverified. Existing OPPIOT cost bands and stored costs are retained.';
+  document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();
 }
-
-try {
-  boot();
-} catch (error) {
-  console.error(error);
-  el.body.innerHTML = `<div class="empty">Failed to load pricing data.</div>`;
+let fingerprint='',refreshing=false,refreshFailed=false;
+async function refreshData() {
+  if (refreshing || document.hidden) return;
+  refreshing=true;
+  try {
+    const response=await fetch('pricing-data.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('Pricing refresh failed.');
+    const data=await response.json(),next=JSON.stringify(data);
+    if(next!==fingerprint||refreshFailed){setData(data);fingerprint=next;}refreshFailed=false;
+  } catch(error) {
+    refreshFailed=true;
+    document.querySelector('#dataNotice').textContent='Pricing could not be refreshed. The previously loaded dataset is still displayed; reload before relying on updated prices.';
+  } finally {refreshing=false;}
 }
+function boot() {
+  setData(window.PRICING_DATA,true);fingerprint=JSON.stringify(window.PRICING_DATA);
+  for(const input of [el.product,el.quantity,el.tier]) {
+    input.addEventListener('input',applyFilters);input.addEventListener('change',applyFilters);
+  }
+  for(const [id,step] of [['previousCard',-1],['nextCard',1]])document.querySelector(`#${id}`).addEventListener('click',()=>{
+    const count=el.product.options.length-1;if(!count)return;const i=el.product.selectedIndex;
+    el.product.selectedIndex=i===0?(step===1?1:count):((i-1+step+count)%count)+1;applyFilters();
+  });
+  window.addEventListener('focus',refreshData);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshData();});
+  refreshData();
+  setInterval(refreshData,15000);
+}
+try {boot();} catch(error) {console.error(error);el.body.innerHTML='<div class="empty">Failed to load pricing data. Please reload.</div>';}
