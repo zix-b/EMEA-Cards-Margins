@@ -1,4 +1,4 @@
-import {QUANTITIES} from './pricing-editor.mjs';
+import {QUANTITIES} from './pricing-editor.mjs?v=20261005-sheet';
 export const QUANTITY_BANDS=QUANTITIES.map((quantity,i)=>{
  const min=quantity||1,max=i+1<QUANTITIES.length?QUANTITIES[i+1]-1:null;
  const number=value=>value.toLocaleString('en-US');

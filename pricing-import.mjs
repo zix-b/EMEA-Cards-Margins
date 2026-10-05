@@ -1,6 +1,8 @@
 import {unzipSync} from './vendor/fflate.mjs';
 export const BASES=['oppiot','supplier_purchase','average_cost','last_purchase'];
 export const TIERS=['Standard Price (EMEA License)','Base Price (EMEA Premium)','Distributor Price (EMEA)','EMEA Strategic Account (Magic Planet)'];
+export const SHEET_TIERS=['EMEA License','EMEA Base','EMEA Premier','EMEA Distributor (BN)','EMEA Magic Planet','EMEA VG'];
+export const SUPPORTED_TIERS=[...TIERS,...SHEET_TIERS];
 const SELL=['sku','product','tier','quantityMin','quantityMax','sellingPrice','currency','unit','source','sourceDate'];
 const COST=['sku','quantityMin','quantityMax','costPrice','costBasis','currency','unit','source','sourceDate'];
 export const MAX_UPLOAD=5*1024*1024;
@@ -34,7 +36,7 @@ function records(bytes,name){
   if(r.currency.toUpperCase()!=='USD'||!['each','ea'].includes(r.unit.toLowerCase()))fail(`${label}: only USD per Each is supported.`);
   if(name==='selling.csv'){
    out.product=clean(r.product,label);out.tier=r.tier==='EMEA Strategic Account (MAF)'?TIERS[3]:r.tier;
-   if(!TIERS.includes(out.tier))fail(`${label}: map the price level to one of the four EMEA price types.`);
+   if(!SUPPORTED_TIERS.includes(out.tier))fail(`${label}: map the price level to a supported EMEA price type.`);
    out.sellingPrice=number(r.sellingPrice,label,false,true);out.quantityLabel=out.quantityMax===null?`${out.quantityMin.toLocaleString('en-US')}+`:`${out.quantityMin.toLocaleString('en-US')}–${out.quantityMax.toLocaleString('en-US')}`;
   }else{out.costBasis=r.costBasis;if(!BASES.includes(out.costBasis))fail(`${label}: unsupported cost basis.`);out.costPrice=number(r.costPrice,label);}
   return out;

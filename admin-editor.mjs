@@ -1,5 +1,5 @@
-import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-cards';
-import {QUANTITY_BANDS} from './pricing-template.mjs';
+import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-sheet';
+import {QUANTITY_BANDS} from './pricing-template.mjs?v=20261005-sheet';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
  let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0,conflict=false;

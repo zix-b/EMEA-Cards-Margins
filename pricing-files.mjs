@@ -1,7 +1,7 @@
-import {csv,MAX_UPLOAD} from './pricing-import.mjs';
-import {plainTemplateHeader} from './pricing-template.mjs';
+import {csv,MAX_UPLOAD} from './pricing-import.mjs?v=20261005-sheet';
+import {plainTemplateHeader} from './pricing-template.mjs?v=20261005-sheet';
 import {unzipSync} from './vendor/fflate.mjs';
-import {QUANTITIES,TIERS,tierLabel,createMatrix,prepareEditorUpdate,cards} from './pricing-editor.mjs';
+import {QUANTITIES,TIERS,SUPPORTED_TIERS,tierLabel,createMatrix,prepareEditorUpdate,cards} from './pricing-editor.mjs?v=20261005-sheet';
 export const HEADERS=['SKU','Card Product Name','Price Type',...QUANTITIES.map(q=>`QTY ${q.toLocaleString('en-US')}`)];
 export const TEMPLATE_ROWS=TIERS.map(tier=>['','',tierLabel(tier),...QUANTITIES.map(()=>'')]);
 const MAX_EXPANDED=15*1024*1024,MAX_ROWS=20000;
@@ -45,8 +45,8 @@ function parseTable(table,label){
   const fields=HEADERS.map((_,j)=>String(values[j]??'').trim()),[sku,product,type]=fields;
   if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(sku))fail(`${row}: SKU is required; use letters, numbers, dots, underscores or hyphens (maximum 64 characters).`);
   if(!product||product.length>300||/[\x00-\x1f]/.test(product))fail(`${row}: Card Product Name is required (1–300 characters).`);
-  const tier=TIERS.find(t=>tierLabel(t)===type);
-  if(!tier)fail(`${row}: Price Type must match one of the four price types in the template.`);
+  const tier=SUPPORTED_TIERS.find(t=>tierLabel(t)===type);
+  if(!tier)fail(`${row}: Price Type must be a supported EMEA price type.`);
   const prices=fields.slice(3).map((value,j)=>{
    if(value==='')return null;
    if(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(value)||!Number.isFinite(Number(value))||Number(value)>1e12)fail(`${row}, ${HEADERS[j+3]}: enter a numeric, non-negative price without currency symbols or commas.`);
@@ -135,7 +135,7 @@ export function prepareSellingUpdate(incoming,current,date=new Date().toISOStrin
   if(data.cards)data.cards=data.cards.map(c=>c.sku===sku?{...c,product}:c);
   if(!existing)data.cards=[...(data.cards||cards(data)),{sku,product}];
   data.rows=data.rows.map(r=>r.sku===sku?{...r,product}:r);
-  const matrix=createMatrix(data,sku);
+  const matrix=createMatrix(data,sku,false,rows.map(r=>r.tier));
   for(const row of rows)for(const segment of matrix.find(r=>r.tier===row.tier).cells.flat()){
    const column=QUANTITIES.findLastIndex(q=>(q||1)<=segment.min),value=row.prices[column];
    if(value!==null)segment.value=String(value);

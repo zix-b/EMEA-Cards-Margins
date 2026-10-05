@@ -20,6 +20,7 @@ const currency = new Intl.NumberFormat("en-US", {
 });
 
 const tierOptions = [
+  ...['EMEA License','EMEA Base','EMEA Premier','EMEA Distributor (BN)','EMEA Magic Planet','EMEA VG'].map(value=>({value,label:value})),
   {
     value: "Standard Price (EMEA License)",
     label: "Standard Price (EMEA License)",
@@ -109,7 +110,7 @@ function displayTier(tier) {
 
 function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[c])); }
 
-const costLabels = {oppiot:'OPPIOT supplier cost', supplier_purchase:'Supplier purchase price', average_cost:'Average cost', last_purchase:'Last purchase price'};
+const costLabels = {sheet_cogs:'Sheet COGS',oppiot:'OPPIOT supplier cost', supplier_purchase:'Supplier purchase price', average_cost:'Average cost', last_purchase:'Last purchase price'};
 function bandLabel(row) {
   return row.quantityMax == null ? `${(row.quantityMin ?? 1).toLocaleString()}+` : `${(row.quantityMin ?? 1).toLocaleString()}–${row.quantityMax.toLocaleString()}`;
 }
@@ -144,6 +145,11 @@ function applyFilters() {
   state.filtered = state.rows.filter(row => row.tier.includes('EMEA') && (!product || `${row.sku} - ${row.product}` === product) && (!tier || row.tier === tier) && inQuantityRange(row,state.quantity));
   renderRows(state.filtered);
 }
+function fillPriceTypes(selected=el.tier.value) {
+  const available=new Set(state.rows.filter(r=>r.tier.includes('EMEA')&&(!el.product.value||`${r.sku} - ${r.product}`===el.product.value)).map(r=>r.tier));
+  fillSelect(el.tier,tierOptions.filter(t=>available.has(t.value)),'All EMEA prices');
+  el.tier.value=selected===''?'':available.has(selected)?selected:available.has('EMEA Base')?'EMEA Base':available.has('Base Price (EMEA Premium)')?'Base Price (EMEA Premium)':'';
+}
 function setData(data, initial=false) {
   if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
   const selected=el.product.value, selectedTier=el.tier.value;
@@ -152,9 +158,7 @@ function setData(data, initial=false) {
   const products=uniqueSorted(registered.map(r=>({label:`${r.sku} - ${r.product}`})),'label');
   fillSelect(el.product,products,'All cards');
   el.product.value=initial ? products.find(p=>p.startsWith('CTC-007 - '))||'' : products.includes(selected)?selected:'';
-  const available=new Set(state.rows.filter(r=>r.tier.includes('EMEA')).map(r=>r.tier));
-  fillSelect(el.tier,tierOptions.filter(t=>available.has(t.value)),'All EMEA prices');
-  el.tier.value=initial ? available.has(tierOptions[1].value)?tierOptions[1].value:'' : available.has(selectedTier)?selectedTier:'';
+  fillPriceTypes(initial ? null : selectedTier);
   el.product.disabled=false;el.tier.disabled=false;
   const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
   const notice=document.querySelector('#dataNotice');
@@ -180,12 +184,13 @@ async function refreshData() {
 }
 function boot() {
   setData(window.PRICING_DATA,true);fingerprint=JSON.stringify(window.PRICING_DATA);
-  for(const input of [el.product,el.quantity,el.tier]) {
+  for(const input of [el.quantity,el.tier]) {
     input.addEventListener('input',applyFilters);input.addEventListener('change',applyFilters);
   }
+  for(const event of ['input','change'])el.product.addEventListener(event,()=>{fillPriceTypes();applyFilters();});
   for(const [id,step] of [['previousCard',-1],['nextCard',1]])document.querySelector(`#${id}`).addEventListener('click',()=>{
     const count=el.product.options.length-1;if(!count)return;const i=el.product.selectedIndex;
-    el.product.selectedIndex=i===0?(step===1?1:count):((i-1+step+count)%count)+1;applyFilters();
+    el.product.selectedIndex=i===0?(step===1?1:count):((i-1+step+count)%count)+1;fillPriceTypes();applyFilters();
   });
   window.addEventListener('focus',refreshData);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshData();});

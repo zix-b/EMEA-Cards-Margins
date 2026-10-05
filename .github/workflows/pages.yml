@@ -38,6 +38,7 @@ jobs:
           node tests/editor-ui.test.mjs
           node tests/cards.test.mjs
           node tests/cards-ui.test.mjs
+          node tests/sheet-data.test.mjs
 
   deploy:
     needs: test
