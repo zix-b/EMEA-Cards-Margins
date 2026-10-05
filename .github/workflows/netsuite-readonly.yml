@@ -262,23 +262,30 @@ jobs:
                   groups = {}
                   basics = [b for row in root.findall('.//c:searchRow', NS) for b in row.findall('a:basic', NS)]
                   each_units = set()
+                  each_names = set()
+                  uom_count = 0
                   for basic in basics:
                       units = refs.get(('unitsType', refid(basic, 'unitsType')))
                       if units is not None:
                           for uom in units.findall('a:uomList/a:uom', NS):
+                              uom_count += 1
                               name = label_key(uom.findtext('a:unitName', namespaces=NS))
                               abbrev = label_key(uom.findtext('a:abbreviation', namespaces=NS))
                               rate = uom.findtext('a:conversionRate', namespaces=NS)
-                              if (name == 'each' or abbrev == 'ea') and decimal_value(rate) == Decimal(1):
-                                  each_units.add(uom.findtext('a:internalId', namespaces=NS))
+                              if (name in ['each','ea'] or abbrev in ['each','ea']) and decimal_value(rate) == Decimal(1):
+                                  identifier = uom.findtext('a:internalId', namespaces=NS) or uom.get('internalId')
+                                  if identifier: each_units.add(identifier)
+                                  each_names.update(n for n in [name, abbrev] if n)
                   for row in root.findall('.//c:searchRow', NS):
                       for node in row.findall('a:pricingJoin', NS):
                           if scalar(node, 'unitPrice') is None: continue
-                          key = (refid(node, 'priceLevel'), refid(node, 'currency'), refid(node, 'saleUnit'))
+                          unit_values = values(node, 'saleUnit')
+                          unit_name = label_key(unit_values[0].findtext('c:name', namespaces=NS)) if unit_values else ''
+                          key = (refid(node, 'priceLevel'), refid(node, 'currency'), refid(node, 'saleUnit'), unit_name)
                           groups.setdefault(key, []).append({'min': scalar(node, 'minimumQuantity'), 'max': scalar(node, 'maximumQuantity'), 'price': scalar(node, 'unitPrice')})
                   candidates = []
                   unresolved = non_usd = non_each = unknown_labels = 0
-                  for (level_id, currency_id, unit_id), records in groups.items():
+                  for (level_id, currency_id, unit_id, unit_name), records in groups.items():
                       level = refs.get(('priceLevel', level_id))
                       currency = refs.get(('currency', currency_id))
                       if level is None or currency is None:
@@ -287,7 +294,7 @@ jobs:
                       if currency.findtext('a:symbol', namespaces=NS) != 'USD':
                           non_usd += 1
                           continue
-                      if unit_id not in each_units:
+                      if unit_id not in each_units and unit_name not in each_names:
                           non_each += 1
                           continue
                       name = level.findtext('a:name', namespaces=NS)
@@ -305,6 +312,7 @@ jobs:
                           checks = {'candidate': candidate, 'valid_ranges': False}
                       candidates.append(checks)
                   report('mapping', index=index, usd_each_candidates=candidates,
+                         unit_definitions_seen=uom_count, each_unit_verified=bool(each_names), sale_units_have_ids=all(k[2] is not None for k in groups), sale_units_have_names=all(bool(k[3]) for k in groups),
                          unresolved_reference_groups=unresolved, non_usd_groups=non_usd,
                          unresolved_or_non_each_groups=non_each, other_price_level_groups=unknown_labels,
                          supplier_fields_present={field: any(scalar(b, field) is not None for b in basics) for field in ['vendorCost','vendorCostEntered','vendorPriceCurrency']},
