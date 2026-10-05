@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
+import {QUANTITY_BANDS} from '../pricing-template.mjs';
 import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from '../pricing-editor.mjs';
 const data=JSON.parse(execFileSync('git',['show','c37642af474e266f9ac7a9c5db5a3a3639cbf3ea:pricing-data.json'],{encoding:'utf8'}));
 class Element{
@@ -17,11 +18,14 @@ const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,new Eleme
 let snapshot={sha:'before',tree:'tree-before',data},published=0,failSave=false,editor,confirmDiscard=true,connectRequests=0;
 const session={connect:()=>{connectRequests++;},data:()=>snapshot?.data||data,snapshot:()=>snapshot,repository:()=>({async publish(base,next,message){published++;assert.equal(base.sha,snapshot.sha);assert.match(message,/admin editor/);if(failSave)throw new Error('Synthetic save failure');return {sha:'saved',tree:'tree-saved',url:'https://example.invalid/commit'};}}),setBusy:value=>editor.setBusy(value),saved:next=>{snapshot=next;}};
 const source=fs.readFileSync('admin-editor.mjs','utf8').replace(/^import .*;\n/gm,'').replace('export function initEditor','function initEditor');
-const context={cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel,document:{getElementById:get,createElement:tag=>new Element(tag)},window:{PRICING_DATA:data,confirm:()=>confirmDiscard},fetch:async()=>({ok:true,json:async()=>snapshot.data}),setTimeout,encodeURIComponent,console};
+const context={QUANTITY_BANDS,cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel,document:{getElementById:get,createElement:tag=>new Element(tag)},window:{PRICING_DATA:data,confirm:()=>confirmDiscard},fetch:async()=>({ok:true,json:async()=>snapshot.data}),setTimeout,encodeURIComponent,console};
 vm.runInNewContext(source+'\nthis.make=initEditor;',context);editor=context.make(session);
 const click=id=>get(id).handlers.click(),change=id=>get(id).handlers.change();
 get('editorCard').value='CTC-007';change('editorCard');
 assert.equal(get('editorRows').querySelectorAll('input').length,0,'Read-only by default');
+const top=get('editorColumns').children[0];assert.equal(top.children.length,9);
+for(let i=0;i<8;i++){assert.equal(top.children[i+1].children[0].textContent,QUANTITY_BANDS[i].label);assert.equal(top.children[i+1].children[1].textContent,QUANTITY_BANDS[i].range);}
+assert.equal(top.children.slice(1).reduce((sum,h)=>sum+h.colSpan,0),get('editorRows').children[0].children.length-1,'All original prices remain aligned below the eight grouped headers');
 click('editorEdit');let input=get('editorRows').querySelectorAll('input').find(e=>e.attrs['aria-label']==='Base Price (EMEA Premium), 10,000–24,999 units');assert.ok(input);input.value='.5';input.handlers.input();
 click('editorCancel');assert.equal(published,0);assert.equal(get('editorRows').querySelectorAll('input').length,0);assert.equal(snapshot.data,data,'Cancel preserves data');
 click('editorEdit');input=get('editorRows').querySelectorAll('input').find(e=>e.attrs['aria-label']==='Base Price (EMEA Premium), 10,000–24,999 units');input.value='-.5';input.handlers.input();click('editorSave');assert.match(get('editorStatus').textContent,/non-negative/);assert.equal(published,0);

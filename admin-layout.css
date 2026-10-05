@@ -30,6 +30,11 @@
 .template-actions { position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .template-actions > .button { white-space: nowrap; }
 .template-preview-trigger { min-height: 36px; font-size: 12px; }
+.template-download { position: relative; }
+#downloadTemplate { white-space: nowrap; }
+.template-download-menu { position: absolute; top: calc(100% + 4px); left: 0; z-index: 12; min-width: 160px; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px #26133c24; }
+.template-download-menu a { display: block; padding: 10px 12px; border-radius: 4px; font-size: 13px; text-decoration: none; }
+.template-download-menu a:hover, .template-download-menu a:focus-visible { background: #f3edf9; outline: 2px solid var(--accent); outline-offset: -2px; }
 .template-preview-card {
   position: absolute; left: 0; top: 100%; z-index: 10;
   width: min(760px, 100%); padding: 16px;
@@ -64,6 +69,9 @@
 .editor-table thead th { position: sticky; top: 0; z-index: 2; }
 .editor-table tr > th:first-child { min-width: 210px; position: sticky; left: 0; z-index: 1; }
 .editor-table thead th:first-child { z-index: 3; }
+.editor-table thead tr:first-child th { height: 64px; }
+.editor-table .editor-sub-bands th { top: 64px; min-width: 145px; font-size: 10px; font-weight: 400; white-space: nowrap; }
+.editor-table .editor-sub-bands th:first-child { position: sticky; left: auto; z-index: 2; min-width: 145px; }
 .editor-table td { vertical-align: top; min-width: 145px; }
 .editor-cell { display: grid; margin: 0 0 12px; gap: 6px; font-weight: 400; }
 .editor-cell:last-child { margin-bottom: 0; }

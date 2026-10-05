@@ -1,4 +1,5 @@
 import {csv,MAX_UPLOAD} from './pricing-import.mjs';
+import {plainTemplateHeader} from './pricing-template.mjs';
 import {unzipSync} from './vendor/fflate.mjs';
 import {QUANTITIES,TIERS,tierLabel,createMatrix,prepareEditorUpdate,cards} from './pricing-editor.mjs';
 export const HEADERS=['SKU','Card Product Name','Price Type',...QUANTITIES.map(q=>`QTY ${q.toLocaleString('en-US')}`)];
@@ -33,7 +34,7 @@ function inspectZip(raw,maxEntries=128){
 }
 
 function parseTable(table,label){
- const headers=(table.shift()||[]).map(v=>String(v??'').trim());
+ const headers=(table.shift()||[]).map(plainTemplateHeader);
  for(const header of HEADERS)if(!headers.includes(header))fail(`${label}: missing required column "${header}". Download the current template and keep its headers unchanged.`);
  if(headers.length!==HEADERS.length||headers.some((h,i)=>h!==HEADERS[i]))fail(`${label}: columns must exactly match the template names and order. Only SKU, Card Product Name, Price Type and the eight quantity columns are accepted.`);
  if(table.length>MAX_ROWS)fail(`${label}: maximum 20,000 pricing rows.`);

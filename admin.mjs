@@ -1,7 +1,7 @@
 import {initCards} from './admin-cards.mjs?v=20261005-cards';
-import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-files';
+import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-bands';
 import {Repository} from './github-pricing.mjs?v=20261004-editor';
-import {initEditor} from './admin-editor.mjs?v=20261005-cards';
+import {initEditor} from './admin-editor.mjs?v=20261005-bands';
 const $=id=>document.getElementById(id);
 let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null;
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className='admin-message'+(error?' error':'');};

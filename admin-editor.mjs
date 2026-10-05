@@ -1,4 +1,5 @@
 import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-cards';
+import {QUANTITY_BANDS} from './pricing-template.mjs';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
  let editing=false,isNew=false,matrix=null,draftSnapshot=null,prepared=null,busy=false,poll=0,conflict=false;
@@ -16,8 +17,12 @@ export function initEditor(session){
  function draw(){
   $('editorColumns').replaceChildren();
   const head=node('tr'),first=node('th','Price Type');first.scope='col';head.append(first);
-  for(const [segment] of matrix?.[0]?.cells||[]){const th=node('th');th.scope='col';th.append(node('span',`QTY ${(segment.min===1?0:segment.min).toLocaleString('en-US')}`));const range=node('small',rangeLabel(segment.min,segment.max));th.append(range);head.append(th);}
+  const groups=QUANTITY_BANDS.map(band=>({...band,segments:(matrix?.[0]?.cells||[]).flat().filter(s=>s.min>=band.min&&(band.max===null||s.min<=band.max))}));
+  const detailed=groups.some(group=>group.segments.length>1);
+  if(detailed)first.rowSpan=2;
+  for(const group of groups){const th=node('th');th.scope=group.segments.length>1?'colgroup':'col';th.colSpan=group.segments.length||1;if(detailed&&group.segments.length===1)th.rowSpan=2;th.append(node('span',group.label),node('small',group.range));head.append(th);}
   $('editorColumns').append(head);
+  if(detailed){const detail=node('tr');detail.className='editor-sub-bands';for(const group of groups.filter(g=>g.segments.length>1))for(const segment of group.segments){const th=node('th',segment.max===null?`${segment.min.toLocaleString('en-US')}+`:rangeLabel(segment.min,segment.max));th.scope='col';detail.append(th);}$('editorColumns').append(detail);}
   $('editorRows').replaceChildren();
   for(const row of matrix||[]){
    const tr=node('tr'),th=node('th',tierLabel(row.tier));th.scope='row';tr.append(th);

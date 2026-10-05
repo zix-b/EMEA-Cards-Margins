@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import vm from 'node:vm';
+import {DISPLAY_HEADERS,QUANTITY_BANDS} from '../pricing-template.mjs';
 import {createRequire} from 'node:module';
 import {readPricingFiles,prepareSellingUpdate,HEADERS,TEMPLATE_ROWS} from '../pricing-files.mjs';
 import {TIERS,QUANTITIES,tierLabel,cards} from '../pricing-editor.mjs';
@@ -7,7 +9,7 @@ import {csv} from '../pricing-import.mjs';
 import {zipSync,unzipSync,strToU8} from '../vendor/fflate.mjs';
 const xlsx=createRequire(import.meta.url)('../vendor/xlsx.full.min.js');
 export const file=(name,bytes)=>({name,size:bytes.length,arrayBuffer:async()=>bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength)});
-const encode=rows=>strToU8(rows.map(row=>row.map(v=>JSON.stringify(String(v??''))).join(',')).join('\n'));
+const encode=rows=>strToU8(rows.map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n'));
 export const fixture=()=>encode([HEADERS,...TIERS.map(t=>['CTC-007','Custom Card',tierLabel(t),.46,.43,.379,.27,.255,.246,.246,.246])]);
 const plain=await readPricingFiles([file('prices.csv',fixture())]);
 const clean=rows=>rows.map(({label,...r})=>r);
@@ -68,13 +70,34 @@ assert.equal(added.rows.filter(r=>r.sku==='TEST-NEW').length,32);
 assert.ok(added.rows.filter(r=>r.sku==='TEST-NEW').every(r=>r.costPrice===null&&r.marginPercent===null));
 const contents=unzipSync(fs.readFileSync('pricing-upload-template.zip'));
 assert.deepEqual(Object.keys(contents).sort(),['README.txt','selling.csv']);
-const expected=[HEADERS,...TEMPLATE_ROWS];
+const expected=[DISPLAY_HEADERS,...TEMPLATE_ROWS];
 assert.deepEqual(csv(new TextDecoder().decode(contents['selling.csv'])),expected);
 assert.deepEqual(contents['selling.csv'],new Uint8Array(fs.readFileSync('pricing-upload-template.csv')));
 const workbook=xlsx.read(fs.readFileSync('pricing-upload-template.xlsx'));
 assert.deepEqual(xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]],{header:1,defval:''}),expected);
 const html=fs.readFileSync('admin.html','utf8'),preview=html.slice(html.indexOf('id="templatePreview"'),html.indexOf('id="validateButton"'));
-const previewMatrix=[...preview.matchAll(/<tr>(.*?)<\/tr>/gs)].map(match=>[...match[1].matchAll(/<t[hd](?: scope="col")?>(.*?)<\/t[hd]>/gs)].map(cell=>cell[1]));
+const previewMatrix=[...preview.matchAll(/<tr>(.*?)<\/tr>/gs)].map(match=>[...match[1].matchAll(/<t[hd](?: scope="col")?>(.*?)<\/t[hd]>/gs)].map(cell=>cell[1].replaceAll('<br>','\n')));
 assert.deepEqual(previewMatrix,expected,'Popover exactly matches CSV, Excel and ZIP');
 assert.match(html,/accept="\.csv,\.xlsx,\.xls,\.zip/);
 console.log('CSV/XLSX/XLS/ZIP parity, strict validation, template parity, cost preservation, quantity boundaries and new-card import passed.');
+
+const ranges=[[1,4999],[5000,9999],[10000,24999],[25000,49999],[50000,99999],[100000,249999],[250000,499999],[500000,null]];
+assert.deepEqual(QUANTITY_BANDS.map(b=>[b.min,b.max]),ranges);
+const annotated=[DISPLAY_HEADERS,...matrix.slice(1)];
+for(const ext of ['csv','xlsx','xls']){
+ const bytes=ext==='csv'?encode(annotated):excel(annotated,ext);
+ assert.deepEqual(clean(await readPricingFiles([file('ranges.'+ext,bytes)],{xlsx})),clean(plain));
+}
+await reject('wrong-range.csv',encode([[...DISPLAY_HEADERS.slice(0,3),'QTY 0\n0–4,999',...DISPLAY_HEADERS.slice(4)],...matrix.slice(1)]),/missing required column "QTY 0"/);
+const dom=new Map();const context=vm.createContext({Intl,document:{querySelector(id){if(!dom.has(id))dom.set(id,{value:'',options:[],attrs:{},setAttribute(k,v){this.attrs[k]=v;}});return dom.get(id);}}});
+vm.runInContext(fs.readFileSync('app.js','utf8').replace(/try\s*\{\s*boot\(\);[\s\S]*$/,''),context);
+context.data=added;
+vm.runInContext('state.rows=data.rows;state.costBands=data.costBands;',context);
+for(let i=0;i<ranges.length;i++)for(const qty of [ranges[i][0],ranges[i][1]??1000000]){
+ context.qty=qty;context.tier=TIERS[0];
+ const price=vm.runInContext('state.rows.find(r=>r.sku==="TEST-NEW"&&r.tier===tier&&inQuantityRange(r,qty))?.sellingPrice',context);
+ assert.equal(price,plain[0].prices[i]);
+}
+dom.get('#quantityInput').value='0';vm.runInContext('applyFilters()',context);assert.equal(dom.get('#quantityInput').attrs['aria-invalid'],'true');assert.equal(dom.get('#resultsBody').innerHTML,'');
+assert.deepEqual(added.rows.filter(r=>r.sku==='TEST-NEW'&&r.tier===TIERS[0]).map(r=>[r.quantityMin,r.quantityMax]),ranges);
+console.log('Exact eight ranges, annotated/plain header compatibility, CSV/Excel roundtrip and calculator lookup boundaries passed.');
