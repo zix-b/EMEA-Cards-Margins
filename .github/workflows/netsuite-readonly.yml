@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Check six SKUs using availability flags only
+      - name: Verify candidate price-level mappings and preserve native ranges
         env:
           NETSUITE_ACCOUNT_ID: ${{ secrets.NETSUITE_ACCOUNT_ID }}
           NETSUITE_CONSUMER_KEY: ${{ secrets.NETSUITE_CONSUMER_KEY }}
@@ -71,7 +71,7 @@ jobs:
           SEARCH = '''<m:search><m:searchRecord xsi:type="a:ItemSearchAdvanced">
             <a:criteria><a:basic><b:itemId operator="is"><c:searchValue>CTC-007</c:searchValue></b:itemId></a:basic></a:criteria>
             <a:columns>
-              <a:basic><b:averageCost/><b:cost/><b:displayName/><b:internalId/><b:itemId/><b:lastPurchasePrice/><b:type/></a:basic>
+              <a:basic><b:averageCost/><b:cost/><b:displayName/><b:internalId/><b:itemId/><b:lastPurchasePrice/><b:purchaseUnit/><b:type/><b:unitsType/><b:vendorCost/><b:vendorCostEntered/><b:vendorPriceCurrency/><b:vendorSchedule/></a:basic>
               <a:pricingJoin><b:currency/><b:maximumQuantity/><b:minimumQuantity/><b:priceLevel/><b:saleUnit/><b:unitPrice/></a:pricingJoin>
             </a:columns>
           </m:searchRecord></m:search>'''
@@ -81,7 +81,7 @@ jobs:
               print(json.dumps({'stage': stage, **fields}), flush=True)
           
           
-          def call(operation, body, credentials):
+          def call(operation, body, credentials, allow_partial=False):
               # Domain is fixed to NetSuite, account ID must be digits; never follow redirects.
               url = f'https://{credentials[0]}.suitetalk.api.netsuite.com/services/NetSuitePort_{VERSION}'
               request = urllib.request.Request(url, data=envelope(body, credentials), method='POST',
@@ -104,72 +104,219 @@ jobs:
                   report(operation, ok=False, error=codes[0] if codes else 'SOAP_FAULT')
                   raise SystemExit(1)
               for status in root.findall('.//c:status', NS):
-                  if status.get('isSuccess') != 'true':
+                  if status.get('isSuccess') != 'true' and not allow_partial:
                       report(operation, ok=False, error='NETSUITE_STATUS_ERROR')
                       raise SystemExit(1)
               return root
           
           
+          
+          """Pure checks for a read-only NetSuite pricing mapping investigation."""
+          from decimal import Decimal, InvalidOperation, ROUND_CEILING
+          
+          SKUS = ['CTC-011', 'CTC-007', 'CRD-012', 'CTC-024', 'LIC-009', 'CTW-009']
+          TIERS = ['Standard Price (EMEA License)', 'Base Price (EMEA Premium)',
+                   'Distributor Price (EMEA)', 'EMEA Strategic Account (Magic Planet)']
+          # These are labels already supplied by the user or present in the public site.
+          # Candidate matches are evidence, not permission to substitute one tier for another.
+          CANDIDATES = ['EMEA License Customers', 'Base', 'Distributor', 'Strategic Partnership',
+                        'EMEA Strategic Account (Magic Planet)', 'EMEA Strategic Account (MAF)',
+                        'EMEA Magic Planet', 'Magic Planet', 'MAF', 'EMEA Distributor (BN)',
+                        'EMEA License', 'EMEA Base', 'EMEA Premier', 'EMEA Premium',
+                        'Standard Price (EMEA License)', 'Base Price (EMEA Premium)',
+                        'Distributor Price (EMEA)']
+          
+          
+          def label_key(value):
+              return ' '.join((value or '').casefold().split())
+          
+          
+          def decimal_value(value):
+              if value is None or str(value).strip() == '':
+                  return None
+              number = Decimal(str(value))
+              if not number.is_finite() or number < 0:
+                  raise ValueError('INVALID_NONNEGATIVE_NUMBER')
+              return number
+          
+          
+          def integer_range(minimum, maximum):
+              """NetSuite uses an exclusive maximum; the website uses inclusive integers."""
+              lo = decimal_value(minimum)
+              hi = decimal_value(maximum)
+              if lo is None:
+                  raise ValueError('MISSING_MINIMUM')
+              start = max(1, int(lo.to_integral_value(rounding=ROUND_CEILING)))
+              end = None if hi is None else int(hi.to_integral_value(rounding=ROUND_CEILING)) - 1
+              if end is not None and end < start:
+                  raise ValueError('EMPTY_INTEGER_RANGE')
+              return start, end
+          
+          
+          def normalize_schedule(records):
+              """Do not invent bands or fill missing prices. Duplicate identical joins collapse."""
+              output = []
+              seen = {}
+              for record in records:
+                  amount = decimal_value(record['price'])
+                  if amount is None:
+                      raise ValueError('MISSING_PRICE')
+                  lo, hi = integer_range(record['min'], record['max'])
+                  key = (lo, hi)
+                  if key in seen:
+                      if seen[key] != amount:
+                          raise ValueError('CONFLICTING_DUPLICATE_PRICE')
+                      continue
+                  seen[key] = amount
+                  output.append({'min': lo, 'max': hi, 'price': amount})
+              output.sort(key=lambda r: r['min'])
+              for previous, current in zip(output, output[1:]):
+                  if previous['max'] is None or current['min'] <= previous['max']:
+                      raise ValueError('OVERLAPPING_BANDS')
+              return output
+          
+          
+          def covers(row, quantity):
+              return row['min'] <= quantity and (row['max'] is None or quantity <= row['max'])
+          
+          
+          def compare_schedule(schedule, existing):
+              """Compare prices at the start of every intersection; report counts, never prices."""
+              old = [{'min': max(1, r['quantityMin']), 'max': r.get('quantityMax'),
+                      'price': decimal_value(r.get('sellingPrice'))} for r in existing]
+              cuts = sorted({r['min'] for r in schedule + old} |
+                            {r['max'] + 1 for r in schedule + old if r['max'] is not None})
+              compared = equal = ambiguous = 0
+              for quantity in cuts:
+                  current = [r for r in schedule if covers(r, quantity)]
+                  previous = [r for r in old if covers(r, quantity)]
+                  if len(current) > 1 or len(previous) > 1:
+                      ambiguous += 1
+                      continue
+                  if len(current) == len(previous) == 1 and previous[0]['price'] is not None:
+                      compared += 1
+                      equal += abs(current[0]['price'] - previous[0]['price']) <= Decimal('0.000000001')
+              return {'comparisons': compared, 'equal': equal, 'different': compared - equal,
+                      'ambiguous_intersections': ambiguous}
+          
+          
+          def values(parent, field):
+              return parent.findall('b:' + field + '/c:searchValue', NS)
+          
+          
+          def scalar(parent, field):
+              found = values(parent, field)
+              return found[0].text if found else None
+          
+          
+          def refid(parent, field):
+              found = values(parent, field)
+              return found[0].get('internalId') if found else None
+          
+          
+          def read_references(pairs, credentials):
+              result = {}
+              for offset in range(0, len(pairs), 50):
+                  chunk = pairs[offset:offset + 50]
+                  refs = ''.join('<m:baseRef xsi:type="c:RecordRef" type="' + kind + '" internalId="' + escape(identifier, {'"': '&quot;'}) + '"/>' for kind, identifier in chunk)
+                  root = call('getList', '<m:getList>' + refs + '</m:getList>', credentials, allow_partial=True)
+                  for record in root.iter():
+                      if record.tag.split('}')[-1] != 'record':
+                          continue
+                      kind = record.get('{' + NS['xsi'] + '}type', '').split(':')[-1]
+                      kind = kind[0].lower() + kind[1:] if kind else ''
+                      result[(kind, record.get('internalId'))] = record
+              return result
+          
+          
           def main():
-              names = ['NETSUITE_ACCOUNT_ID', 'NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_SECRET',
-                       'NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_SECRET']
+              names = ['NETSUITE_ACCOUNT_ID', 'NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_SECRET', 'NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_SECRET']
               credentials = tuple(os.environ.get(name, '').strip() for name in names)
-              missing = [name for name, value in zip(names, credentials) if not value]
-              if missing:
-                  report('configuration', ok=False, missing=missing)
+              if not all(credentials) or not re.fullmatch(r'\d+', credentials[0]):
+                  report('configuration', ok=False)
                   return 1
-              if not re.fullmatch(r'\d+', credentials[0]):
-                  report('configuration', ok=False, error='EXPECTED_PRODUCTION_ACCOUNT_NUMBER')
-                  return 1
-              root = call('getServerTime', '<m:getServerTime/>', credentials)
-              if root.find('.//c:serverTime', NS) is None:
-                  report('authentication', ok=False, error='UNEXPECTED_TIME_RESPONSE')
-                  return 1
-              report('authentication', ok=True)
-              skus = ['CTC-011', 'CTC-007', 'CRD-012', 'CTC-024', 'LIC-009', 'CTW-009']
-              template_starts = [0, 5000, 10000, 25000, 50000, 100000, 250000, 500000]
-              csv_starts = [20, 1000, 5000, 10000, 25000, 50000, 100000, 250000, 500000, 700000, 1000000, 1500000]
-              for index, sku in enumerate(skus):
+              roots = []
+              references = set()
+              for sku in SKUS:
                   root = call('search', SEARCH.replace('CTC-007', sku), credentials)
-                  rows = root.findall('.//c:searchRow', NS)
-                  pricing = [j for row in rows for j in row.findall('a:pricingJoin', NS)]
-                  populated = lambda j, field: bool(j.findall('b:' + field + '/c:searchValue', NS))
-                  fields = ['currency', 'maximumQuantity', 'minimumQuantity', 'priceLevel', 'saleUnit', 'unitPrice']
-                  present = {field: any(populated(j, field) for j in pricing) for field in fields}
-                  minimums = set()
-                  numeric_prices = []
-                  for j in pricing:
-                      value = j.findtext('b:minimumQuantity/c:searchValue', namespaces=NS)
-                      if value is not None:
-                          minimums.add(float(value))
-                      value = j.findtext('b:unitPrice/c:searchValue', namespaces=NS)
-                      if value is not None:
-                          numeric_prices.append(float(value))
-                  basics = [j for row in rows for j in row.findall('a:basic', NS)]
-                  costs_present = {field: any(populated(j, field) for j in basics)
-                                   for field in ['averageCost', 'cost', 'lastPurchasePrice']}
-                  # Only availability flags and counts are logged; no record IDs, prices,
-                  # costs, raw responses, encrypted payloads, or downloadable data artifacts.
-                  report('item_check', index=index + 1, item_found=bool(rows),
-                         pricing_found=bool(numeric_prices), fields_present=present,
-                         prices_numeric_nonnegative=bool(numeric_prices) and all(v >= 0 for v in numeric_prices),
-                         quantity_band_count=len(minimums),
-                         template_start_present=[q in minimums for q in template_starts],
-                         csv_start_present=[q in minimums for q in csv_starts],
-                         additional_to_template=bool(minimums - set(template_starts)),
-                         cost_fields_populated=costs_present,
-                         complete_first_page=root.findtext('.//c:totalPages', namespaces=NS) == '1')
+                  if root.findtext('.//c:totalPages', namespaces=NS) not in ['0', '1']:
+                      report('mapping', ok=False, error='INCOMPLETE_RESPONSE')
+                      return 1
+                  roots.append(root)
+                  for row in root.findall('.//c:searchRow', NS):
+                      for node in row.findall('a:pricingJoin', NS):
+                          for field in ['priceLevel', 'currency']:
+                              identifier = refid(node, field)
+                              if identifier: references.add((field, identifier))
+                      for node in row.findall('a:basic', NS):
+                          identifier = refid(node, 'unitsType')
+                          if identifier: references.add(('unitsType', identifier))
                   time.sleep(0.3)
-              report('complete', items_checked=len(skus), website_updated=False)
+              refs = read_references(sorted(references), credentials)
+              report('reference_resolution', complete=all(pair in refs for pair in references))
+              # Public, pinned baseline only. No credentials accompany this GitHub request.
+              url = 'https://raw.githubusercontent.com/zix-b/EMEA-Cards-Margins/09463f49097a165d2937815d6d5f77f049fd0d12/pricing-data.json'
+              with urllib.request.build_opener(NoRedirect()).open(url, timeout=30) as response:
+                  baseline = json.loads(response.read(2_000_000))
+              for index, (sku, root) in enumerate(zip(SKUS, roots), 1):
+                  groups = {}
+                  basics = [b for row in root.findall('.//c:searchRow', NS) for b in row.findall('a:basic', NS)]
+                  each_units = set()
+                  for basic in basics:
+                      units = refs.get(('unitsType', refid(basic, 'unitsType')))
+                      if units is not None:
+                          for uom in units.findall('a:uomList/a:uom', NS):
+                              name = label_key(uom.findtext('a:unitName', namespaces=NS))
+                              abbrev = label_key(uom.findtext('a:abbreviation', namespaces=NS))
+                              rate = uom.findtext('a:conversionRate', namespaces=NS)
+                              if (name == 'each' or abbrev == 'ea') and decimal_value(rate) == Decimal(1):
+                                  each_units.add(uom.findtext('a:internalId', namespaces=NS))
+                  for row in root.findall('.//c:searchRow', NS):
+                      for node in row.findall('a:pricingJoin', NS):
+                          if scalar(node, 'unitPrice') is None: continue
+                          key = (refid(node, 'priceLevel'), refid(node, 'currency'), refid(node, 'saleUnit'))
+                          groups.setdefault(key, []).append({'min': scalar(node, 'minimumQuantity'), 'max': scalar(node, 'maximumQuantity'), 'price': scalar(node, 'unitPrice')})
+                  candidates = []
+                  unresolved = non_usd = non_each = unknown_labels = 0
+                  for (level_id, currency_id, unit_id), records in groups.items():
+                      level = refs.get(('priceLevel', level_id))
+                      currency = refs.get(('currency', currency_id))
+                      if level is None or currency is None:
+                          unresolved += 1
+                          continue
+                      if currency.findtext('a:symbol', namespaces=NS) != 'USD':
+                          non_usd += 1
+                          continue
+                      if unit_id not in each_units:
+                          non_each += 1
+                          continue
+                      name = level.findtext('a:name', namespaces=NS)
+                      candidate = next((c for c in CANDIDATES if label_key(c) == label_key(name)), None)
+                      if candidate is None:
+                          unknown_labels += 1
+                          continue
+                      try:
+                          schedule = normalize_schedule(records)
+                          gaps = sum(p['max'] is not None and n['min'] > p['max'] + 1 for p,n in zip(schedule, schedule[1:]))
+                          checks = {'candidate': candidate, 'valid_ranges': True, 'band_count': len(schedule),
+                                    'starts_at_one': schedule[0]['min'] == 1, 'open_final_band': schedule[-1]['max'] is None,
+                                    'gap_count': gaps, 'existing_tier_comparison': {tier: compare_schedule(schedule, [r for r in baseline['rows'] if r['sku'] == sku and r['tier'] == tier]) for tier in TIERS}}
+                      except (ValueError, InvalidOperation):
+                          checks = {'candidate': candidate, 'valid_ranges': False}
+                      candidates.append(checks)
+                  report('mapping', index=index, usd_each_candidates=candidates,
+                         unresolved_reference_groups=unresolved, non_usd_groups=non_usd,
+                         unresolved_or_non_each_groups=non_each, other_price_level_groups=unknown_labels,
+                         supplier_fields_present={field: any(scalar(b, field) is not None for b in basics) for field in ['vendorCost','vendorCostEntered','vendorPriceCurrency']},
+                         supplier_schedule_present=any(refid(b, 'vendorSchedule') for b in basics),
+                         existing_cost_bands_available=any(c['sku'] == sku for c in baseline['costBands']))
+              report('complete', items_checked=len(SKUS), live_data_changed=False)
               return 0
-          
-          
           
           if __name__ == '__main__':
               try:
                   sys.exit(main())
               except Exception:
-                  # Do not print exception details: they could contain request/response data.
-                  report('probe', ok=False, error='TRANSPORT_OR_RESPONSE_ERROR')
+                  report('mapping', ok=False, error='TRANSPORT_OR_RESPONSE_ERROR')
                   sys.exit(1)
           PY_PROBE
