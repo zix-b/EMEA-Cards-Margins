@@ -1,359 +1,41 @@
-name: Read-only NetSuite pricing diagnostic
+name: Prepare verified NetSuite pricing snapshot
 on:
   push:
     branches: [investigate/netsuite-readonly-20261005]
-    paths: [.github/workflows/netsuite-readonly.yml]
-permissions: {}
+    paths: [.github/workflows/netsuite-readonly.yml, scripts/netsuite_sync.py, tests/netsuite_test.py]
+permissions:
+  contents: write
+concurrency:
+  group: netsuite-snapshot
+  cancel-in-progress: false
 jobs:
-  probe:
+  prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
-      - name: Verify candidate price-level mappings and preserve native ranges
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check cost preservation and range conversion
+        run: python3 tests/netsuite_test.py
+      - name: Read verified USD-per-Each selling prices
         env:
           NETSUITE_ACCOUNT_ID: ${{ secrets.NETSUITE_ACCOUNT_ID }}
           NETSUITE_CONSUMER_KEY: ${{ secrets.NETSUITE_CONSUMER_KEY }}
           NETSUITE_CONSUMER_SECRET: ${{ secrets.NETSUITE_CONSUMER_SECRET }}
           NETSUITE_TOKEN_ID: ${{ secrets.NETSUITE_TOKEN_ID }}
           NETSUITE_TOKEN_SECRET: ${{ secrets.NETSUITE_TOKEN_SECRET }}
-        shell: bash
+        run: python3 scripts/netsuite_sync.py
+      - name: Test updated calculator and all admin functions
+        run: node --test tests/*.test.mjs
+      - name: Save validated snapshot for production review
         run: |
-          python3 - <<'PY_PROBE'
-          """Read-only CTC-007 SOAP probe. Never prints credentials or returned prices."""
-          import base64
-          import hashlib
-          import hmac
-          import json
-          import os
-          import re
-          import secrets
-          import sys
-          import time
-          import urllib.error
-          import urllib.request
-          import xml.etree.ElementTree as ET
-          from xml.sax.saxutils import escape
-          
-          VERSION = '2024_2'
-          NS = {
-              'soap': 'http://schemas.xmlsoap.org/soap/envelope/',
-              'm': f'urn:messages_{VERSION}.platform.webservices.netsuite.com',
-              'c': f'urn:core_{VERSION}.platform.webservices.netsuite.com',
-              'b': f'urn:common_{VERSION}.platform.webservices.netsuite.com',
-              'a': f'urn:accounting_{VERSION}.lists.webservices.netsuite.com',
-              'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-          }
-          
-          
-          class NoRedirect(urllib.request.HTTPRedirectHandler):
-              def redirect_request(self, *args, **kwargs):
-                  raise RuntimeError('REDIRECT_BLOCKED')
-          
-          
-          def envelope(body, credentials, now=None, nonce=None):
-              account, consumer, consumer_secret, token, token_secret = credentials
-              stamp = str(int(time.time()) if now is None else now)
-              nonce = nonce or secrets.token_hex(16)
-              base = '&'.join([account, consumer, token, nonce, stamp])
-              key = consumer_secret + '&' + token_secret
-              signature = base64.b64encode(hmac.new(key.encode(), base.encode(), hashlib.sha256).digest()).decode()
-              auth = ''.join(f'<c:{name}>{escape(value)}</c:{name}>' for name, value in
-                             [('account', account), ('consumerKey', consumer), ('token', token),
-                              ('nonce', nonce), ('timestamp', stamp)])
-              declarations = ' '.join(f'xmlns:{prefix}="{uri}"' for prefix, uri in NS.items())
-              return (f'<soap:Envelope {declarations}><soap:Header><m:tokenPassport>{auth}'
-                      f'<c:signature algorithm="HMAC_SHA256">{signature}</c:signature></m:tokenPassport>'
-                      '<m:searchPreferences><m:bodyFieldsOnly>false</m:bodyFieldsOnly>'
-                      '<m:returnSearchColumns>true</m:returnSearchColumns><m:pageSize>1000</m:pageSize>'
-                      f'</m:searchPreferences></soap:Header><soap:Body>{body}</soap:Body></soap:Envelope>').encode()
-          
-          
-          SEARCH = '''<m:search><m:searchRecord xsi:type="a:ItemSearchAdvanced">
-            <a:criteria><a:basic><b:itemId operator="is"><c:searchValue>CTC-007</c:searchValue></b:itemId></a:basic></a:criteria>
-            <a:columns>
-              <a:basic><b:averageCost/><b:cost/><b:displayName/><b:internalId/><b:itemId/><b:lastPurchasePrice/><b:purchaseUnit/><b:type/><b:unitsType/><b:vendorCost/><b:vendorCostEntered/><b:vendorPriceCurrency/><b:vendorSchedule/></a:basic>
-              <a:pricingJoin><b:currency/><b:maximumQuantity/><b:minimumQuantity/><b:priceLevel/><b:saleUnit/><b:unitPrice/></a:pricingJoin>
-            </a:columns>
-          </m:searchRecord></m:search>'''
-          
-          
-          def report(stage, **fields):
-              print(json.dumps({'stage': stage, **fields}), flush=True)
-          
-          
-          def call(operation, body, credentials, allow_partial=False):
-              # Domain is fixed to NetSuite, account ID must be digits; never follow redirects.
-              url = f'https://{credentials[0]}.suitetalk.api.netsuite.com/services/NetSuitePort_{VERSION}'
-              request = urllib.request.Request(url, data=envelope(body, credentials), method='POST',
-                                              headers={'Content-Type': 'text/xml; charset=utf-8', 'SOAPAction': operation})
-              opener = urllib.request.build_opener(NoRedirect())
-              try:
-                  response = opener.open(request, timeout=40)
-              except urllib.error.HTTPError as error:
-                  response = error
-              with response:
-                  raw = response.read(2_000_001)
-              if len(raw) > 2_000_000:
-                  raise RuntimeError('RESPONSE_LIMIT')
-              root = ET.fromstring(raw)
-              if root.find('.//soap:Fault', NS) is not None:
-                  known = {'INVALID_LOGIN', 'INVALID_LOGIN_ATTEMPT', 'INSUFFICIENT_PERMISSION',
-                           'INVALID_VERSION', 'INVALID_CREDENTIALS', 'EXCEEDED_REQUEST_LIMIT',
-                           'EXCEEDED_CONCURRENT_REQUEST_LIMIT'}
-                  codes = [e.text for e in root.iter() if e.tag.split('}')[-1] == 'code' and e.text in known]
-                  report(operation, ok=False, error=codes[0] if codes else 'SOAP_FAULT')
-                  raise SystemExit(1)
-              for status in root.findall('.//c:status', NS):
-                  if status.get('isSuccess') != 'true' and not allow_partial:
-                      report(operation, ok=False, error='NETSUITE_STATUS_ERROR')
-                      raise SystemExit(1)
-              return root
-          
-          
-          
-          """Pure checks for a read-only NetSuite pricing mapping investigation."""
-          from decimal import Decimal, InvalidOperation, ROUND_CEILING
-          
-          SKUS = ['CTC-011', 'CTC-007', 'CRD-012', 'CTC-024', 'LIC-009', 'CTW-009']
-          TIERS = ['Standard Price (EMEA License)', 'Base Price (EMEA Premium)',
-                   'Distributor Price (EMEA)', 'EMEA Strategic Account (Magic Planet)']
-          # These are labels already supplied by the user or present in the public site.
-          # Candidate matches are evidence, not permission to substitute one tier for another.
-          CANDIDATES = ['EMEA License Customers', 'Base', 'Distributor', 'Strategic Partnership',
-                        'EMEA Strategic Account (Magic Planet)', 'EMEA Strategic Account (MAF)',
-                        'EMEA Magic Planet', 'Magic Planet', 'MAF', 'EMEA Distributor (BN)',
-                        'EMEA License', 'EMEA Base', 'EMEA Premier', 'EMEA Premium',
-                        'Standard Price (EMEA License)', 'Base Price (EMEA Premium)',
-                        'Distributor Price (EMEA)']
-          
-          
-          def label_key(value):
-              return ' '.join((value or '').casefold().split())
-          
-          
-          def decimal_value(value):
-              if value is None or str(value).strip() == '':
-                  return None
-              number = Decimal(str(value))
-              if not number.is_finite() or number < 0:
-                  raise ValueError('INVALID_NONNEGATIVE_NUMBER')
-              return number
-          
-          
-          def integer_range(minimum, maximum):
-              """NetSuite uses an exclusive maximum; the website uses inclusive integers."""
-              lo = decimal_value(minimum)
-              hi = decimal_value(maximum)
-              if lo is None:
-                  raise ValueError('MISSING_MINIMUM')
-              start = max(1, int(lo.to_integral_value(rounding=ROUND_CEILING)))
-              end = None if hi is None else int(hi.to_integral_value(rounding=ROUND_CEILING)) - 1
-              if end is not None and end < start:
-                  raise ValueError('EMPTY_INTEGER_RANGE')
-              return start, end
-          
-          
-          def normalize_schedule(records):
-              """Do not invent bands or fill missing prices. Duplicate identical joins collapse."""
-              output = []
-              seen = {}
-              for record in records:
-                  amount = decimal_value(record['price'])
-                  if amount is None:
-                      raise ValueError('MISSING_PRICE')
-                  lo, hi = integer_range(record['min'], record['max'])
-                  key = (lo, hi)
-                  if key in seen:
-                      if seen[key] != amount:
-                          raise ValueError('CONFLICTING_DUPLICATE_PRICE')
-                      continue
-                  seen[key] = amount
-                  output.append({'min': lo, 'max': hi, 'price': amount})
-              output.sort(key=lambda r: r['min'])
-              for previous, current in zip(output, output[1:]):
-                  if previous['max'] is None or current['min'] <= previous['max']:
-                      raise ValueError('OVERLAPPING_BANDS')
-              return output
-          
-          
-          def covers(row, quantity):
-              return row['min'] <= quantity and (row['max'] is None or quantity <= row['max'])
-          
-          
-          def compare_schedule(schedule, existing):
-              """Compare prices at the start of every intersection; report counts, never prices."""
-              old = [{'min': max(1, r['quantityMin']), 'max': r.get('quantityMax'),
-                      'price': decimal_value(r.get('sellingPrice'))} for r in existing]
-              cuts = sorted({r['min'] for r in schedule + old} |
-                            {r['max'] + 1 for r in schedule + old if r['max'] is not None})
-              compared = equal = ambiguous = 0
-              for quantity in cuts:
-                  current = [r for r in schedule if covers(r, quantity)]
-                  previous = [r for r in old if covers(r, quantity)]
-                  if len(current) > 1 or len(previous) > 1:
-                      ambiguous += 1
-                      continue
-                  if len(current) == len(previous) == 1 and previous[0]['price'] is not None:
-                      compared += 1
-                      equal += abs(current[0]['price'] - previous[0]['price']) <= Decimal('0.000000001')
-              return {'comparisons': compared, 'equal': equal, 'different': compared - equal,
-                      'ambiguous_intersections': ambiguous}
-          
-          
-          def values(parent, field):
-              return parent.findall('b:' + field + '/c:searchValue', NS)
-          
-          
-          def scalar(parent, field):
-              found = values(parent, field)
-              return found[0].text if found else None
-          
-          
-          def refid(parent, field):
-              found = values(parent, field)
-              return found[0].get('internalId') if found else None
-          
-          
-          def read_references(pairs, credentials):
-              result = {}
-              for offset in range(0, len(pairs), 50):
-                  chunk = pairs[offset:offset + 50]
-                  refs = ''.join('<m:baseRef xsi:type="c:RecordRef" type="' + kind + '" internalId="' + escape(identifier, {'"': '&quot;'}) + '"/>' for kind, identifier in chunk)
-                  root = call('getList', '<m:getList>' + refs + '</m:getList>', credentials, allow_partial=True)
-                  for record in root.iter():
-                      if record.tag.split('}')[-1] != 'record':
-                          continue
-                      kind = record.get('{' + NS['xsi'] + '}type', '').split(':')[-1]
-                      kind = kind[0].lower() + kind[1:] if kind else ''
-                      result[(kind, record.get('internalId'))] = record
-              return result
-          
-          
-          def main():
-              names = ['NETSUITE_ACCOUNT_ID', 'NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_SECRET', 'NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_SECRET']
-              credentials = tuple(os.environ.get(name, '').strip() for name in names)
-              if not all(credentials) or not re.fullmatch(r'\d+', credentials[0]):
-                  report('configuration', ok=False)
-                  return 1
-              roots = []
-              references = set()
-              for sku in SKUS:
-                  root = call('search', SEARCH.replace('CTC-007', sku), credentials)
-                  if root.findtext('.//c:totalPages', namespaces=NS) not in ['0', '1']:
-                      report('mapping', ok=False, error='INCOMPLETE_RESPONSE')
-                      return 1
-                  roots.append(root)
-                  for row in root.findall('.//c:searchRow', NS):
-                      for node in row.findall('a:pricingJoin', NS):
-                          for field in ['priceLevel', 'currency']:
-                              identifier = refid(node, field)
-                              if identifier: references.add((field, identifier))
-                      for node in row.findall('a:basic', NS):
-                          identifier = refid(node, 'unitsType')
-                          if identifier: references.add(('unitsType', identifier))
-                          item_id = refid(node, 'internalId')
-                          item_type = (scalar(node, 'type') or '').lstrip('_')
-                          if item_id and item_type in ['inventoryItem','nonInventorySaleItem','nonInventoryResaleItem','serviceSaleItem','serviceResaleItem','otherChargeSaleItem','otherChargeResaleItem']:
-                              references.add((item_type, item_id))
-                  time.sleep(0.3)
-              refs = read_references(sorted(references), credentials)
-              report('reference_resolution', complete=all(pair in refs for pair in references))
-              # Public, pinned baseline only. No credentials accompany this GitHub request.
-              url = 'https://raw.githubusercontent.com/zix-b/EMEA-Cards-Margins/09463f49097a165d2937815d6d5f77f049fd0d12/pricing-data.json'
-              with urllib.request.build_opener(NoRedirect()).open(url, timeout=30) as response:
-                  baseline = json.loads(response.read(2_000_000))
-              for index, (sku, root) in enumerate(zip(SKUS, roots), 1):
-                  groups = {}
-                  basics = [b for row in root.findall('.//c:searchRow', NS) for b in row.findall('a:basic', NS)]
-                  each_units = set()
-                  each_names = set()
-                  uom_count = 0
-                  for basic in basics:
-                      units = refs.get(('unitsType', refid(basic, 'unitsType')))
-                      if units is not None:
-                          for uom in units.findall('a:uomList/a:uom', NS):
-                              uom_count += 1
-                              name = label_key(uom.findtext('a:unitName', namespaces=NS))
-                              abbrev = label_key(uom.findtext('a:abbreviation', namespaces=NS))
-                              rate = uom.findtext('a:conversionRate', namespaces=NS)
-                              if (name in ['each','ea'] or abbrev in ['each','ea']) and decimal_value(rate) == Decimal(1):
-                                  identifier = uom.findtext('a:internalId', namespaces=NS) or uom.get('internalId')
-                                  if identifier: each_units.add(identifier)
-                                  each_names.update(n for n in [name, abbrev] if n)
-                  item_records = []
-                  for basic in basics:
-                      pair = ((scalar(basic, 'type') or '').lstrip('_'), refid(basic, 'internalId'))
-                      record = refs.get(pair)
-                      if record is not None and record not in item_records: item_records.append(record)
-                  if not item_records:
-                      body = '<m:search><m:searchRecord xsi:type="a:ItemSearch"><a:basic><b:itemId operator="is"><c:searchValue>' + escape(sku) + '</c:searchValue></b:itemId></a:basic></m:searchRecord></m:search>'
-                      full = call('search', body, credentials)
-                      item_records = full.findall('.//c:record', NS)
-                  matrix_present = False
-                  matrix_unit_verified = False
-                  for item in item_records:
-                      unit_ref = item.find('a:saleUnit', NS)
-                      unit_id = unit_ref.get('internalId') if unit_ref is not None else None
-                      unit_name = label_key(unit_ref.findtext('c:name', namespaces=NS)) if unit_ref is not None else ''
-                      unit_verified = unit_id in each_units or unit_name in each_names
-                      matrix_unit_verified = matrix_unit_verified or unit_verified
-                      for pricing in item.findall('a:pricingMatrix/a:pricing', NS):
-                          matrix_present = True
-                          level_ref = pricing.find('a:priceLevel', NS)
-                          currency_ref = pricing.find('a:currency', NS)
-                          if level_ref is None or currency_ref is None: continue
-                          records = []
-                          for price in pricing.findall('a:priceList/a:price', NS):
-                              amount = price.findtext('a:value', namespaces=NS)
-                              quantity = price.findtext('a:quantity', namespaces=NS)
-                              if amount is not None and quantity is not None: records.append({'min': quantity, 'price': amount})
-                          records.sort(key=lambda r: decimal_value(r['min']))
-                          for i, record in enumerate(records): record['max'] = records[i+1]['min'] if i+1<len(records) else None
-                          if records:
-                              key = (level_ref.get('internalId'), currency_ref.get('internalId'), unit_id, unit_name)
-                              groups[key] = records
-                  candidates = []
-                  unresolved = non_usd = non_each = unknown_labels = 0
-                  for (level_id, currency_id, unit_id, unit_name), records in groups.items():
-                      level = refs.get(('priceLevel', level_id))
-                      currency = refs.get(('currency', currency_id))
-                      if level is None or currency is None:
-                          unresolved += 1
-                          continue
-                      if currency.findtext('a:symbol', namespaces=NS) != 'USD':
-                          non_usd += 1
-                          continue
-                      if unit_id not in each_units and unit_name not in each_names:
-                          non_each += 1
-                          continue
-                      name = level.findtext('a:name', namespaces=NS)
-                      candidate = next((c for c in CANDIDATES if label_key(c) == label_key(name)), None)
-                      if candidate is None:
-                          unknown_labels += 1
-                          continue
-                      try:
-                          schedule = normalize_schedule(records)
-                          gaps = sum(p['max'] is not None and n['min'] > p['max'] + 1 for p,n in zip(schedule, schedule[1:]))
-                          checks = {'candidate': candidate, 'valid_ranges': True, 'band_count': len(schedule),
-                                    'starts_at_one': schedule[0]['min'] == 1, 'open_final_band': schedule[-1]['max'] is None,
-                                    'gap_count': gaps, 'existing_tier_comparison': {tier: compare_schedule(schedule, [r for r in baseline['rows'] if r['sku'] == sku and r['tier'] == tier]) for tier in TIERS}}
-                      except (ValueError, InvalidOperation):
-                          checks = {'candidate': candidate, 'valid_ranges': False}
-                      candidates.append(checks)
-                  report('mapping', index=index, usd_each_candidates=candidates,
-                         matrix_present=matrix_present, matrix_unit_verified=matrix_unit_verified, unit_definitions_seen=uom_count, each_unit_verified=bool(each_names), sale_units_have_ids=all(k[2] is not None for k in groups), sale_units_have_names=all(bool(k[3]) for k in groups),
-                         unresolved_reference_groups=unresolved, non_usd_groups=non_usd,
-                         unresolved_or_non_each_groups=non_each, other_price_level_groups=unknown_labels,
-                         supplier_fields_present={field: any(scalar(b, field) is not None for b in basics) for field in ['vendorCost','vendorCostEntered','vendorPriceCurrency']},
-                         supplier_schedule_present=any(refid(b, 'vendorSchedule') for b in basics),
-                         existing_cost_bands_available=any(c['sku'] == sku for c in baseline['costBands']))
-              report('complete', items_checked=len(SKUS), live_data_changed=False)
-              return 0
-          
-          if __name__ == '__main__':
-              try:
-                  sys.exit(main())
-              except Exception:
-                  report('mapping', ok=False, error='TRANSPORT_OR_RESPONSE_ERROR')
-                  sys.exit(1)
-          PY_PROBE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pricing-data.json pricing-data.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Prepare verified NetSuite selling prices; retain existing costs and MAF'
+          git push origin HEAD:investigate/netsuite-readonly-20261005
