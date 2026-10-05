@@ -251,6 +251,10 @@ jobs:
                       for node in row.findall('a:basic', NS):
                           identifier = refid(node, 'unitsType')
                           if identifier: references.add(('unitsType', identifier))
+                          item_id = refid(node, 'internalId')
+                          item_type = (scalar(node, 'type') or '').lstrip('_')
+                          if item_id and item_type in ['inventoryItem','nonInventorySaleItem','nonInventoryResaleItem','serviceSaleItem','serviceResaleItem','otherChargeSaleItem','otherChargeResaleItem']:
+                              references.add((item_type, item_id))
                   time.sleep(0.3)
               refs = read_references(sorted(references), credentials)
               report('reference_resolution', complete=all(pair in refs for pair in references))
@@ -276,13 +280,34 @@ jobs:
                                   identifier = uom.findtext('a:internalId', namespaces=NS) or uom.get('internalId')
                                   if identifier: each_units.add(identifier)
                                   each_names.update(n for n in [name, abbrev] if n)
-                  for row in root.findall('.//c:searchRow', NS):
-                      for node in row.findall('a:pricingJoin', NS):
-                          if scalar(node, 'unitPrice') is None: continue
-                          unit_values = values(node, 'saleUnit')
-                          unit_name = label_key(unit_values[0].findtext('c:name', namespaces=NS)) if unit_values else ''
-                          key = (refid(node, 'priceLevel'), refid(node, 'currency'), refid(node, 'saleUnit'), unit_name)
-                          groups.setdefault(key, []).append({'min': scalar(node, 'minimumQuantity'), 'max': scalar(node, 'maximumQuantity'), 'price': scalar(node, 'unitPrice')})
+                  item_records = []
+                  for basic in basics:
+                      pair = ((scalar(basic, 'type') or '').lstrip('_'), refid(basic, 'internalId'))
+                      record = refs.get(pair)
+                      if record is not None and record not in item_records: item_records.append(record)
+                  matrix_present = False
+                  matrix_unit_verified = False
+                  for item in item_records:
+                      unit_ref = item.find('a:saleUnit', NS)
+                      unit_id = unit_ref.get('internalId') if unit_ref is not None else None
+                      unit_name = label_key(unit_ref.findtext('c:name', namespaces=NS)) if unit_ref is not None else ''
+                      unit_verified = unit_id in each_units or unit_name in each_names
+                      matrix_unit_verified = matrix_unit_verified or unit_verified
+                      for pricing in item.findall('a:pricingMatrix/a:pricing', NS):
+                          matrix_present = True
+                          level_ref = pricing.find('a:priceLevel', NS)
+                          currency_ref = pricing.find('a:currency', NS)
+                          if level_ref is None or currency_ref is None: continue
+                          records = []
+                          for price in pricing.findall('a:priceList/a:price', NS):
+                              amount = price.findtext('a:value', namespaces=NS)
+                              quantity = price.findtext('a:quantity', namespaces=NS)
+                              if amount is not None and quantity is not None: records.append({'min': quantity, 'price': amount})
+                          records.sort(key=lambda r: decimal_value(r['min']))
+                          for i, record in enumerate(records): record['max'] = records[i+1]['min'] if i+1<len(records) else None
+                          if records:
+                              key = (level_ref.get('internalId'), currency_ref.get('internalId'), unit_id, unit_name)
+                              groups[key] = records
                   candidates = []
                   unresolved = non_usd = non_each = unknown_labels = 0
                   for (level_id, currency_id, unit_id, unit_name), records in groups.items():
@@ -312,7 +337,7 @@ jobs:
                           checks = {'candidate': candidate, 'valid_ranges': False}
                       candidates.append(checks)
                   report('mapping', index=index, usd_each_candidates=candidates,
-                         unit_definitions_seen=uom_count, each_unit_verified=bool(each_names), sale_units_have_ids=all(k[2] is not None for k in groups), sale_units_have_names=all(bool(k[3]) for k in groups),
+                         matrix_present=matrix_present, matrix_unit_verified=matrix_unit_verified, unit_definitions_seen=uom_count, each_unit_verified=bool(each_names), sale_units_have_ids=all(k[2] is not None for k in groups), sale_units_have_names=all(bool(k[3]) for k in groups),
                          unresolved_reference_groups=unresolved, non_usd_groups=non_usd,
                          unresolved_or_non_each_groups=non_each, other_price_level_groups=unknown_labels,
                          supplier_fields_present={field: any(scalar(b, field) is not None for b in basics) for field in ['vendorCost','vendorCostEntered','vendorPriceCurrency']},
