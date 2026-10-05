@@ -1,4 +1,5 @@
 const state = {
+  region: "EMEA",
   rows: [],
   costBands: [],
   filtered: [],
@@ -39,6 +40,26 @@ const tierOptions = [
   },
 ];
 
+const REGIONS=['EMEA','NASA','ROW'];
+function pricingRegion(record) {
+  const explicit=String(record.region||'').trim().toUpperCase();
+  if(explicit)return explicit==='USA'?'NASA':REGIONS.includes(explicit)?explicit:null;
+  const tier=String(record.tier||'');
+  if(/\bEMEA\b/i.test(tier))return 'EMEA';
+  if(/\b(?:NASA|USA)\b/i.test(tier))return 'NASA';
+  if(/\bROW\b/i.test(tier))return 'ROW';
+  return null;
+}
+function regionRows(){return state.rows.filter(row=>pricingRegion(row)===state.region);}
+function syncRegionControls(){
+  for(const region of REGIONS)document.querySelector(`#region${region}`).setAttribute('aria-pressed',String(region===state.region));
+  document.querySelector('#priceTypeLabel').textContent=`${state.region} price type`;
+}
+function changeRegion(region){
+  if(!REGIONS.includes(region)||region===state.region)return;
+  state.region=region;setData({rows:state.rows,costBands:state.costBands,cards:state.cards,generatedAt:state.generatedAt});
+}
+
 function money(value) {
   return Number.isFinite(value) ? currency.format(value) : "-";
 }
@@ -65,6 +86,8 @@ function findCostBand(sku, qty) {
   return (
     state.costBands.find((band) => {
       if (band.sku !== sku) return false;
+      // Legacy unscoped supplier bands are EMEA; NASA keeps its stored row costs.
+      if ((band.region ? pricingRegion(band) : 'EMEA') !== state.region) return false;
       const min = band.quantityMin ?? 0;
       const max = band.quantityMax;
       if (qty < min) return false;
@@ -116,7 +139,7 @@ function bandLabel(row) {
 }
 function renderRows(rows) {
   if (!rows.length) {
-    el.body.innerHTML = '<div class="empty">No applicable selling price for this quantity and price type.</div>';
+    el.body.innerHTML = regionRows().length ? '<div class="empty">No applicable selling price for this quantity and price type.</div>' : `<div class="empty">No ${state.region} pricing data available.</div>`;
     return;
   }
   el.body.innerHTML = rows.map(row => {
@@ -139,22 +162,26 @@ function applyFilters() {
   document.querySelector('#quantityError').textContent = valid ? '' : 'Enter a whole-number quantity between 1 and 1 trillion, or leave blank for all bands.';
   state.quantity = raw && valid ? qty : null;
   const products = el.product.options.length - 1;
-  document.querySelector('#cardPosition').textContent = product ? `${el.product.selectedIndex} of ${products} · ${product.split(' - ')[0]}` : `All ${products} cards`;
+  for(const id of ['previousCard','nextCard'])document.querySelector(`#${id}`).disabled=products===0;
+  document.querySelector('#cardPosition').textContent = products===0 ? `No cards for ${state.region}` : product ? `${el.product.selectedIndex} of ${products} · ${product.split(' - ')[0]}` : `All ${products} cards`;
   document.querySelector('#resultTitle').textContent = product ? 'Your quote' : 'All cards';
   if (!valid) { el.body.innerHTML=''; return; }
-  state.filtered = state.rows.filter(row => row.tier.includes('EMEA') && (!product || `${row.sku} - ${row.product}` === product) && (!tier || row.tier === tier) && inQuantityRange(row,state.quantity));
+  state.filtered = regionRows().filter(row => (!product || `${row.sku} - ${row.product}` === product) && (!tier || row.tier === tier) && inQuantityRange(row,state.quantity));
   renderRows(state.filtered);
 }
 function fillPriceTypes(selected=el.tier.value) {
-  const available=new Set(state.rows.filter(r=>r.tier.includes('EMEA')&&(!el.product.value||`${r.sku} - ${r.product}`===el.product.value)).map(r=>r.tier));
-  fillSelect(el.tier,tierOptions.filter(t=>available.has(t.value)),'All EMEA prices');
+  const available=new Set(regionRows().filter(r=>!el.product.value||`${r.sku} - ${r.product}`===el.product.value).map(r=>r.tier));
+  const known=tierOptions.filter(t=>available.has(t.value));
+  const additional=[...available].filter(value=>!known.some(t=>t.value===value)).sort().map(value=>({value,label:value}));
+  fillSelect(el.tier,[...known,...additional],`All ${state.region} prices`);
   el.tier.value=selected===''?'':available.has(selected)?selected:available.has('EMEA Base')?'EMEA Base':available.has('Base Price (EMEA Premium)')?'Base Price (EMEA Premium)':'';
 }
 function setData(data, initial=false) {
   if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
   const selected=el.product.value, selectedTier=el.tier.value;
-  state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];
-  const registered=[...new Map([...(data.cards||[]),...state.rows.filter(r=>r.tier.includes('EMEA'))].map(r=>[r.sku,r])).values()];
+  state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];state.cards=data.cards||[];state.generatedAt=data.generatedAt;
+  syncRegionControls();
+  const registered=[...new Map([...state.cards.filter(c=>(c.region?pricingRegion(c):'EMEA')===state.region),...regionRows()].map(r=>[r.sku,r])).values()];
   const products=uniqueSorted(registered.map(r=>({label:`${r.sku} - ${r.product}`})),'label');
   fillSelect(el.product,products,'All cards');
   el.product.value=initial ? products.find(p=>p.startsWith('CTC-007 - '))||'' : products.includes(selected)?selected:'';
@@ -187,6 +214,7 @@ function boot() {
   for(const input of [el.quantity,el.tier]) {
     input.addEventListener('input',applyFilters);input.addEventListener('change',applyFilters);
   }
+  for(const region of REGIONS)document.querySelector(`#region${region}`).addEventListener('click',()=>changeRegion(region));
   for(const event of ['input','change'])el.product.addEventListener(event,()=>{fillPriceTypes();applyFilters();});
   for(const [id,step] of [['previousCard',-1],['nextCard',1]])document.querySelector(`#${id}`).addEventListener('click',()=>{
     const count=el.product.options.length-1;if(!count)return;const i=el.product.selectedIndex;

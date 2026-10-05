@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><meta name="description" content="EMEA card pricing and margin calculator with approved pricing imports."><title>EMEA Cards Margins</title><link rel="stylesheet" href="styles.css?v=20261004-rebuild"></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><meta name="description" content="EMEA card pricing and margin calculator with approved pricing imports."><title>EMEA Cards Margins</title><link rel="stylesheet" href="styles.css?v=20261005-regions"></head>
 <body><main class="shell">
-<header class="topbar"><a class="brand" href="index.html">EMBED <span>Sales tools</span></a><nav><span class="pill">EMEA PRICING</span><a href="admin.html">Admin portal</a></nav></header>
-<section class="hero"><p class="eyebrow">Cards & wearables</p><h1>Find the right margin.</h1><p class="lede">Choose a card, enter a quantity and see the numbers for your EMEA price type.</p></section>
+<header class="topbar"><a class="brand" href="index.html">EMBED <span>Sales tools</span></a><nav><div class="region-switch" role="group" aria-label="Pricing region"><button id="regionEMEA" type="button" aria-pressed="true">EMEA</button><button id="regionNASA" type="button" aria-pressed="false">NASA</button><button id="regionROW" type="button" aria-pressed="false">ROW</button></div><a href="admin.html">Admin portal</a></nav></header>
+<section class="hero"><p class="eyebrow">Cards & wearables</p><h1>Find the right margin.</h1><p class="lede">Choose a card, enter a quantity and see the numbers for your selected region and price type.</p></section>
 <div id="dataNotice" class="notice" role="status">Loading pricing data…</div>
 <section class="controls" aria-label="Pricing controls">
 <label>Product<select id="productSelect" disabled><option>Loading products…</option></select></label>
 <label>Quantity<input id="quantityInput" type="number" inputmode="numeric" min="1" max="1000000000000" step="1" value="10000" aria-describedby="quantityError" placeholder="Blank for all quantity bands"></label>
-<label>EMEA price type<select id="tierSelect" disabled></select></label>
+<label><span id="priceTypeLabel">EMEA price type</span><select id="tierSelect" disabled></select></label>
 </section><p id="quantityError" class="error" aria-live="polite"></p>
 <nav class="card-switcher" aria-label="Switch cards"><button id="previousCard" type="button">Previous card</button><span id="cardPosition" aria-live="polite"></span><button id="nextCard" type="button">Next card</button></nav>
 <div class="section-heading"><h2 id="resultTitle">Your quote</h2><span>USD · per unit</span></div>
 <section id="resultsBody" class="results-list" aria-live="polite" aria-label="Pricing results"></section>
 <footer><span id="dataDate"></span><span>Sell and cost quantity bands are matched independently.</span></footer>
-</main><script src="pricing-data.js?v=20261005-sheet"></script><script src="app.js?v=20261005-sheet"></script></body></html>
+</main><script src="pricing-data.js?v=20261005-sheet"></script><script src="app.js?v=20261005-regions"></script></body></html>
