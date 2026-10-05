@@ -3,6 +3,11 @@ run-name: NetSuite preview ${{ inputs.request_id }}
 on:
   workflow_dispatch:
     inputs:
+      approve_public_preview:
+        description: I approve publishing these NetSuite selling prices in the public repository and website
+        required: true
+        default: false
+        type: boolean
       request_id:
         description: Preview request ID (letters, digits and hyphens)
         required: true
@@ -17,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   preview:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && inputs.approve_public_preview
     runs-on: ubuntu-latest
     environment:
       name: github-pages

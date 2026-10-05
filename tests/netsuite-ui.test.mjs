@@ -8,7 +8,7 @@ const data={rows:[{sku:'CTC-007',product:'Card',tier:'EMEA Base',quantityMin:1,q
 const preview={version:1,currency:'USD',unit:'Each',fetchedAt:'2026-10-05T12:00:00Z',rows:[{sku:'CTC-007',level:'Base',quantityMin:1,quantityMax:null,sellingPrice:.5}]};
 const repo={read:async()=>({sha:'original',data}),api:async(path,opt)=>{if(opt){dispatch++;assert.equal(opt.body.ref,'main');return null;}return {content:Buffer.from(JSON.stringify(preview)).toString('base64')};},publish:async(base,next)=>{published++;assert.equal(base.sha,'original');assert.equal(next.rows[0].sellingPrice,.5);return {sha:'published'};}};
 initNetSuite({repository:()=>connected?repo:null,connect:()=>connect++,discard:()=>true,setBusy(){},saved:()=>saved=true});
-await get('netsuiteSync').handlers.click();assert.equal(connect,1);assert.equal(dispatch,0);
+await get('netsuiteSync').handlers.click();assert.equal(connect,0);get('netsuitePublicConsent').checked=true;await get('netsuiteSync').handlers.click();assert.equal(connect,1);assert.equal(dispatch,0);
 connected=true;await get('netsuiteSync').handlers.click();assert.equal(dispatch,1);
 await get('netsuiteRefresh').handlers.click();assert.equal(get('netsuiteMappingPanel').hidden,false);
 get('netsuiteMapping').querySelectorAll()[1].value='EMEA Base';await get('netsuitePrepare').handlers.click();assert.equal(get('netsuiteReview').hidden,false);

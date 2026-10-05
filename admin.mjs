@@ -1,4 +1,4 @@
-import {initNetSuite} from './admin-netsuite.mjs';
+import {initNetSuite} from './admin-netsuite.mjs?v=20261005-consent';
 import {initCards} from './admin-cards.mjs?v=20261005-cards';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
 import {Repository} from './github-pricing.mjs?v=20261005-sync';
