@@ -7,9 +7,9 @@ permissions: {}
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 8
     steps:
-      - name: Read CTC-007 metadata without exposing credentials or prices
+      - name: Check six SKUs using availability flags only
         env:
           NETSUITE_ACCOUNT_ID: ${{ secrets.NETSUITE_ACCOUNT_ID }}
           NETSUITE_CONSUMER_KEY: ${{ secrets.NETSUITE_CONSUMER_KEY }}
@@ -71,7 +71,7 @@ jobs:
           SEARCH = '''<m:search><m:searchRecord xsi:type="a:ItemSearchAdvanced">
             <a:criteria><a:basic><b:itemId operator="is"><c:searchValue>CTC-007</c:searchValue></b:itemId></a:basic></a:criteria>
             <a:columns>
-              <a:basic><b:displayName/><b:itemId/></a:basic>
+              <a:basic><b:averageCost/><b:cost/><b:displayName/><b:internalId/><b:itemId/><b:lastPurchasePrice/><b:type/></a:basic>
               <a:pricingJoin><b:currency/><b:maximumQuantity/><b:minimumQuantity/><b:priceLevel/><b:saleUnit/><b:unitPrice/></a:pricingJoin>
             </a:columns>
           </m:searchRecord></m:search>'''
@@ -126,23 +126,43 @@ jobs:
                   report('authentication', ok=False, error='UNEXPECTED_TIME_RESPONSE')
                   return 1
               report('authentication', ok=True)
-              root = call('search', SEARCH, credentials)
-              rows = root.findall('.//c:searchRow', NS)
-              pricing = [j for row in rows for j in row.findall('a:pricingJoin', NS)]
-              fields = ['currency', 'maximumQuantity', 'minimumQuantity', 'priceLevel', 'saleUnit', 'unitPrice']
-              present = {field: any(j.find(f'b:{field}', NS) is not None for j in pricing) for field in fields}
-              minimums = set()
-              for j in pricing:
-                  value = j.findtext('b:minimumQuantity/c:searchValue', namespaces=NS)
-                  if value is not None:
-                      minimums.add(float(value))
-              expected = {0, 5000, 10000, 25000, 50000, 100000, 250000, 500000}
-              pages = root.findtext('.//c:totalPages', namespaces=NS)
-              report('pricing_search', ok=bool(pricing), pricing_rows_found=bool(pricing),
-                     fields_present=present, expected_quantity_starts_present=expected.issubset(minimums),
-                     additional_quantity_starts_present=bool(minimums - expected),
-                     complete_first_page=pages == '1')
-              return 0 if pricing else 1
+              skus = ['CTC-011', 'CTC-007', 'CRD-012', 'CTC-024', 'LIC-009', 'CTW-009']
+              template_starts = [0, 5000, 10000, 25000, 50000, 100000, 250000, 500000]
+              csv_starts = [20, 1000, 5000, 10000, 25000, 50000, 100000, 250000, 500000, 700000, 1000000, 1500000]
+              for index, sku in enumerate(skus):
+                  root = call('search', SEARCH.replace('CTC-007', sku), credentials)
+                  rows = root.findall('.//c:searchRow', NS)
+                  pricing = [j for row in rows for j in row.findall('a:pricingJoin', NS)]
+                  populated = lambda j, field: bool(j.findall('b:' + field + '/c:searchValue', NS))
+                  fields = ['currency', 'maximumQuantity', 'minimumQuantity', 'priceLevel', 'saleUnit', 'unitPrice']
+                  present = {field: any(populated(j, field) for j in pricing) for field in fields}
+                  minimums = set()
+                  numeric_prices = []
+                  for j in pricing:
+                      value = j.findtext('b:minimumQuantity/c:searchValue', namespaces=NS)
+                      if value is not None:
+                          minimums.add(float(value))
+                      value = j.findtext('b:unitPrice/c:searchValue', namespaces=NS)
+                      if value is not None:
+                          numeric_prices.append(float(value))
+                  basics = [j for row in rows for j in row.findall('a:basic', NS)]
+                  costs_present = {field: any(populated(j, field) for j in basics)
+                                   for field in ['averageCost', 'cost', 'lastPurchasePrice']}
+                  # Only availability flags and counts are logged; no record IDs, prices,
+                  # costs, raw responses, encrypted payloads, or downloadable data artifacts.
+                  report('item_check', index=index + 1, item_found=bool(rows),
+                         pricing_found=bool(numeric_prices), fields_present=present,
+                         prices_numeric_nonnegative=bool(numeric_prices) and all(v >= 0 for v in numeric_prices),
+                         quantity_band_count=len(minimums),
+                         template_start_present=[q in minimums for q in template_starts],
+                         csv_start_present=[q in minimums for q in csv_starts],
+                         additional_to_template=bool(minimums - set(template_starts)),
+                         cost_fields_populated=costs_present,
+                         complete_first_page=root.findtext('.//c:totalPages', namespaces=NS) == '1')
+                  time.sleep(0.3)
+              report('complete', items_checked=len(skus), website_updated=False)
+              return 0
+          
           
           
           if __name__ == '__main__':
