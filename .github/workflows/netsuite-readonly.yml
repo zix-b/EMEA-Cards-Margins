@@ -285,6 +285,10 @@ jobs:
                       pair = ((scalar(basic, 'type') or '').lstrip('_'), refid(basic, 'internalId'))
                       record = refs.get(pair)
                       if record is not None and record not in item_records: item_records.append(record)
+                  if not item_records:
+                      body = '<m:search><m:searchRecord xsi:type="a:ItemSearch"><a:basic><b:itemId operator="is"><c:searchValue>' + escape(sku) + '</c:searchValue></b:itemId></a:basic></m:searchRecord></m:search>'
+                      full = call('search', body, credentials)
+                      item_records = full.findall('.//c:record', NS)
                   matrix_present = False
                   matrix_unit_verified = False
                   for item in item_records:
