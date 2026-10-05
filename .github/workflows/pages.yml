@@ -31,6 +31,7 @@ jobs:
         run: |
           node tests/calculator.test.mjs
           node tests/import.test.mjs
+          node tests/files.test.mjs
           node tests/github.test.mjs
           node tests/admin.test.mjs
           node tests/editor.test.mjs

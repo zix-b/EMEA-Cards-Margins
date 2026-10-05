@@ -27,7 +27,7 @@
 #confirmPublish { width: 15px; height: 15px; min-height: 15px; margin: 1px 0 0; }
 
 /* ZIP template controls and compact CSV preview. */
-.template-actions { position: relative; display: flex; align-items: center; gap: 12px; }
+.template-actions { position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .template-actions > .button { white-space: nowrap; }
 .template-preview-trigger { min-height: 36px; font-size: 12px; }
 .template-preview-card {

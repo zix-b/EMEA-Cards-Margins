@@ -37,4 +37,4 @@ snapshot=null;editor.reload();get('editorCard').value='CTC-007';change('editorCa
 
 console.log('Editor UI tests passed: read-only, edit, cancel, validation, explicit confirmation, failed-save draft retention, saved data.');
 
-const adminHTML=fs.readFileSync('admin.html','utf8');assert.ok(!adminHTML.includes('id="editorCost"')&&!adminHTML.includes('id="editorBasis"'));assert.ok(!adminHTML.includes('id="costBasis"'),'ZIP cost basis selector is removed');assert.ok(adminHTML.includes('<th scope="col">costBasis</th>'),'ZIP template retains its costBasis column');
+const adminHTML=fs.readFileSync('admin.html','utf8');assert.ok(!adminHTML.includes('id="editorCost"')&&!adminHTML.includes('id="editorBasis"'));assert.ok(!adminHTML.includes('id="costBasis"'),'ZIP cost basis selector is removed');assert.ok(!adminHTML.includes('<th scope="col">costBasis</th>'),'Selling-only template excludes cost basis');
