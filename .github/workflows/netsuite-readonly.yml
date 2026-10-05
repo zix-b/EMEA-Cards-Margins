@@ -1,0 +1,155 @@
+name: Read-only NetSuite pricing diagnostic
+on:
+  push:
+    branches: [investigate/netsuite-readonly-20261005]
+    paths: [.github/workflows/netsuite-readonly.yml]
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Read CTC-007 metadata without exposing credentials or prices
+        env:
+          NETSUITE_ACCOUNT_ID: ${{ secrets.NETSUITE_ACCOUNT_ID }}
+          NETSUITE_CONSUMER_KEY: ${{ secrets.NETSUITE_CONSUMER_KEY }}
+          NETSUITE_CONSUMER_SECRET: ${{ secrets.NETSUITE_CONSUMER_SECRET }}
+          NETSUITE_TOKEN_ID: ${{ secrets.NETSUITE_TOKEN_ID }}
+          NETSUITE_TOKEN_SECRET: ${{ secrets.NETSUITE_TOKEN_SECRET }}
+        shell: bash
+        run: |
+          python3 - <<'PY_PROBE'
+          """Read-only CTC-007 SOAP probe. Never prints credentials or returned prices."""
+          import base64
+          import hashlib
+          import hmac
+          import json
+          import os
+          import re
+          import secrets
+          import sys
+          import time
+          import urllib.error
+          import urllib.request
+          import xml.etree.ElementTree as ET
+          from xml.sax.saxutils import escape
+          
+          VERSION = '2024_2'
+          NS = {
+              'soap': 'http://schemas.xmlsoap.org/soap/envelope/',
+              'm': f'urn:messages_{VERSION}.platform.webservices.netsuite.com',
+              'c': f'urn:core_{VERSION}.platform.webservices.netsuite.com',
+              'b': f'urn:common_{VERSION}.platform.webservices.netsuite.com',
+              'a': f'urn:accounting_{VERSION}.lists.webservices.netsuite.com',
+              'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+          }
+          
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *args, **kwargs):
+                  raise RuntimeError('REDIRECT_BLOCKED')
+          
+          
+          def envelope(body, credentials, now=None, nonce=None):
+              account, consumer, consumer_secret, token, token_secret = credentials
+              stamp = str(int(time.time()) if now is None else now)
+              nonce = nonce or secrets.token_hex(16)
+              base = '&'.join([account, consumer, token, nonce, stamp])
+              key = consumer_secret + '&' + token_secret
+              signature = base64.b64encode(hmac.new(key.encode(), base.encode(), hashlib.sha256).digest()).decode()
+              auth = ''.join(f'<c:{name}>{escape(value)}</c:{name}>' for name, value in
+                             [('account', account), ('consumerKey', consumer), ('token', token),
+                              ('nonce', nonce), ('timestamp', stamp)])
+              declarations = ' '.join(f'xmlns:{prefix}="{uri}"' for prefix, uri in NS.items())
+              return (f'<soap:Envelope {declarations}><soap:Header><m:tokenPassport>{auth}'
+                      f'<c:signature algorithm="HMAC_SHA256">{signature}</c:signature></m:tokenPassport>'
+                      '<m:searchPreferences><m:bodyFieldsOnly>false</m:bodyFieldsOnly>'
+                      '<m:returnSearchColumns>true</m:returnSearchColumns><m:pageSize>1000</m:pageSize>'
+                      f'</m:searchPreferences></soap:Header><soap:Body>{body}</soap:Body></soap:Envelope>').encode()
+          
+          
+          SEARCH = '''<m:search><m:searchRecord xsi:type="a:ItemSearchAdvanced">
+            <a:criteria><a:basic><b:itemId operator="is"><c:searchValue>CTC-007</c:searchValue></b:itemId></a:basic></a:criteria>
+            <a:columns>
+              <a:basic><b:displayName/><b:itemId/></a:basic>
+              <a:pricingJoin><b:currency/><b:maximumQuantity/><b:minimumQuantity/><b:priceLevel/><b:saleUnit/><b:unitPrice/></a:pricingJoin>
+            </a:columns>
+          </m:searchRecord></m:search>'''
+          
+          
+          def report(stage, **fields):
+              print(json.dumps({'stage': stage, **fields}), flush=True)
+          
+          
+          def call(operation, body, credentials):
+              # Domain is fixed to NetSuite, account ID must be digits; never follow redirects.
+              url = f'https://{credentials[0]}.suitetalk.api.netsuite.com/services/NetSuitePort_{VERSION}'
+              request = urllib.request.Request(url, data=envelope(body, credentials), method='POST',
+                                              headers={'Content-Type': 'text/xml; charset=utf-8', 'SOAPAction': operation})
+              opener = urllib.request.build_opener(NoRedirect())
+              try:
+                  response = opener.open(request, timeout=40)
+              except urllib.error.HTTPError as error:
+                  response = error
+              with response:
+                  raw = response.read(2_000_001)
+              if len(raw) > 2_000_000:
+                  raise RuntimeError('RESPONSE_LIMIT')
+              root = ET.fromstring(raw)
+              if root.find('.//soap:Fault', NS) is not None:
+                  known = {'INVALID_LOGIN', 'INVALID_LOGIN_ATTEMPT', 'INSUFFICIENT_PERMISSION',
+                           'INVALID_VERSION', 'INVALID_CREDENTIALS', 'EXCEEDED_REQUEST_LIMIT',
+                           'EXCEEDED_CONCURRENT_REQUEST_LIMIT'}
+                  codes = [e.text for e in root.iter() if e.tag.split('}')[-1] == 'code' and e.text in known]
+                  report(operation, ok=False, error=codes[0] if codes else 'SOAP_FAULT')
+                  raise SystemExit(1)
+              for status in root.findall('.//c:status', NS):
+                  if status.get('isSuccess') != 'true':
+                      report(operation, ok=False, error='NETSUITE_STATUS_ERROR')
+                      raise SystemExit(1)
+              return root
+          
+          
+          def main():
+              names = ['NETSUITE_ACCOUNT_ID', 'NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_SECRET',
+                       'NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_SECRET']
+              credentials = tuple(os.environ.get(name, '').strip() for name in names)
+              missing = [name for name, value in zip(names, credentials) if not value]
+              if missing:
+                  report('configuration', ok=False, missing=missing)
+                  return 1
+              if not re.fullmatch(r'\d+', credentials[0]):
+                  report('configuration', ok=False, error='EXPECTED_PRODUCTION_ACCOUNT_NUMBER')
+                  return 1
+              root = call('getServerTime', '<m:getServerTime/>', credentials)
+              if root.find('.//c:serverTime', NS) is None:
+                  report('authentication', ok=False, error='UNEXPECTED_TIME_RESPONSE')
+                  return 1
+              report('authentication', ok=True)
+              root = call('search', SEARCH, credentials)
+              rows = root.findall('.//c:searchRow', NS)
+              pricing = [j for row in rows for j in row.findall('a:pricingJoin', NS)]
+              fields = ['currency', 'maximumQuantity', 'minimumQuantity', 'priceLevel', 'saleUnit', 'unitPrice']
+              present = {field: any(j.find(f'b:{field}', NS) is not None for j in pricing) for field in fields}
+              minimums = set()
+              for j in pricing:
+                  value = j.findtext('b:minimumQuantity/c:searchValue', namespaces=NS)
+                  if value is not None:
+                      minimums.add(float(value))
+              expected = {0, 5000, 10000, 25000, 50000, 100000, 250000, 500000}
+              pages = root.findtext('.//c:totalPages', namespaces=NS)
+              report('pricing_search', ok=bool(pricing), pricing_rows_found=bool(pricing),
+                     fields_present=present, expected_quantity_starts_present=expected.issubset(minimums),
+                     additional_quantity_starts_present=bool(minimums - expected),
+                     complete_first_page=pages == '1')
+              return 0 if pricing else 1
+          
+          
+          if __name__ == '__main__':
+              try:
+                  sys.exit(main())
+              except Exception:
+                  # Do not print exception details: they could contain request/response data.
+                  report('probe', ok=False, error='TRANSPORT_OR_RESPONSE_ERROR')
+                  sys.exit(1)
+          PY_PROBE
