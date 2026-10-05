@@ -1,11 +1,12 @@
+import {initNetSuite} from './admin-netsuite.mjs';
 import {initCards} from './admin-cards.mjs?v=20261005-cards';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
-import {Repository} from './github-pricing.mjs?v=20261004-editor';
+import {Repository} from './github-pricing.mjs?v=20261005-sync';
 import {initEditor} from './admin-editor.mjs?v=20261005-sheet';
 const $=id=>document.getElementById(id);
-let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null;
+let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null,netSuite=null;
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className='admin-message'+(error?' error':'');};
-function invalidate(){preview=null;$('previewPanel').hidden=true;$('confirmPublish').checked=false;$('publishButton').disabled=true;}
+function invalidate(){netSuite?.invalidate();preview=null;$('previewPanel').hidden=true;$('confirmPublish').checked=false;$('publishButton').disabled=true;}
 function controls(){editor?.setBusy(busy);cardManager?.setBusy(busy);for(const id of ['zipFile','connectButton','disconnectButton'])$(id).disabled=busy;$('validateButton').disabled=busy;$('publishButton').disabled=busy||!snapshot||!preview||!$('confirmPublish').checked;}
 function disconnect(preserveDraft=false){if(!preserveDraft){editor?.stop();cardManager?.stop();}repository?.clear();repository=null;snapshot=null;invalidate();$('githubToken').value='';$('connectionStatus').textContent='Not connected. You can validate pricing files; publishing requires GitHub access.';$('disconnectButton').hidden=true;if(!preserveDraft)editor?.reload();controls();}
 // Capture the token before clearing the input; it never enters browser storage.
@@ -20,3 +21,5 @@ window.addEventListener('pagehide',()=>disconnect());
 const session={connect:()=>{if($('loginPanel').hidden)$('showGitHub').click();$('githubToken').focus();},data:()=>snapshot?.data||window.PRICING_DATA,snapshot:()=>snapshot,repository:()=>repository,setBusy:value=>{busy=value;controls();},saved:value=>{snapshot=value;window.PRICING_DATA=value.data;invalidate();$('connectionStatus').textContent=`Connected to zix-b/EMEA-Cards-Margins · main ${value.sha.slice(0,7)}`;cardManager?.reload();}};
 editor=initEditor(session);
 cardManager=initCards({...session,beforeOpen:()=>editor.discard(),saved:value=>{session.saved(value);editor.reload();}});
+
+netSuite=initNetSuite({...session,discard:()=>editor.discard()&&cardManager.discard()});

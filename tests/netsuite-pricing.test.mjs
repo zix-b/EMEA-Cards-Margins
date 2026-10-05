@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {prepareNetSuite,validateNetSuite} from '../netsuite-pricing.mjs';
+const current=JSON.parse(fs.readFileSync('pricing-data.json'));
+const before=structuredClone(current);
+const preview={version:1,currency:'USD',unit:'Each',fetchedAt:'2026-10-05T12:00:00Z',rows:[{sku:'CTC-007',level:'Base',quantityMin:1,quantityMax:4999,sellingPrice:.98},{sku:'CTC-007',level:'Base',quantityMin:5000,quantityMax:null,sellingPrice:.5}]};
+const result=prepareNetSuite(current,preview,{Base:'EMEA Base'});
+assert.deepEqual(current,before);assert.deepEqual(result.data.costBands,before.costBands);
+assert.deepEqual(result.data.rows.filter(r=>r.sku!=='CTC-007'||r.tier!=='EMEA Base'),before.rows.filter(r=>r.sku!=='CTC-007'||r.tier!=='EMEA Base'));
+const row=result.changes.find(r=>r.quantityMin<=10000&&(r.quantityMax===null||r.quantityMax>=10000));
+assert.equal(row.sellingPrice,.5);assert.equal(row.displayCost,.119);assert.equal(row.marginPercent,.762);
+assert.throws(()=>prepareNetSuite(current,preview,{}),/Choose/);
+assert.throws(()=>prepareNetSuite(current,preview,{Base:'EMEA Base',Distributor:'EMEA Base'}),/different/);
+assert.throws(()=>validateNetSuite({...preview,rows:[...preview.rows,preview.rows[0]]}),/Overlapping/);
+assert.throws(()=>validateNetSuite({...preview,rows:[{...preview.rows[0],sellingPrice:-1}]}),/Invalid/);
+assert.throws(()=>validateNetSuite({...preview,currency:'EUR'}),/Invalid/);
+console.log('NetSuite mapping, independent cost preservation, price validation and region isolation passed.');

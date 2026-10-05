@@ -40,6 +40,9 @@ jobs:
           node tests/cards-ui.test.mjs
           node tests/sheet-data.test.mjs
           node tests/regions.test.mjs
+          node tests/netsuite-pricing.test.mjs
+          node tests/netsuite-ui.test.mjs
+          python3 tests/netsuite_test.py
 
   deploy:
     needs: test

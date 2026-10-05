@@ -6,7 +6,7 @@ export class Repository {
   if(!this.token)throw new Error('Connect to GitHub first.');
   const response=await this.transport(ROOT+path,{method,headers:{Accept:'application/vnd.github+json',Authorization:`Bearer ${this.token}`,'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',redirect:'error'});
   if(!response.ok){if(response.status===401)throw new Error('GitHub token is invalid or expired.');if(response.status===403)throw new Error('GitHub denied access. Use a repository-scoped token with Contents: Read and write.');if(response.status===409||response.status===422)throw new Error('The repository changed or branch protection blocked the update. Reconnect and validate again.');throw new Error(`GitHub request failed (${response.status}). Current publication status may need checking in GitHub.`);}
-  return response.json();
+  return response.status===204?null:response.json();
  }
  async read(){
   const repo=await this.api('');if(repo.permissions?.push!==true)throw new Error('This GitHub account cannot update this repository.');if(repo.default_branch!=='main')throw new Error('The default branch changed. Review the deployment configuration first.');
