@@ -1,19 +1,19 @@
 # EMEA Cards admin service
 
-Status: local implementation and tests only. The production admin still uses its existing path because `admin-config.js` has an empty backend URL. Do not enable it before the live checks below pass.
+Status: Worker code and email Access configuration deployed; private GitHub authorization and complete live functional tests pending. The production admin still uses its existing path because `admin-config.js` has an empty backend URL. Do not enable it before the live checks below pass.
 
 The website and admin remain on GitHub Pages. The Cloudflare Worker provides authenticated, repository-scoped pricing operations. Cloudflare Access email sign-in opens in a popup. The popup makes first-party requests and sends results to its exact opener on `https://zix-b.github.io`, with a random channel identifier. It does not transmit Access cookies, JWTs, or GitHub credentials to the Pages website. Keep the popup open during administration. Closing it ends the portal connection; use Log out to complete Cloudflare sign-out.
 
 ## Deployment prerequisites
 
-1. Activate Cloudflare Zero Trust. The account's Free checkout currently requires billing details, terms acceptance, and overage authorization. The owner must complete these steps privately.
-2. Obtain the owner's explicit permitted admin emails. The request “any account using the pricing tool” remains unresolved because the public calculator has no accounts. Do not infer an allowlist or allow everyone.
+1. Done: owner activated Zero Trust Free privately.
+2. Done: owner approved their primary verified GitHub email as sole admin. The exact email is configured privately in the Access policy and Worker settings.
 3. Create an Access self-hosted application for all paths on `emea-cards-admin.limzhixian6392.workers.dev`. Enable email one-time PIN and an explicit allow policy for approved emails. Use a short application session duration. Do not add Everyone, bypass policies, or service tokens. Verify the exact policy and hostname before deployment.
 4. Configure Worker variables `ACCESS_ISSUER` (the exact HTTPS team domain without a trailing slash), `ACCESS_AUD` (application audience), and `ADMIN_EMAILS` (comma-separated approved email addresses). The Worker separately verifies the JWT signature, issuer, audience, token type, dates, and email allowlist. Missing configuration denies all requests.
 5. The owner enters `GITHUB_TOKEN` privately as a Cloudflare Worker secret. Use a fine-grained GitHub token restricted to `zix-b/EMEA-Cards-Margins`, with Contents read/write and Actions read/write. Do not grant Workflows write or copy credentials to source, chat, logs, command arguments, or the browser admin. Existing NetSuite secrets stay in GitHub Actions.
 6. Run `npm ci --prefix backend` and `npm --prefix backend run build`. Deploy `backend/dist/worker.mjs` as an ES module or use the Wrangler configuration. Do not enable preview URLs without Access protection. No pricing database or storage binding is needed.
 
-Cloudflare account inspected: `829d65cee9a4c430ad034ed7faa99856`. Workers inventory was empty. No Worker has yet been created in this task.
+Cloudflare account inspected: `829d65cee9a4c430ad034ed7faa99856`. Workers inventory was empty. The owner created `emea-cards-admin`; its production and preview URLs are Access-protected. The backend code was deployed with zero editor diagnostics and its saved source compared with the tested bundle. Live anonymous and forged-assertion API requests redirect to Access; completed authenticated workflows remain unverified.
 
 ## Fixed operations
 
