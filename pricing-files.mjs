@@ -4,6 +4,7 @@ import {unzipSync} from './vendor/fflate.mjs';
 import {QUANTITIES,TIERS,SUPPORTED_TIERS,tierLabel,createMatrix,prepareEditorUpdate,cards} from './pricing-editor.mjs?v=20261005-sheet';
 export const HEADERS=['SKU','Card Product Name','Price Type',...QUANTITIES.map(q=>`QTY ${q.toLocaleString('en-US')}`)];
 export const TEMPLATE_ROWS=TIERS.map(tier=>['','',tierLabel(tier),...QUANTITIES.map(()=>'')]);
+const quantityColumn=quantity=>{let index=-1;for(let i=0;i<QUANTITIES.length;i++)if((QUANTITIES[i]||1)<=quantity)index=i;return index;};
 const MAX_EXPANDED=15*1024*1024,MAX_ROWS=20000;
 const fail=message=>{throw new Error(message);};
 const extension=name=>name.toLowerCase().split('.').pop();
@@ -137,14 +138,14 @@ export function prepareSellingUpdate(incoming,current,date=new Date().toISOStrin
   data.rows=data.rows.map(r=>r.sku===sku?{...r,product}:r);
   const matrix=createMatrix(data,sku,false,rows.map(r=>r.tier));
   for(const row of rows)for(const segment of matrix.find(r=>r.tier===row.tier).cells.flat()){
-   const column=QUANTITIES.findLastIndex(q=>(q||1)<=segment.min),value=row.prices[column];
+   const column=quantityColumn(segment.min),value=row.prices[column];
    if(value!==null)segment.value=String(value);
   }
   try{data=prepareEditorUpdate(data,{sku,product,matrix},date).data;}catch(error){if(error.message!=='No prices changed.')throw error;}
  }
  data.generatedAt=date;
  if(new TextEncoder().encode(JSON.stringify(data)).length>1000000)fail('Updated pricing exceeds 1 MB. Split into smaller per-SKU updates.');
- const previewRows=incoming.flatMap(input=>data.rows.filter(r=>r.sku===input.sku&&r.tier===input.tier&&input.prices[QUANTITIES.findLastIndex(q=>(q||1)<=r.quantityMin)]!==null).sort((a,b)=>a.quantityMin-b.quantityMin));
+ const previewRows=incoming.flatMap(input=>data.rows.filter(r=>r.sku===input.sku&&r.tier===input.tier&&input.prices[quantityColumn(r.quantityMin)]!==null).sort((a,b)=>a.quantityMin-b.quantityMin));
  for(const sku of products)if(previewRows.some(r=>r.sku===sku&&!Number.isFinite(r.costPrice)))warnings.push(`${sku}: existing costs are unavailable for some quantities; those margins remain unavailable.`);
  return {data,previewRows,products,sellingRecords:incoming.length,costRecords:0,warnings,removedProducts:[],operation:{kind:'upload',date,rows:incoming}};
 }

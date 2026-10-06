@@ -2,7 +2,7 @@ const ROOT='https://api.github.com/repos/zix-b/EMEA-Cards-Margins';
 export class HttpError extends Error { constructor(status,message){super(message);this.status=status;} }
 export class PrivateRepository {
  constructor(token,transport=fetch){this.token=token;this.transport=transport;}
- async api(path,{method='GET',body}={}) {
+ async api(path,{method='GET',body=null}={}) {
   if(!this.token)throw new HttpError(503,'Private repository authorization is not configured.');
   const response=await this.transport(ROOT+path,{method,headers:{Accept:'application/vnd.github+json',Authorization:`Bearer ${this.token}`,'X-GitHub-Api-Version':'2022-11-28','User-Agent':'EMEA-Cards-Admin',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),redirect:'error'});
   if(!response.ok)throw new HttpError(response.status===409||response.status===422?409:502, response.status===409||response.status===422?'The repository changed. Reload and review again.':`Repository service failed (${response.status}). No credentials were returned. Check saved status before retrying.`);
