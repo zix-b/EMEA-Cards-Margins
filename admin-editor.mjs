@@ -87,7 +87,7 @@ export function initEditor(session){
   if(busy||!prepared||!draftSnapshot||!session.snapshot()||conflict)return;
   const update=prepared,base=draftSnapshot;session.setBusy(true);
   try{
-   const result=await session.repository().publish(base,update.data,`Update ${update.sku} pricing through the admin editor`);
+   const result=await session.repository().publish(base,update.data,`Update ${update.sku} pricing through the admin editor`,update.operation);
    session.saved({sha:result.sha,tree:result.tree,data:update.data});
    reload();$('editorCard').value=update.sku;load();
    $('editorSavedCommit').href=result.url;$('editorSavedCommit').textContent=`View saved version ${result.sha.slice(0,7)}`;$('editorSavedCommit').hidden=false;

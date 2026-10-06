@@ -29,5 +29,5 @@ export function prepareCardUpdate(current,{action,originalSku,sku='',product=''}
  }
  data.generatedAt=date;
  if(data.cards.length>20000||new TextEncoder().encode(JSON.stringify(data)).length>1000000)throw new Error('The updated pricing dataset exceeds the supported size.');
- return {data,action,original,sku:action==='delete'?originalSku:sku,product:action==='delete'?original.product:product};
+ return {data,action,original,sku:action==='delete'?originalSku:sku,product:action==='delete'?original.product:product,operation:{kind:'card',date,edit:{action,originalSku,sku,product}}};
 }

@@ -1,5 +1,19 @@
 // Temporary display gate only. GitHub permissions still authorize publishing.
 (() => {
+  if (window.ADMIN_BACKEND_URL) {
+    document.querySelector('#adminGate .lede').textContent = 'Sign in with your approved email address.';
+    document.getElementById('gateForm').querySelector('label').hidden = true;
+    document.getElementById('gatePassword').required = false;
+    document.querySelector('#gateForm button').textContent = 'Sign in with email';
+    document.getElementById('showGitHub').hidden = true;
+    document.getElementById('loginPanel').hidden = false;
+    document.getElementById('connectForm').hidden = true;
+    document.querySelector('#loginPanel h2').textContent = 'Admin session';
+    document.querySelector('#loginPanel > p').textContent = 'Keep the sign-in window open while you administer pricing.';
+    document.querySelector('#loginPanel details').hidden = true;
+    return;
+  }
+
   const gate = document.getElementById('adminGate');
   const portal = document.getElementById('adminPortal');
   const password = document.getElementById('gatePassword');

@@ -1,2 +1,9 @@
 .DS_Store
 pricing lookup/
+
+backend/node_modules/
+backend/dist/
+backend/.wrangler/
+backend/.dev.vars*
+backend/.env*
+__pycache__/

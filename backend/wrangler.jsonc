@@ -1,0 +1,8 @@
+{
+  "name": "emea-cards-admin",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": false }
+}

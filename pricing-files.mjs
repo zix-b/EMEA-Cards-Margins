@@ -146,5 +146,5 @@ export function prepareSellingUpdate(incoming,current,date=new Date().toISOStrin
  if(new TextEncoder().encode(JSON.stringify(data)).length>1000000)fail('Updated pricing exceeds 1 MB. Split into smaller per-SKU updates.');
  const previewRows=incoming.flatMap(input=>data.rows.filter(r=>r.sku===input.sku&&r.tier===input.tier&&input.prices[QUANTITIES.findLastIndex(q=>(q||1)<=r.quantityMin)]!==null).sort((a,b)=>a.quantityMin-b.quantityMin));
  for(const sku of products)if(previewRows.some(r=>r.sku===sku&&!Number.isFinite(r.costPrice)))warnings.push(`${sku}: existing costs are unavailable for some quantities; those margins remain unavailable.`);
- return {data,previewRows,products,sellingRecords:incoming.length,costRecords:0,warnings,removedProducts:[]};
+ return {data,previewRows,products,sellingRecords:incoming.length,costRecords:0,warnings,removedProducts:[],operation:{kind:'upload',date,rows:incoming}};
 }
