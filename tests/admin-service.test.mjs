@@ -29,3 +29,10 @@ for(const search of ['?channel='+service.channel,'?channel=invalid']){
  assert.equal(sent.length,search.includes('invalid')?0:1);
  if(sent.length){assert.equal(sent[0].data.channel,service.channel);assert.equal(sent[0].origin,'https://zix-b.github.io');}
 }
+
+// Logout follows no cross-origin redirect and reports success only after session denial.
+for(const sessionResponse of [{type:'opaqueredirect',status:0},{type:'basic',status:200}]){
+ const sent=[],nodes={status:{textContent:''},logout:{}};let calls=0;
+ vm.runInNewContext(BRIDGE_JS,{URLSearchParams,location:{search:'?channel='+service.channel,hash:''},window:{opener:{postMessage:data=>sent.push(data)},addEventListener(){}},document:{getElementById:id=>nodes[id]},Set,fetch:async(path,options)=>{assert.equal(options.redirect,'manual');calls++;return path.includes('logout')?{type:'opaqueredirect',ok:false}:sessionResponse;}});
+ await nodes.logout.onclick();assert.equal(calls,2);assert.equal(sent.at(-1).type,sessionResponse.status===200?'logout-failed':'logged-out');
+}

@@ -11,8 +11,10 @@ const send=value=>parentWindow?.postMessage({channel,...value},parentOrigin);
 async function logout(){
  active=false;
  try {
-  const response=await fetch('/cdn-cgi/access/logout',{credentials:'same-origin',cache:'no-store'});
-  if(!response.ok)throw Error();
+  const response=await fetch('/cdn-cgi/access/logout',{credentials:'same-origin',cache:'no-store',redirect:'manual'});
+  if(!response.ok&&response.type!=='opaqueredirect')throw Error();
+  const session=await fetch('/api/session',{credentials:'same-origin',cache:'no-store',redirect:'manual',headers:{'X-Admin-Request':'1'}});
+  if(session.type!=='opaqueredirect'&&session.status!==401)throw Error();
   send({type:'logged-out'}); status.textContent='Signed out. You can close this window.';
  } catch {send({type:'logout-failed'});status.textContent='Sign-out could not be confirmed. Use the sign-out link below.';}
 }
