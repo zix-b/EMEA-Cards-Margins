@@ -66,7 +66,7 @@ export function initEditor(session){
   try{
    const card=cards(draftSnapshot.data).find(c=>c.sku===$('editorCard').value);
    prepared=prepareEditorUpdate(draftSnapshot.data,{sku:isNew?$('editorSku').value:card.sku,product:isNew?$('editorProduct').value:card.product,matrix,isNew});
-   if(!session.snapshot()){status('Your draft is ready. Connect GitHub to save it to the live website; your entries will be kept.');session.connect();return;}
+   if(!session.snapshot()){status('Your draft is ready. Sign in with your approved email to save it to the live website; your entries will be kept.');session.connect();return;}
    if(conflict)throw new Error('Cancel to reload this card before saving.');
    $('editorChanges').replaceChildren();
    for(const change of prepared.changes){const li=node('li',`${tierLabel(change.tier)} · ${rangeLabel(change.min,change.max)}: ${change.before===null?'not set':change.before} → ${change.after} USD`);$('editorChanges').append(li);}

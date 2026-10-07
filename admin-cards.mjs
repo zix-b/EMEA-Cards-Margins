@@ -50,7 +50,7 @@ export function initCards(session){
  }
  async function save(){
   if(busy||!prepared||conflict)return;
-  if(!session.snapshot()){status('Connect GitHub to save this change. Your card details will be kept.');session.connect();return;}
+  if(!session.snapshot()){status('Sign in with your approved email to save this change. Your card details will be kept.');session.connect();return;}
   session.setBusy(true);
   try{
    const update=prepared,result=await session.repository().publish(base,update.data,`${update.action==='delete'?'Delete':update.action==='add'?'Add':'Edit'} ${update.sku} through Manage Cards`,update.operation);

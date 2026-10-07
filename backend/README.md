@@ -1,6 +1,6 @@
 # EMEA Cards admin service
 
-Status: Worker code and email Access configuration deployed; private GitHub authorization and complete live functional tests pending. The production admin still uses its existing path because `admin-config.js` has an empty backend URL. Do not enable it before the live checks below pass.
+Status: The Worker and email Access configuration are deployed. The default admin uses email sign-in; the legacy password gate and browser token interface are removed. Live checks on 2026-10-07 passed fresh email login, verified logout, repository reads, approved unchanged-price CSV publication, backup creation, stale-edit rejection, NetSuite preview sync and Pages deployment. Direct editor/card mutations and NetSuite Apply are covered by local tests; no synthetic prices or mapped NetSuite prices were applied live.
 
 The website and admin remain on GitHub Pages. The Cloudflare Worker provides authenticated, repository-scoped pricing operations. Cloudflare Access email sign-in opens in a popup. The popup makes first-party requests and sends results to its exact opener on `https://zix-b.github.io`, with a random channel identifier. It does not transmit Access cookies, JWTs, or GitHub credentials to the Pages website. Keep the popup open during administration. Closing it ends the portal connection; use Log out to complete Cloudflare sign-out.
 
@@ -13,7 +13,7 @@ The website and admin remain on GitHub Pages. The Cloudflare Worker provides aut
 5. The owner enters `GITHUB_TOKEN` privately as a Cloudflare Worker secret. Use a fine-grained GitHub token restricted to `zix-b/EMEA-Cards-Margins`, with Contents read/write and Actions read/write. Do not grant Workflows write or copy credentials to source, chat, logs, command arguments, or the browser admin. Existing NetSuite secrets stay in GitHub Actions.
 6. Run `npm ci --prefix backend` and `npm --prefix backend run build`. Deploy `backend/dist/worker.mjs` as an ES module or use the Wrangler configuration. Do not enable preview URLs without Access protection. No pricing database or storage binding is needed.
 
-Cloudflare account inspected: `829d65cee9a4c430ad034ed7faa99856`. Workers inventory was empty. The owner created `emea-cards-admin`; its production and preview URLs are Access-protected. The backend code was deployed with zero editor diagnostics and its saved source compared with the tested bundle. Live anonymous and forged-assertion API requests redirect to Access; completed authenticated workflows remain unverified.
+Cloudflare account inspected: `829d65cee9a4c430ad034ed7faa99856`. Workers inventory was empty. The owner created `emea-cards-admin`; its production and preview URLs are Access-protected. The backend code was deployed with zero editor diagnostics and its saved source compared with the tested bundle. Live anonymous and forged-assertion API requests redirect to Access; authenticated workflows are recorded below.
 
 ## Fixed operations
 
@@ -28,18 +28,20 @@ There is no generic GitHub proxy. Writes require JSON, a same-origin request and
 
 Before publishing, the service creates `pricing-backup-<base SHA>` as a Git tag. It then creates one commit containing only pricing-data.json and pricing-data.js and updates main without force. A concurrent change rejects the update. A repeated successful Apply with the previous base SHA also rejects. If a network error makes publication uncertain, check the returned commit and workflow status before retrying.
 
-## Required live checks before enabling the portal
+## Verification and operating checks
 
 - Missing, forged, expired and unapproved authentication is denied.
 - Approved email login and confirmed logout work from the GitHub Pages admin in Chrome.
-- The popup bridge survives Cloudflare Access redirects with its opener and channel intact. This is the hardest remaining browser dependency and is not yet tested live.
+- The popup bridge survives Cloudflare Access redirects with its opener and channel intact. Fresh OTP login verified this on 2026-10-07; the channel is passed in the query string because Access redirects can remove fragments.
 - Private repository authorization reads main and publishes both pricing files atomically, with a backup first and stale edits rejected.
 - Use only owner-approved actual pricing for a live Apply. Do not publish synthetic values. An unchanged-price operation can exercise publication only if its generated output is inspected to confirm no selling/cost changes.
 - NetSuite sync creates a new six-SKU preview, without applying it or changing active prices. Explicit mapping, review and confirmation remain required.
 - Pages deployment completes; the deployed pricing files agree; the calculator refreshes and retains region and formula behaviour.
 - Read back saved Worker settings and Access policy, including production and preview coverage.
 
-Only then set `window.ADMIN_BACKEND_URL` in `admin-config.js` and remove the legacy token interface, password-hash gate, and GitHub-only help text. Update module cache versions as part of the activation commit. The draft retains the legacy path deliberately, as required until replacement works. The authenticated portal includes a publication-status refresh button backed by `/api/status`.
+`admin-config.js` selects the Worker for the default portal. The authenticated portal includes a publication-status refresh button backed by `/api/status`.
+
+Evidence: approved unchanged-price publication `3d81a5009d099911192cf3837827896de37218d1`, backup tag `pricing-backup-e3401104cd32b24ad2f56e3b004b57d0eb7dd70a`, successful Pages run `37592441465`, successful NetSuite sync `37592527718`. Selling prices, costs and unrelated pricing records were compared before/after and retained. A newly loaded calculator showed the deployed dataset; the periodic-refresh implementation is locally tested, but a pre-opened browser's timed transition was not observed during that publication.
 
 ## Local tests
 
@@ -51,4 +53,4 @@ References:
 - https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/
 - https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens
 
-Live verification entry: `admin.html?auth=cloudflare`. This opt-in selects the protected backend; the default portal remains unchanged until publishing and logout pass. Worker request transports use manual redirect handling and reject non-success responses, including redirects. Never forward repository credentials to a redirect target.
+Admin entry: `admin.html`. Worker request transports use manual redirect handling and reject non-success responses, including redirects. Never forward repository credentials to a redirect target.
