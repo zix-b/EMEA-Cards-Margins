@@ -35,5 +35,5 @@ export function prepareNetSuite(current,preview,mapping){
  }
  data.generatedAt=preview.fetchedAt.slice(0,10);
  if(data.rows.length>20000||JSON.stringify(data).length>1000000)throw Error('Updated pricing exceeds the supported size.');
- return {data,changes,pairs:pairs.size};
+ return {data,changes,pairs:pairs.size,operation:{kind:'netsuite',date:data.generatedAt,preview:structuredClone(preview),mapping:{...mapping}}};
 }

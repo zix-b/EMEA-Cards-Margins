@@ -53,7 +53,7 @@ export function initCards(session){
   if(!session.snapshot()){status('Connect GitHub to save this change. Your card details will be kept.');session.connect();return;}
   session.setBusy(true);
   try{
-   const update=prepared,result=await session.repository().publish(base,update.data,`${update.action==='delete'?'Delete':update.action==='add'?'Add':'Edit'} ${update.sku} through Manage Cards`);
+   const update=prepared,result=await session.repository().publish(base,update.data,`${update.action==='delete'?'Delete':update.action==='add'?'Add':'Edit'} ${update.sku} through Manage Cards`,update.operation);
    session.saved({sha:result.sha,tree:result.tree,data:update.data});
    reset();status(`Card ${update.action==='delete'?'deleted':update.action==='add'?'added':'updated'} in GitHub. The live website updates after GitHub Pages finishes deploying.`);
   }catch(error){status(`${error.message} Your changes have been kept.`,true);}

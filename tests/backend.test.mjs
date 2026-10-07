@@ -1,0 +1,102 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {buildUpdate,validateUpload} from '../backend/operations.mjs';
+import {PrivateRepository} from '../backend/repository.mjs';
+import {authenticate} from '../backend/auth.mjs';
+import {handle} from '../backend/worker.mjs';
+import {createMatrix} from '../pricing-editor.mjs';
+const current=JSON.parse(fs.readFileSync(new URL('../pricing-data.json',import.meta.url)));
+const preview=JSON.parse(fs.readFileSync(new URL('../netsuite-preview.json',import.meta.url)));
+const date='2026-10-06',sha='a'.repeat(40),next='b'.repeat(40),tree='c'.repeat(40);
+const first=current.rows.find(r=>r.tier==='EMEA Base');
+const upload={kind:'upload',date,rows:[{sku:first.sku,product:first.product,tier:first.tier,prices:Array(8).fill(first.sellingPrice)}]};
+const updated=buildUpdate(current,upload);
+assert.deepEqual(updated.costBands,current.costBands);
+assert.deepEqual(updated.rows.filter(r=>r.sku!==first.sku),current.rows.filter(r=>r.sku!==first.sku));
+for(const prices of [Array(7).fill(1),Array(8).fill(-1),Array(8).fill('1'),Array(8).fill(Infinity)])assert.throws(()=>validateUpload([{...upload.rows[0],prices}]));
+assert.throws(()=>validateUpload([...upload.rows,...upload.rows]),/Duplicate/);
+assert.throws(()=>buildUpdate(current,{...upload,kind:'arbitrary'}),/Unsupported/);
+const matrix=createMatrix(current,first.sku);matrix[0].cells[0][0].value=String(Number(matrix[0].cells[0][0].value)+1);
+const edit=buildUpdate(current,{kind:'editor',date,edit:{sku:first.sku,product:first.product,matrix}});
+assert.deepEqual(edit.costBands,current.costBands);
+const corrupt=structuredClone(matrix);corrupt[0].cells[0][0].min=2;
+assert.throws(()=>buildUpdate(current,{kind:'editor',date,edit:{sku:first.sku,product:first.product,matrix:corrupt}}),/table changed/);
+const mapping={'Base':'EMEA Base'};
+const net=buildUpdate(current,{kind:'netsuite',date,preview,mapping},preview);
+assert.deepEqual(net.costBands,current.costBands);
+assert.deepEqual(net.rows.filter(r=>r.tier!=='EMEA Base'),current.rows.filter(r=>r.tier!=='EMEA Base'));
+assert.throws(()=>buildUpdate(current,{kind:'netsuite',date,preview:{...preview,rows:[]},mapping},preview),/preview changed/);
+const added=buildUpdate(current,{kind:'card',date,edit:{action:'add',sku:'TEST-LOCAL',product:'Local test'}});
+assert.deepEqual(added.rows,current.rows);assert.deepEqual(added.costBands,current.costBands);
+const removed=buildUpdate(added,{kind:'card',date,edit:{action:'delete',originalSku:'TEST-LOCAL'}});
+assert.deepEqual(removed.rows,current.rows);assert.deepEqual(removed.costBands,current.costBands);
+
+let writes=[];let ref=sha;
+const transport=async(url,options={})=>{
+ const path=url.replace('https://api.github.com/repos/zix-b/EMEA-Cards-Margins','');
+ assert.ok(url.startsWith('https://api.github.com/repos/zix-b/EMEA-Cards-Margins/'));
+ assert.equal(options.headers.Authorization,'Bearer test-only');
+ const method=options.method||'GET',body=options.body?JSON.parse(options.body):null;
+ if(method!=='GET')writes.push({path,method,body});
+ let data;
+ if(path==='/git/ref/heads/main')data={object:{sha:ref}};
+ else if(path===`/git/commits/${sha}`)data={tree:{sha:tree}};
+ else if(path.startsWith('/contents/'))data={encoding:'base64',content:Buffer.from(JSON.stringify(path.includes('netsuite-preview')?preview:current)).toString('base64')};
+ else if(path==='/git/refs')data={object:{sha}};
+ else if(path==='/git/blobs')data={sha:'d'.repeat(40)};
+ else if(path==='/git/trees')data={sha:tree};
+ else if(path==='/git/commits')data={sha:next};
+ else if(path==='/git/refs/heads/main'){assert.equal(body.force,false);data={object:{sha:next}};}
+ else if(path.endsWith('/dispatches'))return new Response(null,{status:204});
+ else throw Error('Unexpected path '+path);
+ return Response.json(data);
+};
+const repo=new PrivateRepository('test-only',transport);
+const snapshot=await repo.read();await repo.publish(snapshot,updated,'upload');
+assert.equal(writes[0].body.ref,`refs/tags/pricing-backup-${sha}`);
+assert.deepEqual(writes.find(r=>r.path==='/git/trees').body.tree.map(x=>x.path),['pricing-data.json','pricing-data.js']);
+assert.deepEqual(writes.find(r=>r.path==='/git/commits').body.parents,[sha]);
+const blobs=writes.filter(r=>r.path==='/git/blobs').map(r=>r.body.content);
+assert.equal(blobs[1],`window.PRICING_DATA = ${blobs[0].trim()};\n`);
+writes=[];ref=next;await assert.rejects(()=>repo.publish(snapshot,updated,'upload'),/changed/);assert.equal(writes.length,0);ref=sha;
+const env={GITHUB_TOKEN:'test-only'};
+const auth=async()=>({email:'test@example.test'});
+const req=(path,body,origin='https://test.workers.dev')=>new Request('https://test.workers.dev'+path,{method:body?'POST':'GET',headers:{'X-Admin-Request':'1','Content-Type':'application/json',Origin:origin},...(body?{body:JSON.stringify(body)}:{})});
+assert.equal((await handle(req('/api/pricing'),env,{transport})).status,503);
+const input={baseSha:sha,confirmed:true,operation:upload,expectedData:updated};
+assert.equal((await handle(req('/api/apply',input,'https://evil.test'),env,{transport,auth})).status,403);
+assert.equal((await handle(req('/api/arbitrary'),env,{transport,auth})).status,404);
+assert.equal((await handle(req('/api/apply',{...input,baseSha:next}),env,{transport,auth})).status,409);
+const tampered=structuredClone(updated);tampered.costBands[0].costPrice=999;
+assert.equal((await handle(req('/api/apply',{...input,expectedData:tampered}),env,{transport,auth})).status,409);
+assert.equal(writes.length,0);
+assert.equal((await handle(req('/api/sync',{requestId:'test',approvePublicPreview:false}),env,{transport,auth})).status,400);
+assert.equal((await handle(req('/api/apply',input),env,{transport,auth})).status,200);
+
+// Real RSA signatures exercise the authentication boundary, not a mocked verifier.
+const keys=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
+const publicKey={...await crypto.subtle.exportKey('jwk',keys.publicKey),kid:'test'};
+const issuer='https://example.cloudflareaccess.com';
+const authEnv={ACCESS_ISSUER:issuer,ACCESS_AUD:'app-audience',ADMIN_EMAILS:'admin@example.test'};
+const certs=async (url,init)=>{assert.equal(init.redirect,'manual');assert.equal(url,issuer+'/cdn-cgi/access/certs');return Response.json({keys:[publicKey]});};
+const encode=v=>Buffer.from(JSON.stringify(v)).toString('base64url');
+const claims={iss:issuer,aud:['app-audience'],exp:Math.floor(Date.now()/1000)+300,iat:Math.floor(Date.now()/1000),type:'app',email:'admin@example.test'};
+async function signed(payload,algorithm='RS256'){
+ const data=encode({alg:algorithm,kid:'test'})+'.'+encode(payload);
+ return data+'.'+Buffer.from(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',keys.privateKey,new TextEncoder().encode(data))).toString('base64url');
+}
+const authRequest=token=>new Request('https://test.workers.dev',{headers:{'Cf-Access-Jwt-Assertion':token}});
+assert.equal((await authenticate(authRequest(await signed(claims)),authEnv,certs)).email,claims.email);
+for(const bad of [{...claims,exp:0},{...claims,aud:['wrong']},{...claims,iss:'https://evil.test'},{...claims,email:'outsider@example.test'},{...claims,type:'service'}])await assert.rejects(()=>signed(bad).then(token=>authenticate(authRequest(token),authEnv,certs)));
+await assert.rejects(()=>signed(claims,'none').then(token=>authenticate(authRequest(token),authEnv,certs)));
+await assert.rejects(()=>authenticate(new Request('https://test.workers.dev'),authEnv,certs));
+// Diagnostics identify the failed stage without exposing tokens or claim values.
+await assert.rejects(()=>signed({...claims,aud:['private-wrong-audience']}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_AUDIENCE).');
+await assert.rejects(()=>authenticate(authRequest('malformed.private.token'),authEnv,certs),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_DECODE).');
+await assert.rejects(()=>signed({...claims,nbf:'invalid'}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_TIME).');
+const savedFetch=globalThis.fetch;
+try {
+ globalThis.fetch=async function(url,init){assert.ok(this===undefined||this===globalThis);assert.equal(init.redirect,'manual');return new Response(null,{status:302,headers:{Location:'https://untrusted.example'}});};
+ await assert.rejects(()=>new PrivateRepository('mock-secret').api('/git/ref/heads/main'),error=>error.status===502);
+} finally {globalThis.fetch=savedFetch;}
+console.log('Backend tests passed: signed authentication, allowlist, invalid/stale/tampered writes, fixed repository, backup ordering, atomic publication, costs, regions and explicit NetSuite mapping. All data writes used an in-memory mock.');

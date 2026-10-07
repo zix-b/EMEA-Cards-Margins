@@ -75,5 +75,5 @@ export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false},dat
  }
  data.generatedAt=date;
  if(data.rows.length>20000||new TextEncoder().encode(JSON.stringify(data)).length>1000000)throw new Error('The updated pricing dataset exceeds the supported size.');
- return {data,changes:changes.map(s=>({tier:s.tier,min:s.min,max:s.max,before:s.original,after:price(s.value)})),sku,product,isNew};
+ return {data,changes:changes.map(s=>({tier:s.tier,min:s.min,max:s.max,before:s.original,after:price(s.value)})),sku,product,isNew,operation:{kind:'editor',date,edit:{sku,product,matrix:structuredClone(matrix),isNew}}};
 }
