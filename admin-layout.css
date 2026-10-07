@@ -98,3 +98,6 @@
 .card-row-actions { white-space: nowrap; }
 .card-row-actions button { min-height: 34px; padding: 7px 12px; margin-right: 8px; }
 #cardDetails { margin-top: 20px; }
+
+/* NetSuite is the sole selling-price source. Keep this external for CSP. */
+.netsuite-only .admin-tabs,.netsuite-only #uploadPanel,.netsuite-only #previewPanel,.netsuite-only #priceEditor{display:none!important}
