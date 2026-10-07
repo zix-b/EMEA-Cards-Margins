@@ -33,5 +33,5 @@ export function prepareDirect(current,preview){
   return {sku:r.sku,product:products.get(r.sku),tier:r.level,quantityMin:r.quantityMin,quantityMax:r.quantityMax,quantityLabel:`${r.quantityMin.toLocaleString('en-US')}–${r.quantityMax===null?'∞':r.quantityMax.toLocaleString('en-US')}`,sellingPrice:r.sellingPrice,costPrice:null,grossProfit:null,marginPercent:null,source:`NetSuite / ${r.level}`,sourceDate:date,category:'NetSuite selling prices'};
  });
  data.priceSource='netsuite';data.generatedAt=date;data.netsuiteFetchedAt=preview.fetchedAt;
- return {data,changes:data.rows.map(r=>({...r,before:null,displayCost:null})),pairs:new Set(preview.rows.map(r=>r.sku+'|'+r.level)).size,operation:{kind:'netsuite',date,preview:structuredClone(preview),mapping:{}}};
+ return {data,changes:data.rows.map(r=>{const existing=current.rows.filter(x=>x.sku===r.sku&&x.tier===r.tier);const exact=existing.find(x=>x.quantityMin===r.quantityMin&&x.quantityMax===r.quantityMax);return {...r,before:exact?.sellingPrice??(existing.length?'Different quantity bands':null),displayCost:null};}),pairs:new Set(preview.rows.map(r=>r.sku+'|'+r.level)).size,operation:{kind:'netsuite',date,preview:structuredClone(preview),mapping:{}}};
 }
