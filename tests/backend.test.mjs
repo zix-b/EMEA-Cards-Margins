@@ -90,4 +90,8 @@ assert.equal((await authenticate(authRequest(await signed(claims)),authEnv,certs
 for(const bad of [{...claims,exp:0},{...claims,aud:['wrong']},{...claims,iss:'https://evil.test'},{...claims,email:'outsider@example.test'},{...claims,type:'service'}])await assert.rejects(()=>signed(bad).then(token=>authenticate(authRequest(token),authEnv,certs)));
 await assert.rejects(()=>signed(claims,'none').then(token=>authenticate(authRequest(token),authEnv,certs)));
 await assert.rejects(()=>authenticate(new Request('https://test.workers.dev'),authEnv,certs));
+// Diagnostics identify the failed stage without exposing tokens or claim values.
+await assert.rejects(()=>signed({...claims,aud:['private-wrong-audience']}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_AUDIENCE).');
+await assert.rejects(()=>authenticate(authRequest('malformed.private.token'),authEnv,certs),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_DECODE).');
+await assert.rejects(()=>signed({...claims,nbf:'invalid'}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_TIME).');
 console.log('Backend tests passed: signed authentication, allowlist, invalid/stale/tampered writes, fixed repository, backup ordering, atomic publication, costs, regions and explicit NetSuite mapping. All data writes used an in-memory mock.');
