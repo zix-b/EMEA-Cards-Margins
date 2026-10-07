@@ -18270,5 +18270,5 @@ window.PRICING_DATA = {
     }
   ],
   "priceSource": "netsuite",
-  "netsuiteFetchedAt": "2026-10-07T12:37:25.645311+00:00"
+  "netsuiteFetchedAt": "2026-10-07T12:44:31.352828+00:00"
 };
