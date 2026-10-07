@@ -1,7 +1,8 @@
 // Authenticated popup: cookies stay first-party on the Worker and never enter Pages.
 export const BRIDGE_JS = `
 const parentOrigin='https://zix-b.github.io';
-const channel=location.hash.slice(1);
+// Query parameters survive Access's email POST redirect; fragments can be lost.
+const channel=new URLSearchParams(location.search).get('channel')||location.hash.slice(1);
 const parentWindow=window.opener;
 const status=document.getElementById('status');
 const allowed=new Set(['GET /api/session','GET /api/pricing','GET /api/netsuite','GET /api/status','POST /api/apply','POST /api/sync']);
