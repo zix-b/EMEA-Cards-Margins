@@ -1,345 +1,779 @@
 {
-  "version": 1,
-  "requestId": "62f039be-e98e-4f3a-9693-b8ae1e203090",
-  "fetchedAt": "2026-10-07T09:36:05.639737+00:00",
+  "version": 2,
+  "requestId": "direct-source-review-20261007",
+  "fetchedAt": "2026-10-07T10:38:52.519Z",
   "currency": "USD",
   "unit": "Each",
   "rows": [
     {
-      "sku": "CTC-011",
+      "sku": "CRD-004",
       "level": "Base",
       "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.98
+      "quantityMax": 999,
+      "sellingPrice": 0.37
     },
     {
-      "sku": "CTC-011",
+      "sku": "CRD-004",
+      "level": "Base",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Base",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
       "level": "Base",
       "quantityMin": 5000,
       "quantityMax": 9999,
-      "sellingPrice": 0.42
+      "sellingPrice": 0.37
     },
     {
-      "sku": "CTC-011",
+      "sku": "CRD-004",
       "level": "Base",
       "quantityMin": 10000,
-      "quantityMax": 24999,
-      "sellingPrice": 0.4
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Base",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
+      "quantityMax": 14999,
       "sellingPrice": 0.34
     },
     {
-      "sku": "CTC-011",
+      "sku": "CRD-004",
       "level": "Base",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "sellingPrice": 0.33
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Base",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "sellingPrice": 0.31
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Base",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.28
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Base",
-      "quantityMin": 500000,
-      "quantityMax": null,
-      "sellingPrice": 0.24
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.98
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "sellingPrice": 0.42
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 10000,
+      "quantityMin": 15000,
       "quantityMax": 24999,
-      "sellingPrice": 0.4
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
       "sellingPrice": 0.34
     },
     {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "sellingPrice": 0.33
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "sellingPrice": 0.31
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.28
-    },
-    {
-      "sku": "CTC-011",
-      "level": "Distributor",
-      "quantityMin": 500000,
-      "quantityMax": null,
-      "sellingPrice": 0.24
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.472
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "sellingPrice": 0.425
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "sellingPrice": 0.379
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-011",
-      "level": "EMEA License Customers",
-      "quantityMin": 500000,
-      "quantityMax": null,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.98
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "sellingPrice": 0.48
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "sellingPrice": 0.46
-    },
-    {
-      "sku": "CTC-007",
+      "sku": "CRD-004",
       "level": "Base",
       "quantityMin": 25000,
-      "quantityMax": 49999,
-      "sellingPrice": 0.38
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "sellingPrice": 0.36
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "sellingPrice": 0.33
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.3
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Base",
-      "quantityMin": 500000,
-      "quantityMax": null,
-      "sellingPrice": 0.28
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.892
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "sellingPrice": 0.425
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "sellingPrice": 0.41
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "sellingPrice": 0.345
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "sellingPrice": 0.32
-    },
-    {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
+      "quantityMax": 29999,
       "sellingPrice": 0.29
     },
     {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.265
+      "sku": "CRD-004",
+      "level": "Base",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.29
     },
     {
-      "sku": "CTC-007",
-      "level": "Distributor",
-      "quantityMin": 500000,
-      "quantityMax": null,
-      "sellingPrice": 0.255
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 1,
-      "quantityMax": 4999,
-      "sellingPrice": 0.46
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "sellingPrice": 0.43
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "sellingPrice": 0.379
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 25000,
+      "sku": "CRD-004",
+      "level": "Base",
+      "quantityMin": 40000,
       "quantityMax": 49999,
-      "sellingPrice": 0.27
+      "sellingPrice": 0.29
     },
     {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
+      "sku": "CRD-004",
+      "level": "Base",
       "quantityMin": 50000,
       "quantityMax": 99999,
-      "sellingPrice": 0.255
+      "sellingPrice": 0.25
     },
     {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
+      "sku": "CRD-004",
+      "level": "Base",
       "quantityMin": 100000,
-      "quantityMax": 249999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "sellingPrice": 0.246
-    },
-    {
-      "sku": "CTC-007",
-      "level": "EMEA License Customers",
-      "quantityMin": 500000,
       "quantityMax": null,
-      "sellingPrice": 0.246
+      "sellingPrice": 0.235
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.333
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.333
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.333
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.333
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.306
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.306
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.261
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.261
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.261
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.225
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.212
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.125
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.1175
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.1125
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.096
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.093
+    },
+    {
+      "sku": "CRD-004",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.093
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.25
+    },
+    {
+      "sku": "CRD-004",
+      "level": "UK Standard",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.235
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-004",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.45
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-012",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
     },
     {
       "sku": "CRD-012",
@@ -573,6 +1007,2393 @@
       "sellingPrice": 0.11
     },
     {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.473
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.473
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.125
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.1175
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.1125
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.096
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.093
+    },
+    {
+      "sku": "CRD-012",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.093
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.473
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.105
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.473
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-012",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.85
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.85
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.47
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.25
+    },
+    {
+      "sku": "CRD-012",
+      "level": "UK Standard",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.235
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 1000,
+      "quantityMax": 2499,
+      "sellingPrice": 0.788
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 2500,
+      "quantityMax": 4999,
+      "sellingPrice": 0.473
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.263
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 14999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 15000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.173
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 25000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 30000,
+      "quantityMax": 39999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 40000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.131
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.121
+    },
+    {
+      "sku": "CRD-012",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": null,
+      "sellingPrice": 0.11
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.98
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.48
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.38
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.36
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.33
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.3
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Base",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.28
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.892
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.41
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.345
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.32
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.29
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.265
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "EMEA License Customers",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.225
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.892
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.435
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.41
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.225
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.205
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.43
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.27
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.255
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-007",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Base",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "EMEA License Customers",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.415
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.37
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-008",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.98
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.42
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.4
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.33
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.31
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.28
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Base",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.98
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.42
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.4
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.34
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.33
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.31
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.28
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.24
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "EMEA License Customers",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.425
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 24999,
+      "sellingPrice": 0.379
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 25000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 250000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.246
+    },
+    {
+      "sku": "CTC-011",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.246
+    },
+    {
       "sku": "CTC-024",
       "level": "Base",
       "quantityMin": 1,
@@ -685,18 +3506,2244 @@
       "sellingPrice": 0.364
     },
     {
-      "sku": "LIC-009",
-      "level": "Base",
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
       "quantityMin": 1,
-      "quantityMax": null,
-      "sellingPrice": 0.15
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
     },
     {
-      "sku": "LIC-009",
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Nickels & Dimes",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "P1AG",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Pizza Ranch",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "Strategic Partnership",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "TEEG",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 4999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.544
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 29999,
+      "sellingPrice": 0.472
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 30000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.407
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.382
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 149999,
+      "sellingPrice": 0.369
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 150000,
+      "quantityMax": 249999,
+      "sellingPrice": 0.369
+    },
+    {
+      "sku": "CTC-024",
+      "level": "USA Standard",
+      "quantityMin": 250000,
+      "quantityMax": null,
+      "sellingPrice": 0.364
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.62
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.4
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.23
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.23
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.08
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Base",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "D&B Embed",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-003",
       "level": "Distributor",
       "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.22
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.19
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.04
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.04
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.92
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.77
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Distributor",
+      "quantityMin": 500000,
       "quantityMax": null,
-      "sellingPrice": 0.1
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "EMEA License Customers",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.28
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.28
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.75
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.59
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.24
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.08
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.0
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.97
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.78
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-003",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.62
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.4
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.23
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.23
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.08
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Base",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "D&B Embed",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.22
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.19
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.04
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.04
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.92
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.77
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.74
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "EMEA License Customers",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.28
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.28
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.75
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.59
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.24
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.08
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.0
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.97
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.79
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.78
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.4
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 1.29
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.13
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.99
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.83
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.8
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 499,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 500,
+      "quantityMax": 999,
+      "sellingPrice": 2.53
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 1000,
+      "quantityMax": 1999,
+      "sellingPrice": 1.94
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 2000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.76
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 1.37
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 1.2
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 1.11
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 1.07
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 199999,
+      "sellingPrice": 0.87
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 200000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.86
+    },
+    {
+      "sku": "CTM-004",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.84
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 2.88
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.6
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.56
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.54
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.54
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.5
+    },
+    {
+      "sku": "CTW-009",
+      "level": "APAC License Price Level",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.48
     },
     {
       "sku": "CTW-009",
@@ -865,6 +5912,440 @@
       "quantityMin": 500000,
       "quantityMax": null,
       "sellingPrice": 0.48
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.41
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.57
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.52
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.49
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Nickels & Dimes",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.41
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.57
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.52
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.49
+    },
+    {
+      "sku": "CTW-009",
+      "level": "P1AG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.41
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.57
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.52
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.49
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.41
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.91
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.57
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.52
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.49
+    },
+    {
+      "sku": "CTW-009",
+      "level": "Strategic Partnership",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.46
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 2.88
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 0.6
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.56
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.54
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.54
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.51
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.5
+    },
+    {
+      "sku": "CTW-009",
+      "level": "TEEG",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.48
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.71
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.1
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.75
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.69
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.63
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.6
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Distributor",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.56
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": 999,
+      "sellingPrice": 1.71
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 1000,
+      "quantityMax": 4999,
+      "sellingPrice": 1.1
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 5000,
+      "quantityMax": 9999,
+      "sellingPrice": 0.75
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 10000,
+      "quantityMax": 19999,
+      "sellingPrice": 0.69
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 20000,
+      "quantityMax": 49999,
+      "sellingPrice": 0.63
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 50000,
+      "quantityMax": 99999,
+      "sellingPrice": 0.62
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 100000,
+      "quantityMax": 499999,
+      "sellingPrice": 0.6
+    },
+    {
+      "sku": "CTW-009",
+      "level": "USA Standard",
+      "quantityMin": 500000,
+      "quantityMax": null,
+      "sellingPrice": 0.56
+    },
+    {
+      "sku": "LIC-009",
+      "level": "Base",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.15
+    },
+    {
+      "sku": "LIC-009",
+      "level": "Distributor",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.1
+    },
+    {
+      "sku": "LIC-009",
+      "level": "P1AG",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.07
+    },
+    {
+      "sku": "LIC-009",
+      "level": "Pizza Ranch",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.035
+    },
+    {
+      "sku": "LIC-009",
+      "level": "UK Standard",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.15
+    },
+    {
+      "sku": "LIC-009",
+      "level": "USA Standard",
+      "quantityMin": 1,
+      "quantityMax": null,
+      "sellingPrice": 0.07
     }
   ]
 }

@@ -1,9 +1,11 @@
+import {execFileSync} from 'node:child_process';
+// Preserve legacy-mode regressions using the last approved sheet dataset.
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {readPricingFiles,prepareSellingUpdate,HEADERS} from '../pricing-files.mjs';
 import {buildUpdate} from '../backend/operations.mjs';
-const data=JSON.parse(fs.readFileSync('pricing-data.json'));
+const data=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:pricing-data.json'],{encoding:'utf8'}));
 const card=data.rows.find(r=>r.tier==='EMEA Base');
 const elements=new Map();
 const element=()=>({value:'',checked:false,disabled:false,hidden:false,textContent:'',children:[],handlers:{},files:[],addEventListener(name,fn){this.handlers[name]=fn;},replaceChildren(){this.children=[];},append(child){this.children.push(child);}});

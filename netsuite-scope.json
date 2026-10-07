@@ -1,0 +1,153 @@
+{
+  "skus": [
+    "CRD-004",
+    "CRD-012",
+    "CTC-007",
+    "CTC-008",
+    "CTC-011",
+    "CTC-024",
+    "CTM-003",
+    "CTM-004",
+    "CTW-009",
+    "LIC-009"
+  ],
+  "levels": [
+    "APAC License Price Level",
+    "Base",
+    "D&B Embed",
+    "Distributor",
+    "EMEA License Customers",
+    "Nickels & Dimes",
+    "P1AG",
+    "Pizza Ranch",
+    "Strategic Partnership",
+    "TEEG",
+    "UK Standard",
+    "USA Distributor",
+    "USA Standard"
+  ],
+  "expected": {
+    "CRD-004": [
+      "Base",
+      "Distributor",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "UK Standard",
+      "USA Standard"
+    ],
+    "CRD-012": [
+      "APAC License Price Level",
+      "Base",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "UK Standard",
+      "USA Standard"
+    ],
+    "CTC-007": [
+      "APAC License Price Level",
+      "Base",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "CTC-008": [
+      "APAC License Price Level",
+      "Base",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "CTC-011": [
+      "APAC License Price Level",
+      "Base",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "CTC-024": [
+      "Base",
+      "Distributor",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Standard"
+    ],
+    "CTM-003": [
+      "APAC License Price Level",
+      "Base",
+      "D&B Embed",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "CTM-004": [
+      "APAC License Price Level",
+      "Base",
+      "D&B Embed",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "CTW-009": [
+      "APAC License Price Level",
+      "Base",
+      "Distributor",
+      "EMEA License Customers",
+      "Nickels & Dimes",
+      "P1AG",
+      "Pizza Ranch",
+      "Strategic Partnership",
+      "TEEG",
+      "USA Distributor",
+      "USA Standard"
+    ],
+    "LIC-009": [
+      "Base",
+      "Distributor",
+      "P1AG",
+      "Pizza Ranch",
+      "UK Standard",
+      "USA Standard"
+    ]
+  }
+}

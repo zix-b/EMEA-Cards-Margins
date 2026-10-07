@@ -1,6 +1,8 @@
+import {validateDirect,prepareDirect} from './netsuite-direct.mjs';
 import {SUPPORTED_TIERS} from './pricing-import.mjs?v=20261005-sheet';
 export const LEVELS=['EMEA License Customers','Base','Distributor'];
 export function validateNetSuite(preview){
+ if(preview?.version===2)return validateDirect(preview);
  if(preview?.version!==1||preview.currency!=='USD'||preview.unit!=='Each'||!Number.isFinite(Date.parse(preview.fetchedAt))||!Array.isArray(preview.rows)||!preview.rows.length||preview.rows.length>20000)throw Error('Invalid NetSuite preview. Run Sync NetSuite again.');
  const groups=new Map();
  for(const r of preview.rows){
@@ -12,6 +14,8 @@ export function validateNetSuite(preview){
 }
 const covers=(r,q)=>r.quantityMin<=q&&(r.quantityMax===null||q<=r.quantityMax);
 export function prepareNetSuite(current,preview,mapping){
+ if(preview?.version===2)return prepareDirect(current,preview);
+ if(current.priceSource==='netsuite')throw Error('A complete NetSuite snapshot is required.');
  validateNetSuite(preview);
  const selected=Object.entries(mapping).filter(([,v])=>v);
  if(!selected.length)throw Error('Choose at least one website price type to update.');

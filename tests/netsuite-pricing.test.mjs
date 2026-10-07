@@ -1,7 +1,9 @@
+import {execFileSync} from 'node:child_process';
+// Preserve legacy-mode regressions using the last approved sheet dataset.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {prepareNetSuite,validateNetSuite} from '../netsuite-pricing.mjs';
-const current=JSON.parse(fs.readFileSync('pricing-data.json'));
+const current=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:pricing-data.json'],{encoding:'utf8'}));
 const before=structuredClone(current);
 const preview={version:1,currency:'USD',unit:'Each',fetchedAt:'2026-10-05T12:00:00Z',rows:[{sku:'CTC-007',level:'Base',quantityMin:1,quantityMax:4999,sellingPrice:.98},{sku:'CTC-007',level:'Base',quantityMin:5000,quantityMax:null,sellingPrice:.5}]};
 const result=prepareNetSuite(current,preview,{Base:'EMEA Base'});

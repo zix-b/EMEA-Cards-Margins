@@ -1,3 +1,5 @@
+import {execFileSync} from 'node:child_process';
+// Preserve legacy-mode regressions using the last approved sheet dataset.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {buildUpdate,validateUpload} from '../backend/operations.mjs';
@@ -5,8 +7,8 @@ import {PrivateRepository} from '../backend/repository.mjs';
 import {authenticate} from '../backend/auth.mjs';
 import {handle} from '../backend/worker.mjs';
 import {createMatrix} from '../pricing-editor.mjs';
-const current=JSON.parse(fs.readFileSync(new URL('../pricing-data.json',import.meta.url)));
-const preview=JSON.parse(fs.readFileSync(new URL('../netsuite-preview.json',import.meta.url)));
+const current=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:pricing-data.json'],{encoding:'utf8'}));
+const preview=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:netsuite-preview.json'],{encoding:'utf8'}));
 const date='2026-10-06',sha='a'.repeat(40),next='b'.repeat(40),tree='c'.repeat(40);
 const first=current.rows.find(r=>r.tier==='EMEA Base');
 const upload={kind:'upload',date,rows:[{sku:first.sku,product:first.product,tier:first.tier,prices:Array(8).fill(first.sellingPrice)}]};
