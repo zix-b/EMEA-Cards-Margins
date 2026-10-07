@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EMEA Cards Margins</title>
+    <meta property="og:title" content="EMEA Cards Margins" />
+    <meta property="og:description" content="Quick EMEA cards pricing and margin lookup tool." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20260709costbands" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sales Tool</p>
+          <h1>EMEA Cards Margins</h1>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="Search controls">
+        <label>
+          Product
+          <select id="productSelect">
+            <option value="">All products</option>
+          </select>
+        </label>
+
+        <label>
+          Quantity
+          <input id="quantityInput" type="number" min="1" step="1" placeholder="e.g. 5000" />
+        </label>
+
+        <label>
+          EMEA Price Type
+          <select id="tierSelect">
+            <option value="">All EMEA prices</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="results-list" id="resultsBody" aria-label="Pricing results">
+      </section>
+    </main>
+
+    <script src="pricing-data.js?v=20260709costbands"></script>
+    <script src="app.js?v=20260709costbands"></script>
+  </body>
+</html>
