@@ -23,6 +23,9 @@ for(const r of before.rows.filter(r=>Number.isFinite(r.costPrice))){
 }
 const second=prepareDirect(actual,active);assert.deepEqual(second.data,actual,'Repeated sync is idempotent');
 assert.deepEqual(buildUpdate(actual,second.operation,active),actual);
+assert.ok(second.changes.every(r=>r.before===r.sellingPrice),'Review shows existing prices for unchanged bands');
+const shifted=structuredClone(actual);shifted.rows[0].quantityMin+=1;
+assert.equal(prepareDirect(shifted,active).changes[0].before,'Different quantity bands');
 for(const kind of ['upload','editor','card'])assert.throws(()=>buildUpdate(actual,{kind,date:'2026-10-07'},preview),/managed in NetSuite/);
 const bad=structuredClone(preview);bad.rows=bad.rows.filter(r=>r.sku!=='CTC-007');assert.throws(()=>validateDirect(bad),/Incomplete/);
 for(const patch of [{sellingPrice:-1},{sellingPrice:Infinity},{quantityMin:0},{level:'EMEA Premier'},{sku:'OTHER'}]){const p=structuredClone(preview);Object.assign(p.rows[0],patch);assert.throws(()=>validateDirect(p),/Incomplete/);}
