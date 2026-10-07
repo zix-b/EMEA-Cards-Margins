@@ -18,7 +18,7 @@ export class AdminService {
  }
  async login(){
   const ready=new Promise((resolve,reject)=>{this.readyResolve=resolve;this.readyReject=reject;});
-  this.popup=window.open(this.origin+'/bridge#'+this.channel,'emea-admin-'+this.channel,'popup,width=560,height=680');
+  this.popup=window.open(this.origin+'/bridge?channel='+this.channel,'emea-admin-'+this.channel,'popup,width=560,height=680');
   if(!this.popup){this.clear();throw Error('Allow the sign-in popup, then try again.');}
   const timer=setTimeout(()=>this.readyReject?.(Error('Sign-in timed out. Try again.')),300000);
   try{await ready;return await this.request('/api/session');}finally{clearTimeout(timer);this.readyResolve=null;this.readyReject=null;}

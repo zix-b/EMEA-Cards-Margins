@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {BRIDGE_JS} from '../backend/bridge.mjs';
 import {AdminService} from '../admin-service.mjs';
-const listeners=new Set(),outbound=[];
+const listeners=new Set(),outbound=[];let openedUrl;
 const popup={closed:false,postMessage(data,origin){outbound.push({data,origin});},close(){this.closed=true;}};
-globalThis.window={addEventListener(type,fn){listeners.add(fn);},removeEventListener(type,fn){listeners.delete(fn);},open(){popup.closed=false;return popup;}};
+globalThis.window={addEventListener(type,fn){listeners.add(fn);},removeEventListener(type,fn){listeners.delete(fn);},open(url){openedUrl=url;popup.closed=false;return popup;}};
 const service=new AdminService('https://emea-cards-admin.example.workers.dev');
 const emit=(data,{origin=service.origin,source=popup}={})=>{for(const fn of listeners)fn({origin,source,data:{channel:service.channel,...data}});};
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
-const login=service.login();emit({type:'ready'});await tick();
+const login=service.login();assert.equal(new URL(openedUrl).searchParams.get('channel'),service.channel);assert.equal(new URL(openedUrl).hash,'');emit({type:'ready'});await tick();
 let request=outbound.at(-1).data;assert.equal(request.path,'/api/session');
 let resolved=false;login.then(()=>resolved=true);
 emit({type:'response',id:request.id,ok:true,data:{email:'attacker'}},{origin:'https://evil.test'});await tick();assert.equal(resolved,false);
@@ -19,3 +21,11 @@ emit({type:'response',id:request.id,ok:true,data:{sha:'def'}});assert.equal((awa
 const logout=service.logout();assert.equal(outbound.at(-1).data.type,'logout');emit({type:'logged-out'});await logout;
 assert.equal(popup.closed,true);assert.equal(listeners.size,0);await assert.rejects(()=>service.read(),/closed/);
 console.log('Admin service tests passed: popup login, origin/source checks, operation submission, confirmed logout and closed-session rejection.');
+
+// Access may remove fragments during the email-code POST; query preserves the channel.
+for(const search of ['?channel='+service.channel,'?channel=invalid']){
+ const sent=[],status={textContent:''};const opener={postMessage:(data,origin)=>sent.push({data,origin})};
+ vm.runInNewContext(BRIDGE_JS,{URLSearchParams,location:{search,hash:''},window:{opener,addEventListener(){}},document:{getElementById:id=>id==='status'?status:{}},Set});
+ assert.equal(sent.length,search.includes('invalid')?0:1);
+ if(sent.length){assert.equal(sent[0].data.channel,service.channel);assert.equal(sent[0].origin,'https://zix-b.github.io');}
+}
