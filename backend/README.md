@@ -50,3 +50,5 @@ References:
 - https://developers.cloudflare.com/workers/configuration/cloudflare-access/
 - https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/
 - https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens
+
+Live verification entry: `admin.html?auth=cloudflare`. This opt-in selects the protected backend; the default portal remains unchanged until publishing and logout pass. Worker request transports use manual redirect handling and reject non-success responses, including redirects. Never forward repository credentials to a redirect target.

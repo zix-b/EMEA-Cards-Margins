@@ -1,7 +1,7 @@
 import {HttpError} from './repository.mjs';
 const cache=new Map();
 const decode=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
-export async function authenticate(request,env,transport=fetch) {
+export async function authenticate(request,env,transport=(url,init)=>fetch(url,init)) {
  const issuer=env.ACCESS_ISSUER,audience=env.ACCESS_AUD;
  if(!/^https:\/\/[a-z0-9-]+\.cloudflareaccess\.com$/.test(issuer||'')||!audience||!env.ADMIN_EMAILS)throw new HttpError(503,'Admin authentication is not configured.');
  const token=request.headers.get('Cf-Access-Jwt-Assertion');
@@ -19,10 +19,13 @@ export async function authenticate(request,env,transport=fetch) {
   stage='certificates';
   let cached=cache.get(issuer);
   if(!cached||cached.until<Date.now()||!cached.keys.some(k=>k.kid===header.kid)){
-   const response=await transport(issuer+'/cdn-cgi/access/certs',{redirect:'error'});
-   if(!response.ok)throw Error();const {keys}=await response.json();if(!Array.isArray(keys))throw Error();
+   stage='certificates_fetch';
+   const response=await transport(issuer+'/cdn-cgi/access/certs',{redirect:'manual'});
+   stage='certificates_http_'+response.status;if(!response.ok)throw Error();
+   stage='certificates_json';const {keys}=await response.json();if(!Array.isArray(keys))throw Error();
    cached={keys,until:Date.now()+300000};cache.set(issuer,cached);
   }
+  stage='certificates_key_id';
   const jwk=cached.keys.find(k=>k.kid===header.kid&&k.kty==='RSA');if(!jwk)throw Error();
   stage='key';
   const key=await crypto.subtle.importKey('jwk',jwk,{name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'},false,['verify']);

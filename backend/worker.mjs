@@ -12,7 +12,7 @@ async function body(request){
  const bytes=new Uint8Array(size);let at=0;for(const part of parts){bytes.set(part,at);at+=part.length;}
  try{return JSON.parse(new TextDecoder('utf-8',{fatal:true,ignoreBOM:false}).decode(bytes));}catch{throw new HttpError(400,'Invalid JSON.');}
 }
-export async function handle(request,env,{transport=fetch,auth=authenticate}={}){
+export async function handle(request,env,{transport=(url,init)=>fetch(url,init),auth=authenticate}={}){
  try{
   const url=new URL(request.url),path=url.pathname;
   // Every route fails closed until Access and the explicit allowlist are configured.

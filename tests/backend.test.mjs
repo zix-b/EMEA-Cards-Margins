@@ -78,7 +78,7 @@ const keys=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLeng
 const publicKey={...await crypto.subtle.exportKey('jwk',keys.publicKey),kid:'test'};
 const issuer='https://example.cloudflareaccess.com';
 const authEnv={ACCESS_ISSUER:issuer,ACCESS_AUD:'app-audience',ADMIN_EMAILS:'admin@example.test'};
-const certs=async url=>{assert.equal(url,issuer+'/cdn-cgi/access/certs');return Response.json({keys:[publicKey]});};
+const certs=async (url,init)=>{assert.equal(init.redirect,'manual');assert.equal(url,issuer+'/cdn-cgi/access/certs');return Response.json({keys:[publicKey]});};
 const encode=v=>Buffer.from(JSON.stringify(v)).toString('base64url');
 const claims={iss:issuer,aud:['app-audience'],exp:Math.floor(Date.now()/1000)+300,iat:Math.floor(Date.now()/1000),type:'app',email:'admin@example.test'};
 async function signed(payload,algorithm='RS256'){
@@ -94,4 +94,9 @@ await assert.rejects(()=>authenticate(new Request('https://test.workers.dev'),au
 await assert.rejects(()=>signed({...claims,aud:['private-wrong-audience']}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_AUDIENCE).');
 await assert.rejects(()=>authenticate(authRequest('malformed.private.token'),authEnv,certs),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_DECODE).');
 await assert.rejects(()=>signed({...claims,nbf:'invalid'}).then(token=>authenticate(authRequest(token),authEnv,certs)),error=>error.status===401&&error.message==='Your sign-in could not be verified (AUTH_TIME).');
+const savedFetch=globalThis.fetch;
+try {
+ globalThis.fetch=async function(url,init){assert.ok(this===undefined||this===globalThis);assert.equal(init.redirect,'manual');return new Response(null,{status:302,headers:{Location:'https://untrusted.example'}});};
+ await assert.rejects(()=>new PrivateRepository('mock-secret').api('/git/ref/heads/main'),error=>error.status===502);
+} finally {globalThis.fetch=savedFetch;}
 console.log('Backend tests passed: signed authentication, allowlist, invalid/stale/tampered writes, fixed repository, backup ordering, atomic publication, costs, regions and explicit NetSuite mapping. All data writes used an in-memory mock.');
