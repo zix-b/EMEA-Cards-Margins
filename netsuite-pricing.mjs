@@ -1,4 +1,4 @@
-import {validateDirect,prepareDirect} from './netsuite-direct.mjs';
+import {validateDirect,prepareDirect} from './netsuite-direct.mjs?v=20261007-review';
 import {SUPPORTED_TIERS} from './pricing-import.mjs?v=20261005-sheet';
 export const LEVELS=['EMEA License Customers','Base','Distributor'];
 export function validateNetSuite(preview){

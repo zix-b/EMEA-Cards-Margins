@@ -1,5 +1,5 @@
 import {AdminService} from './admin-service.mjs?v=20261007-signin';
-import {initNetSuite} from './admin-netsuite.mjs?v=20261007-direct';
+import {initNetSuite} from './admin-netsuite.mjs?v=20261007-review';
 import {initCards} from './admin-cards.mjs?v=20261007-email';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
 import {initEditor} from './admin-editor.mjs?v=20261007-email';
