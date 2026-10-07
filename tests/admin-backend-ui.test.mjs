@@ -30,3 +30,10 @@ get('confirmPublish').checked=true;get('confirmPublish').handlers.change();await
 await get('publishButton').handlers.click();assert.equal(count,1);
 await get('gateLogout').onclick();assert.equal(logoutCount,1);assert.equal(get('adminPortal').hidden,true);assert.equal(get('adminGate').hidden,false);
 console.log('Backend admin UI passed: email login without GitHub token, CSV review and explicit confirmation, server-equivalent result, repeated Apply blocked, logout. No live writes.');
+
+// A failed login returns the gate to a usable state and hides pending controls.
+AdminService.prototype.login=async()=>{throw Error('The sign-in window was closed.');};
+await get('gateForm').onsubmit({preventDefault(){}});
+assert.equal(get('gateLogin').disabled,false);
+assert.equal(get('gatePending').hidden,true);
+assert.match(get('gateError').textContent,/window was closed/);

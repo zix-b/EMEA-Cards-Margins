@@ -161,9 +161,6 @@ function applyFilters() {
   el.quantity.setAttribute('aria-invalid', String(!valid));
   document.querySelector('#quantityError').textContent = valid ? '' : 'Enter a whole-number quantity between 1 and 1 trillion, or leave blank for all bands.';
   state.quantity = raw && valid ? qty : null;
-  const products = el.product.options.length - 1;
-  for(const id of ['previousCard','nextCard'])document.querySelector(`#${id}`).disabled=products===0;
-  document.querySelector('#cardPosition').textContent = products===0 ? `No cards for ${state.region}` : product ? `${el.product.selectedIndex} of ${products} · ${product.split(' - ')[0]}` : `All ${products} cards`;
   document.querySelector('#resultTitle').textContent = product ? 'Your quote' : 'All cards';
   if (!valid) { el.body.innerHTML=''; return; }
   state.filtered = regionRows().filter(row => (!product || `${row.sku} - ${row.product}` === product) && (!tier || row.tier === tier) && inQuantityRange(row,state.quantity));
@@ -216,10 +213,6 @@ function boot() {
   }
   for(const region of REGIONS)document.querySelector(`#region${region}`).addEventListener('click',()=>changeRegion(region));
   for(const event of ['input','change'])el.product.addEventListener(event,()=>{fillPriceTypes();applyFilters();});
-  for(const [id,step] of [['previousCard',-1],['nextCard',1]])document.querySelector(`#${id}`).addEventListener('click',()=>{
-    const count=el.product.options.length-1;if(!count)return;const i=el.product.selectedIndex;
-    el.product.selectedIndex=i===0?(step===1?1:count):((i-1+step+count)%count)+1;fillPriceTypes();applyFilters();
-  });
   window.addEventListener('focus',refreshData);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshData();});
   refreshData();
