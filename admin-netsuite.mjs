@@ -1,4 +1,4 @@
-import {LEVELS,validateNetSuite,prepareNetSuite} from './netsuite-pricing.mjs';
+import {LEVELS,validateNetSuite,prepareNetSuite} from './netsuite-pricing.mjs?v=20261007-review';
 import {SUPPORTED_TIERS} from './pricing-import.mjs?v=20261005-sheet';
 export function initNetSuite(session){
  const $=id=>document.getElementById(id);let preview=null,prepared=null,base=null,busy=false;
