@@ -3,7 +3,7 @@
 <body><main class="shell admin-shell">
 <section id="adminGate" aria-labelledby="gateTitle">
 <div class="hero"><p class="eyebrow">Pricing administration</p><h1 id="gateTitle">Admin access.</h1><p class="lede">Sign in with your approved email address.</p></div>
-<div class="panel"><form id="gateForm"><p id="gateError" class="error" role="alert"></p><button id="gateLogin" type="submit">Sign in with email</button></form></div>
+<div class="panel"><form id="gateForm"><p id="gateError" class="error" role="alert"></p><button id="gateLogin" type="submit">Sign in with email</button></form><div id="gatePending" hidden><p role="status">Complete email sign-in in the separate window. If it is hidden, bring it back below.</p><div class="form-actions"><button id="gateOpen" type="button" class="secondary">Open sign-in window</button><button id="gateCancel" type="button" class="secondary">Cancel</button></div></div></div>
 <p><a href="index.html">Back to pricing tool</a></p><noscript><p>Enable JavaScript to sign in to the admin portal.</p></noscript>
 </section>
 <div id="adminPortal" hidden>
@@ -41,4 +41,4 @@
 </section>
 <section id="deploymentPanel" class="panel" hidden><h2>Publication status</h2><button id="refreshDeployment" type="button" class="secondary">Refresh publication status</button><p id="deploymentStatus" role="status"></p><ul id="deploymentRuns"></ul></section>
 <footer><span>Publishing is restricted to approved admins.</span><a href="https://github.com/zix-b/EMEA-Cards-Margins/actions" target="_blank" rel="noopener noreferrer">View deployment status</a></footer>
-</div></main><script src="admin-config.js"></script><script src="pricing-data.js?v=20261005-sheet"></script><script src="admin-tabs.js?v=20261005-tabs"></script><script src="admin-template.js?v=20261005-bands"></script><script src="vendor/xlsx.full.min.js"></script><script type="module" src="admin.mjs?v=20261007-email"></script></body></html>
+</div></main><script src="admin-config.js"></script><script src="pricing-data.js?v=20261005-sheet"></script><script src="admin-tabs.js?v=20261005-tabs"></script><script src="admin-template.js?v=20261005-bands"></script><script src="vendor/xlsx.full.min.js"></script><script type="module" src="admin.mjs?v=20261007-signin"></script></body></html>

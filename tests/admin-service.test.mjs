@@ -36,3 +36,16 @@ for(const sessionResponse of [{type:'opaqueredirect',status:0},{type:'basic',sta
  vm.runInNewContext(BRIDGE_JS,{URLSearchParams,location:{search:'?channel='+service.channel,hash:''},window:{opener:{postMessage:data=>sent.push(data)},addEventListener(){}},document:{getElementById:id=>nodes[id]},Set,fetch:async(path,options)=>{assert.equal(options.redirect,'manual');calls++;return path.includes('logout')?{type:'opaqueredirect',ok:false}:sessionResponse;}});
  await nodes.logout.onclick();assert.equal(calls,2);assert.equal(sent.at(-1).type,sessionResponse.status===200?'logout-failed':'logged-out');
 }
+
+// Closing/cancelling a popup must settle login instead of leaving the gate disabled.
+const closedService=new AdminService('https://emea-cards-admin.example.workers.dev');
+const closedLogin=closedService.login();popup.closed=true;
+await assert.rejects(closedLogin,/window was closed/);closedService.clear();
+const cancelledService=new AdminService('https://emea-cards-admin.example.workers.dev');
+const cancelledLogin=cancelledService.login();cancelledService.cancelLogin();
+await assert.rejects(cancelledLogin,/cancelled/);cancelledService.clear();
+const originalOpen=window.open;window.open=()=>null;
+const blockedService=new AdminService('https://emea-cards-admin.example.workers.dev');
+await assert.rejects(blockedService.login(),/Allow the sign-in popup/);window.open=originalOpen;
+assert.equal(listeners.size,0);
+console.log('Sign-in recovery passed: closed popup, cancellation, blocked popup, timer/listener cleanup.');

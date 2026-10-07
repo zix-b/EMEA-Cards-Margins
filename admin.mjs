@@ -1,4 +1,4 @@
-import {AdminService} from './admin-service.mjs';
+import {AdminService} from './admin-service.mjs?v=20261007-signin';
 import {initNetSuite} from './admin-netsuite.mjs?v=20261007-email';
 import {initCards} from './admin-cards.mjs?v=20261007-email';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
@@ -35,15 +35,17 @@ netSuite=initNetSuite({...session,discard:()=>editor.discard()&&cardManager.disc
   }catch(error){$('deploymentStatus').textContent=error.message;}
   finally{$('refreshDeployment').disabled=false;}
  };
+ $('gateOpen').onclick=()=>repository?.focusLogin();
+ $('gateCancel').onclick=()=>repository?.cancelLogin();
  $('gateForm').onsubmit=async event=>{
-  event.preventDefault();if(busy)return;busy=true;controls();$('gateError').textContent='';
+  event.preventDefault();if(busy)return;busy=true;controls();$('gateError').textContent='';$('gatePending').hidden=false;
   try{
    repository?.clear();repository=new AdminService(window.ADMIN_BACKEND_URL);
    const identity=await repository.login();snapshot=await repository.read();
    editor.connected();cardManager.connected();$('adminGate').hidden=true;$('adminPortal').hidden=false;
    $('connectionStatus').textContent=`Signed in as ${identity.email} · main ${snapshot.sha.slice(0,7)}`;
   }catch(error){repository?.clear();repository=null;snapshot=null;$('gateError').textContent=error.message;}
-  finally{busy=false;controls();}
+  finally{busy=false;controls();$('gatePending').hidden=true;}
  };
  $('gateLogout').onclick=async()=>{
   if(busy)return;

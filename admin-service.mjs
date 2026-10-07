@@ -20,9 +20,12 @@ export class AdminService {
   const ready=new Promise((resolve,reject)=>{this.readyResolve=resolve;this.readyReject=reject;});
   this.popup=window.open(this.origin+'/bridge?channel='+this.channel,'emea-admin-'+this.channel,'popup,width=560,height=680');
   if(!this.popup){this.clear();throw Error('Allow the sign-in popup, then try again.');}
-  const timer=setTimeout(()=>this.readyReject?.(Error('Sign-in timed out. Try again.')),300000);
-  try{await ready;return await this.request('/api/session');}finally{clearTimeout(timer);this.readyResolve=null;this.readyReject=null;}
+  const timer=setTimeout(()=>this.readyReject?.(Error('Sign-in timed out. Try again.')),600000);
+  const closed=setInterval(()=>{if(this.popup?.closed)this.readyReject?.(Error('The sign-in window was closed. Click Sign in with email to reopen it.'));},250);
+  try{await ready;return await this.request('/api/session');}finally{clearTimeout(timer);clearInterval(closed);this.readyResolve=null;this.readyReject=null;}
  }
+ focusLogin(){this.popup?.focus();}
+ cancelLogin(){this.readyReject?.(Error('Sign-in cancelled. You can try again.'));}
  request(path,{method='GET',body}={}){
   if(!this.popup||this.popup.closed)return Promise.reject(Error('The sign-in window is closed. Log in again.'));
   const id=crypto.randomUUID();
