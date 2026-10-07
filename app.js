@@ -50,14 +50,14 @@ function pricingRegion(record) {
   if(/\bROW\b/i.test(tier))return 'ROW';
   return null;
 }
-function regionRows(){return state.rows.filter(row=>pricingRegion(row)===state.region);}
+function regionRows(){if(state.priceSource==='netsuite')return state.rows;return state.rows.filter(row=>pricingRegion(row)===state.region);}
 function syncRegionControls(){
   for(const region of REGIONS)document.querySelector(`#region${region}`).setAttribute('aria-pressed',String(region===state.region));
-  document.querySelector('#priceTypeLabel').textContent=`${state.region} price type`;
+  document.querySelector('#priceTypeLabel').textContent=state.priceSource==='netsuite'?'NetSuite price level':`${state.region} price type`;
 }
 function changeRegion(region){
   if(!REGIONS.includes(region)||region===state.region)return;
-  state.region=region;setData({rows:state.rows,costBands:state.costBands,cards:state.cards,generatedAt:state.generatedAt});
+  state.region=region;setData({rows:state.rows,costBands:state.costBands,cards:state.cards,generatedAt:state.generatedAt,priceSource:state.priceSource,legacyCosts:state.legacyCosts,netsuiteFetchedAt:state.netsuiteFetchedAt});
 }
 
 function money(value) {
@@ -99,7 +99,8 @@ function findCostBand(sku, qty) {
 
 function displayMetrics(row) {
   const costBand = findCostBand(row.sku, state.quantity);
-  const costPrice = costBand?.costPrice ?? row.costPrice;
+  const storedCost=state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null)?.costPrice:row.costPrice;
+  const costPrice = costBand?.costPrice ?? storedCost ?? null;
   const grossProfit =
     Number.isFinite(row.sellingPrice) && Number.isFinite(costPrice)
       ? row.sellingPrice - costPrice
@@ -145,7 +146,8 @@ function renderRows(rows) {
   el.body.innerHTML = rows.map(row => {
     const metrics = displayMetrics(row);
     const cost = findCostBand(row.sku, state.quantity);
-    const source = cost ? `${costLabels[cost.costBasis] || 'OPPIOT supplier cost'}: ${cost.source} · ${bandLabel(cost)} units · source date ${cost.sourceDate}` : Number.isFinite(row.costPrice) ? `Stored cost from the pricing row · ${row.vendor || row.source} · ${bandLabel(row)} units` : 'No matching cost is available. Margin cannot be determined.';
+    const retained=state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null):null;
+    const source = retained&&!cost ? `Preserved ${state.region} cost: ${retained.source} · ${bandLabel(retained)} units · source date ${retained.sourceDate}` : cost ? `${costLabels[cost.costBasis] || 'OPPIOT supplier cost'}: ${cost.source} · ${bandLabel(cost)} units · source date ${cost.sourceDate}` : Number.isFinite(row.costPrice) ? `Stored cost from the pricing row · ${row.vendor || row.source} · ${bandLabel(row)} units` : 'No matching cost is available. Margin cannot be determined.';
     return `<article class="result-card">
       <div class="result-meta"><div><span class="sku">${escapeHtml(row.sku)}</span><h3>${escapeHtml(row.product)}</h3></div><span class="tier-badge">${escapeHtml(displayTier(row.tier))}</span></div>
       <div class="metrics"><div class="metric"><span>Sell price</span><strong>${money(row.sellingPrice)}</strong></div><div class="metric"><span>Cost price</span><strong>${bracketMoney(metrics.costPrice)}</strong></div><div class="metric"><span>Unit gross profit</span><strong>${money(metrics.grossProfit)}</strong></div><div class="metric margin"><span>Margin</span><strong>${percent(metrics.marginPercent)}</strong></div></div>
@@ -170,15 +172,16 @@ function fillPriceTypes(selected=el.tier.value) {
   const available=new Set(regionRows().filter(r=>!el.product.value||`${r.sku} - ${r.product}`===el.product.value).map(r=>r.tier));
   const known=tierOptions.filter(t=>available.has(t.value));
   const additional=[...available].filter(value=>!known.some(t=>t.value===value)).sort().map(value=>({value,label:value}));
-  fillSelect(el.tier,[...known,...additional],`All ${state.region} prices`);
-  el.tier.value=selected===''?'':available.has(selected)?selected:available.has('EMEA Base')?'EMEA Base':available.has('Base Price (EMEA Premium)')?'Base Price (EMEA Premium)':'';
+  fillSelect(el.tier,[...known,...additional],state.priceSource==='netsuite'?'All NetSuite price levels':`All ${state.region} prices`);
+  el.tier.value=selected===''?'':available.has(selected)?selected:state.priceSource==='netsuite'&&available.has('Base')?'Base':available.has('EMEA Base')?'EMEA Base':available.has('Base Price (EMEA Premium)')?'Base Price (EMEA Premium)':'';
 }
 function setData(data, initial=false) {
   if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
   const selected=el.product.value, selectedTier=el.tier.value;
+  state.priceSource=data.priceSource;state.legacyCosts=data.legacyCosts||[];state.netsuiteFetchedAt=data.netsuiteFetchedAt;
   state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];state.cards=data.cards||[];state.generatedAt=data.generatedAt;
   syncRegionControls();
-  const registered=[...new Map([...state.cards.filter(c=>(c.region?pricingRegion(c):'EMEA')===state.region),...regionRows()].map(r=>[r.sku,r])).values()];
+  const registered=[...new Map([...state.cards.filter(c=>state.priceSource==='netsuite'||(c.region?pricingRegion(c):'EMEA')===state.region),...regionRows()].map(r=>[r.sku,r])).values()];
   const products=uniqueSorted(registered.map(r=>({label:`${r.sku} - ${r.product}`})),'label');
   fillSelect(el.product,products,'All cards');
   el.product.value=initial ? products.find(p=>p.startsWith('CTC-007 - '))||'' : products.includes(selected)?selected:'';
@@ -187,7 +190,8 @@ function setData(data, initial=false) {
   const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
   const notice=document.querySelector('#dataNotice');
   notice.textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : '';
-  notice.hidden=!uploaded.length;
+  if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: preserved ${state.region} records. Cost region changes margins only; it does not filter NetSuite price levels.`;
+  notice.hidden=state.priceSource!=='netsuite'&&!uploaded.length;
   document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();
 }

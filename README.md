@@ -1,3 +1,13 @@
+## Current selling-price source (7 October 2026)
+
+The main calculator uses NetSuite USD/Each item price matrices for the 10 SKUs and populated levels listed in `netsuite-scope.json`. NetSuite level names and quantity bands are displayed directly. The regional buttons select the **cost region only**; they do not route or filter selling prices.
+
+The initial direct-source migration was reviewed from all 10 NetSuite item records. `netsuite-preview.json` version 2 contains the source schedules. Sync fetches a new preview; Review and Apply replaces all active selling schedules. Blank levels have no spreadsheet fallback. An incomplete or unexpected price-level scope fails closed and requires review of the scope configuration.
+
+Existing `costBands` and separately retained `legacyCosts` remain unchanged. Costs are **not** sourced from NetSuite. Enter a quantity to select the cost band; missing costs show unavailable margins. Selling uploads, manual price editing and card mutations are hidden and rejected by the backend in NetSuite-only mode. Change prices in NetSuite, then sync, review and apply. Adding SKUs or levels requires updating and verifying the approved sync scope.
+
+The copy under `versions/pre-july-10-2026/` is historical and unchanged. The sections below document the earlier upload/mapping workflow retained for regression coverage, not the active NetSuite-only selling workflow.
+
 # EMEA Cards Margins
 
 Mobile-friendly pricing lookup tool for quick sales quoting.

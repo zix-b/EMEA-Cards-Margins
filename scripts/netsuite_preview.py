@@ -16,10 +16,12 @@ def main():
     request_id = os.environ['SYNC_REQUEST_ID']
     if not re.fullmatch(r'[a-zA-Z0-9-]{1,80}', request_id):
         raise ValueError('Invalid request ID')
-    schedules = fetch_schedules(credentials)
+    scope = json.loads(Path('netsuite-scope.json').read_text())
+    schedules = fetch_schedules(credentials, scope)
     rows = [dict(sku=sku, level=level, quantityMin=b['min'], quantityMax=b['max'], sellingPrice=float(b['price']))
             for sku, levels in schedules.items() for level, bands in levels.items() for b in bands]
-    preview = dict(version=1, requestId=request_id, fetchedAt=datetime.now(timezone.utc).isoformat(),
+    rows.sort(key=lambda r: (r['sku'], r['level'], r['quantityMin']))
+    preview = dict(version=2, requestId=request_id, fetchedAt=datetime.now(timezone.utc).isoformat(),
                    currency='USD', unit='Each', rows=rows)
     Path('netsuite-preview.json').write_text(json.dumps(preview, indent=2, allow_nan=False)+'\n')
     print(f'Validated preview: {len(schedules)} cards, {len(rows)} selling bands. Active prices and costs unchanged.')

@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {prepareDirect,validateDirect,scope} from '../netsuite-direct.mjs';
+import {buildUpdate} from '../backend/operations.mjs';
+const old=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:pricing-data.json'],{encoding:'utf8'}));
+const preview=JSON.parse(fs.readFileSync('netsuite-preview.json'));
+const actual=JSON.parse(fs.readFileSync('pricing-data.json'));
+// A fetched preview can be newer than active prices until Apply; validate each independently.
+const active={...preview,fetchedAt:actual.netsuiteFetchedAt,rows:actual.rows.map(r=>({sku:r.sku,level:r.tier,quantityMin:r.quantityMin,quantityMax:r.quantityMax,sellingPrice:r.sellingPrice}))};
+validateDirect(preview);validateDirect(active);
+const before=structuredClone(old),result=prepareDirect(old,active);
+assert.deepEqual(old,before);assert.deepEqual(result.data.costBands,old.costBands);
+assert.deepEqual(result.data,actual,'Initial migration must be reproducible from source snapshot and preserved costs');
+assert.equal(actual.rows.length,active.rows.length);assert.equal(actual.priceSource,'netsuite');
+assert.deepEqual(actual.rows.map(r=>[r.sku,r.tier,r.quantityMin,r.quantityMax,r.sellingPrice]),active.rows.map(r=>[r.sku,r.level,r.quantityMin,r.quantityMax,r.sellingPrice]));
+assert.equal(new Set(actual.rows.map(r=>r.sku)).size,10);
+assert.equal(new Set(actual.rows.map(r=>r.tier)).size,13);
+for(const r of before.rows.filter(r=>Number.isFinite(r.costPrice))){
+ const region=r.region||(/USA|NASA/.test(r.tier)?'NASA':'EMEA');
+ const found=actual.legacyCosts.find(c=>c.sku===r.sku&&c.region===region&&c.quantityMin===r.quantityMin&&c.quantityMax===r.quantityMax);
+ assert.equal(found?.costPrice,r.costPrice,`Preserve fallback cost for ${r.sku}/${region}/${r.quantityMin}`);
+}
+const second=prepareDirect(actual,active);assert.deepEqual(second.data,actual,'Repeated sync is idempotent');
+assert.deepEqual(buildUpdate(actual,second.operation,active),actual);
+for(const kind of ['upload','editor','card'])assert.throws(()=>buildUpdate(actual,{kind,date:'2026-10-07'},preview),/managed in NetSuite/);
+const bad=structuredClone(preview);bad.rows=bad.rows.filter(r=>r.sku!=='CTC-007');assert.throws(()=>validateDirect(bad),/Incomplete/);
+for(const patch of [{sellingPrice:-1},{sellingPrice:Infinity},{quantityMin:0},{level:'EMEA Premier'},{sku:'OTHER'}]){const p=structuredClone(preview);Object.assign(p.rows[0],patch);assert.throws(()=>validateDirect(p),/Incomplete/);}
+assert.throws(()=>validateDirect({...preview,rows:[...preview.rows,preview.rows[0]]}),/Incomplete/);
+assert.throws(()=>validateDirect({...preview,currency:'EUR'}),/Incomplete/);
+assert.throws(()=>buildUpdate(actual,second.operation,{...preview,requestId:'changed'}),/preview changed/);
+// Blank NetSuite levels stay absent; there is no spreadsheet fallback.
+assert.equal(actual.rows.some(r=>r.sku==='LIC-009'&&r.tier==='EMEA License Customers'),false);
+assert.ok(actual.rows.every(r=>scope.expected[r.sku].includes(r.tier)&&r.costPrice===null));
+console.log(`${actual.rows.length} exact source bands, complete scope, blank levels, all stored costs, idempotency and server-only NetSuite writes passed.`);

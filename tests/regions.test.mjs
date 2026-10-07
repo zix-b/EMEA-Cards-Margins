@@ -1,3 +1,4 @@
+import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
@@ -26,10 +27,20 @@ assert.equal(nodes.get('#priceTypeLabel').textContent,'NASA price type');
 run('setData(data)');assert.equal(get('state.region'),'NASA','Background refresh retains selected region');
 run("changeRegion('ROW')");assert.deepEqual(get('state.filtered.map(r=>r.tier)'),['ROW Standard']);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.5);
 run("changeRegion('EMEA')");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.1);
-context.actual=JSON.parse(fs.readFileSync('pricing-data.json'));run("setData(actual);changeRegion('NASA')");
+context.actual=JSON.parse(execFileSync('git',['show','d11dab1d04f681a4005caf64a1b5ad83f209dc0a:pricing-data.json'],{encoding:'utf8'}));run("setData(actual);changeRegion('NASA')");
 assert.ok(get('state.filtered.length')>0);assert.ok(get("state.filtered.every(r=>/USA|NASA/.test(r.tier))"));
 run("changeRegion('ROW')");assert.equal(get('state.filtered.length'),0);assert.match(nodes.get('#resultsBody').innerHTML,/No ROW pricing data available/);
 assert.equal(nodes.get('#productSelect').options.length,1);
 run("changeRegion('EMEA')");assert.equal(nodes.get('#productSelect').options.length,11);assert.ok(get("state.filtered.every(r=>r.tier.includes('EMEA'))"));
 assert.equal(get("pricingRegion({region:'NASA',tier:'Standard'})"),'NASA');assert.equal(get("pricingRegion({tier:'Unassigned'})"),null);
 console.log('Region controls, price/product isolation, regional cost selection, refresh persistence and missing ROW data passed.');
+
+// Direct NetSuite levels are independent of cost region; original cost records persist.
+context.direct=JSON.parse(fs.readFileSync('pricing-data.json'));
+run("setData(direct);el.product.value='CTM-004 - '+direct.rows.find(r=>r.sku==='CTM-004').product;el.tier.value='USA Standard';el.quantity.value='5000';applyFilters()");
+assert.equal(get('state.filtered.length'),1);assert.equal(get('state.filtered[0].sellingPrice'),1.37);
+const selling=get('state.filtered');run("changeRegion('NASA')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.6198);
+run("changeRegion('ROW')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
+assert.equal(nodes.get('#priceTypeLabel').textContent,'NetSuite price level');
+run("changeRegion('EMEA');el.quantity.value='';applyFilters()");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null,'A quantity is required to select the independent cost band');
+console.log('Direct NetSuite prices stay identical across cost regions; missing costs stay unavailable.');

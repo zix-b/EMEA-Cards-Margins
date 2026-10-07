@@ -174,10 +174,13 @@ def read_references(pairs, credentials):
     return result
 
 
-def fetch_schedules(credentials):
+def fetch_schedules(credentials, scope=None):
+    skus = scope['skus'] if scope else SKUS
+    allowed_levels = scope['levels'] if scope else LEVELS
+    expected = scope['expected'] if scope else EXPECTED
     roots = []
     references = set()
-    for sku in SKUS:
+    for sku in skus:
         root = call('search', SEARCH.replace('CTC-007', sku), credentials)
         if root.findtext('.//c:totalPages', namespaces=NS) not in ['0', '1']:
             raise ValueError('INCOMPLETE_RESPONSE')
@@ -197,7 +200,7 @@ def fetch_schedules(credentials):
         time.sleep(0.3)
     refs = read_references(sorted(references), credentials)
     schedules = {}
-    for sku, root in zip(SKUS, roots):
+    for sku, root in zip(skus, roots):
         groups = {}
         basics = [b for row in root.findall('.//c:searchRow', NS) for b in row.findall('a:basic', NS)]
         each_units = set()
@@ -255,7 +258,11 @@ def fetch_schedules(credentials):
             if level is None or currency is None:
                 raise ValueError('UNRESOLVED_REFERENCE')
             name = level.findtext('a:name', namespaces=NS)
-            if name not in LEVELS or currency.findtext('a:symbol', namespaces=NS) != 'USD':
+            if currency.findtext('a:symbol', namespaces=NS) != 'USD':
+                continue
+            if name not in allowed_levels:
+                if scope and any(r['price'] is not None for r in records):
+                    raise ValueError('UNAPPROVED_PRICE_LEVEL')
                 continue
             if unit_id not in each_units and unit_name not in each_names:
                 raise ValueError('SALE_UNIT_NOT_EACH')
@@ -265,7 +272,7 @@ def fetch_schedules(credentials):
             schedule = normalize_schedule([r for r in records if r['price'] is not None])
             if schedule:
                 selected[name] = schedule
-        if set(selected) != EXPECTED[sku]:
+        if set(selected) != set(expected[sku]):
             raise ValueError('EXPECTED_PRICE_LEVELS_CHANGED')
         schedules[sku] = selected
     return schedules
