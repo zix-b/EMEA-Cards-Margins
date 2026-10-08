@@ -11,14 +11,14 @@ const active={...preview,fetchedAt:actual.netsuiteFetchedAt,rows:actual.rows.map
 validateDirect(preview);validateDirect(active);
 const before=structuredClone(old),result=prepareDirect(old,active);
 assert.deepEqual(old,before);assert.deepEqual(result.data.costBands,old.costBands);
-assert.deepEqual(result.data,actual,'Initial migration must be reproducible from source snapshot and preserved costs');
+assert.deepEqual(result.data.rows,actual.rows,'Selling schedules remain reproducible independently of approved cost updates');
 assert.equal(actual.rows.length,active.rows.length);assert.equal(actual.priceSource,'netsuite');
 assert.deepEqual(actual.rows.map(r=>[r.sku,r.tier,r.quantityMin,r.quantityMax,r.sellingPrice]),active.rows.map(r=>[r.sku,r.level,r.quantityMin,r.quantityMax,r.sellingPrice]));
 assert.equal(new Set(actual.rows.map(r=>r.sku)).size,10);
 assert.equal(new Set(actual.rows.map(r=>r.tier)).size,13);
 for(const r of before.rows.filter(r=>Number.isFinite(r.costPrice))){
  const region=r.region||(/USA|NASA/.test(r.tier)?'NASA':'EMEA');
- const found=actual.legacyCosts.find(c=>c.sku===r.sku&&c.region===region&&c.quantityMin===r.quantityMin&&c.quantityMax===r.quantityMax);
+ const found=result.data.legacyCosts.find(c=>c.sku===r.sku&&c.region===region&&c.quantityMin===r.quantityMin&&c.quantityMax===r.quantityMax);
  assert.equal(found?.costPrice,r.costPrice,`Preserve fallback cost for ${r.sku}/${region}/${r.quantityMin}`);
 }
 const second=prepareDirect(actual,active);assert.deepEqual(second.data,actual,'Repeated sync is idempotent');

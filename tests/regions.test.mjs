@@ -44,3 +44,25 @@ run("changeRegion('ROW')");assert.deepEqual(get('state.filtered'),selling);asser
 assert.equal(nodes.get('#priceTypeLabel').textContent,'NetSuite price level');
 run("changeRegion('EMEA');el.quantity.value='';applyFilters()");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null,'A quantity is required to select the independent cost band');
 console.log('Direct NetSuite prices stay identical across cost regions; missing costs stay unavailable.');
+
+// PLI's approved printed NASA costs: exercise both ends of every source band.
+const starts=[20,1000,5000,10000,25000,50000,100000,250000,500000,700000,1000000];
+const pli={
+ 'CRD-004':[.0752,.0738,.0725,.067,.062,.056,.054,.053,.052,.052,.052],
+ 'CRD-012':[.0752,.0738,.0725,.067,.062,.056,.054,.053,.052,.052,.052],
+ 'CTC-007':[.0201,.1875,.160,.153,.150,.147,.143,.140,.137,.135,.130],
+ 'CTC-011':[.1871,.175,.151,.146,.140,.136,.133,.130,.128,.126,.123]
+};
+const baseline=JSON.parse(execFileSync('git',['show','c641a57:pricing-data.json'],{encoding:'utf8'}));
+assert.deepEqual(context.direct.rows,baseline.rows,'Selling prices unchanged');
+assert.deepEqual(context.direct.costBands.filter(r=>r.region!=='NASA'),baseline.costBands.filter(r=>r.region!=='NASA'),'Other regions unchanged');
+assert.deepEqual(context.direct.legacyCosts,baseline.legacyCosts.filter(r=>!(r.region==='NASA'&&pli[r.sku])),'Only replaced NASA fallbacks removed');
+for(const [sku,prices] of Object.entries(pli)){
+ context.sku=sku;run("changeRegion('NASA');el.product.value=sku+' - '+direct.rows.find(r=>r.sku===sku).product;el.tier.value='Base'");
+ for(let i=0;i<starts.length;i++)for(const qty of [starts[i],starts[i+1]?starts[i+1]-1:1000000000000]){
+  nodes.get('#quantityInput').value=String(qty);run('applyFilters()');
+  assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),prices[i],`${sku}/${qty}`);
+ }
+ nodes.get('#quantityInput').value='19';run('applyFilters()');assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null,'No old fallback below PLI minimum');
+}
+console.log('All 44 printed PLI NASA bands, both boundaries, minimum exclusion and unrelated data preservation passed.');
