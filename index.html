@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><meta name="description" content="EMEA card pricing and margin calculator with approved pricing imports."><title>EMEA Cards Margins</title><link rel="stylesheet" href="styles.css?v=20261005-regions"></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><meta name="description" content="EMEA card pricing and margin calculator with approved pricing imports."><title>EMEA Cards Margins</title><link rel="stylesheet" href="styles.css?v=20261010-historical"></head>
 <body><main class="shell">
 <header class="topbar"><a class="brand" href="index.html">EMBED <span>Sales tools</span></a><nav><span>Cost region</span><div class="region-switch" role="group" aria-label="Cost region"><button id="regionEMEA" type="button" aria-pressed="true">EMEA</button><button id="regionNASA" type="button" aria-pressed="false">NASA</button><button id="regionROW" type="button" aria-pressed="false">ROW</button></div><a href="admin.html">Admin portal</a></nav></header>
+<div class="cost-legend" aria-label="Cost source legend"><span class="historical-swatch" aria-hidden="true"></span><span><strong>Yellow = historical cost</strong> from earlier sheets or supplier lists. NetSuite and PLI costs are unhighlighted. Missing costs show “–”.</span></div>
 <section class="hero"><h1>Cards Margins</h1></section>
 <div id="dataNotice" class="notice" role="status">Loading pricing data…</div>
 <section class="controls" aria-label="Pricing controls">
@@ -13,4 +14,4 @@
 <div class="section-heading"><h2 id="resultTitle">Your quote</h2><span>USD · per unit</span></div>
 <section id="resultsBody" class="results-list" aria-live="polite" aria-label="Pricing results"></section>
 <footer><span id="dataDate"></span><span>Sell and cost quantity bands are matched independently.</span></footer>
-</main><script src="pricing-data.js?v=20261007-netsuite-direct"></script><script src="app.js?v=20261010-approved-costs"></script></body></html>
+</main><script src="pricing-data.js?v=20261007-netsuite-direct"></script><script src="app.js?v=20261010-historical"></script></body></html>

@@ -147,10 +147,11 @@ function renderRows(rows) {
     const metrics = displayMetrics(row);
     const cost = findCostBand(row.sku, state.quantity);
     const retained=state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null):null;
+    const historical = Number.isFinite(metrics.costPrice) && Boolean((cost || retained)?.historical);
     const source = retained&&!cost ? `Preserved ${state.region} cost: ${retained.source} · ${bandLabel(retained)} units · source date ${retained.sourceDate}` : cost ? `${costLabels[cost.costBasis] || 'OPPIOT supplier cost'}: ${cost.source} · ${bandLabel(cost)} units · source date ${cost.sourceDate}` : Number.isFinite(row.costPrice) ? `Stored cost from the pricing row · ${row.vendor || row.source} · ${bandLabel(row)} units` : 'No matching cost is available. Margin cannot be determined.';
     return `<article class="result-card">
       <div class="result-meta"><div><span class="sku">${escapeHtml(row.sku)}</span><h3>${escapeHtml(row.product)}</h3></div><span class="tier-badge">${escapeHtml(displayTier(row.tier))}</span></div>
-      <div class="metrics"><div class="metric"><span>Sell price</span><strong>${money(row.sellingPrice)}</strong></div><div class="metric"><span>Cost price</span><strong>${bracketMoney(metrics.costPrice)}</strong></div><div class="metric"><span>Unit gross profit</span><strong>${money(metrics.grossProfit)}</strong></div><div class="metric margin"><span>Margin</span><strong>${percent(metrics.marginPercent)}</strong></div></div>
+      <div class="metrics"><div class="metric"><span>Sell price</span><strong>${money(row.sellingPrice)}</strong></div><div class="metric${historical ? ' historical-cost' : ''}"><span>Cost price</span><strong>${bracketMoney(metrics.costPrice)}</strong>${historical ? '<small>Historical cost</small>' : ''}</div><div class="metric"><span>Unit gross profit</span><strong>${money(metrics.grossProfit)}</strong></div><div class="metric margin"><span>Margin</span><strong>${percent(metrics.marginPercent)}</strong></div></div>
       ${Number.isFinite(metrics.costPrice) ? '' : '<p class="unavailable">No applicable cost record. Margin unavailable.</p>'}
       <details><summary>Price sources &amp; quantity bands${state.quantity === null ? ' · '+escapeHtml(bandLabel(row)) : ''}</summary><p>Selling: ${escapeHtml(row.source)} · ${escapeHtml(bandLabel(row))} units · source date ${escapeHtml(row.sourceDate)}</p><p>${escapeHtml(source)}</p></details>
     </article>`;
@@ -190,7 +191,7 @@ function setData(data, initial=false) {
   const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
   const notice=document.querySelector('#dataNotice');
   notice.textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : '';
-  if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: ${state.region==='NASA'?'PLI 2026 PDF base card prices only':state.region==='EMEA'?'NetSuite supplier purchase prices from saved search 7072 only':'no approved ROW cost source'}. Cost region changes margins only; it does not filter NetSuite price levels.`;
+  if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: ${state.region==='NASA'?'PLI 2026 PDF where available; historical costs marked yellow':state.region==='EMEA'?'NetSuite saved search 7072 where available; historical costs marked yellow':'no ROW cost source'}. Cost region changes margins only; it does not filter NetSuite price levels.`;
   notice.hidden=state.priceSource!=='netsuite'&&!uploaded.length;
   document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();

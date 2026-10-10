@@ -39,7 +39,7 @@ console.log('Region controls, price/product isolation, regional cost selection, 
 context.direct=JSON.parse(fs.readFileSync('pricing-data.json'));
 run("setData(direct);el.product.value='CTM-004 - '+direct.rows.find(r=>r.sku==='CTM-004').product;el.tier.value='USA Standard';el.quantity.value='5000';applyFilters()");
 assert.equal(get('state.filtered.length'),1);assert.equal(get('state.filtered[0].sellingPrice'),1.37);
-const selling=get('state.filtered');run("changeRegion('NASA')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
+const selling=get('state.filtered');run("changeRegion('NASA')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.6198);
 run("changeRegion('ROW')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
 assert.equal(nodes.get('#priceTypeLabel').textContent,'NetSuite price level');
 run("changeRegion('EMEA');el.quantity.value='';applyFilters()");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null,'A quantity is required to select the independent cost band');
@@ -53,8 +53,11 @@ const pli={
  'CTC-007':[.0201,.1875,.160,.153,.150,.147,.143,.140,.137,.135,.130],
  'CTC-011':[.1871,.175,.151,.146,.140,.136,.133,.130,.128,.126,.123]
 };
+const withoutFlags=rows=>rows.map(({historical,...r})=>r);
 const baseline=JSON.parse(execFileSync('git',['show','c641a57:pricing-data.json'],{encoding:'utf8'}));
 assert.deepEqual(context.direct.rows,baseline.rows,'Selling prices unchanged');
+assert.deepEqual(withoutFlags(context.direct.costBands).filter(r=>r.region!=='NASA'&&!['CTC-008','CTC-009','CTC-027'].includes(r.sku)),baseline.costBands.filter(r=>r.region!=='NASA'&&!['CTC-008','CTC-009','CTC-027'].includes(r.sku)),'Other regions unchanged');
+assert.deepEqual(withoutFlags(context.direct.legacyCosts),baseline.legacyCosts.filter(r=>!(r.region==='NASA'&&pli[r.sku])&&!(r.region==='EMEA'&&['CTC-008','CTC-009','CTC-027'].includes(r.sku))),'Only replaced NASA fallbacks removed');
 for(const [sku,prices] of Object.entries(pli)){
  context.sku=sku;run("changeRegion('NASA');el.product.value=sku+' - '+direct.rows.find(r=>r.sku===sku).product;el.tier.value='Base'");
  for(let i=0;i<starts.length;i++)for(const qty of [starts[i],starts[i+1]?starts[i+1]-1:1000000000000]){
@@ -69,6 +72,7 @@ console.log('All 44 printed PLI NASA bands, both boundaries, minimum exclusion a
 const beforeEMEA=JSON.parse(execFileSync('git',['show','e6c1b345:pricing-data.json'],{encoding:'utf8'}));
 const affected=r=>['CTC-008','CTC-009','CTC-027'].includes(r.sku)&&(r.region||'EMEA')==='EMEA';
 assert.deepEqual(context.direct.rows,beforeEMEA.rows);
+for(const key of ['costBands','legacyCosts'])assert.deepEqual(withoutFlags(context.direct[key]).filter(r=>!affected(r)),beforeEMEA[key].filter(r=>!affected(r)));
 assert.equal(context.direct.costBands.filter(affected).length,3);
 assert.equal(context.direct.legacyCosts.filter(affected).length,0);
 run("changeRegion('EMEA');el.product.value='CTC-008 - '+direct.rows.find(r=>r.sku==='CTC-008').product;el.tier.value='Base'");
@@ -81,7 +85,7 @@ for(const qty of [1,199,200,499,500,999,1000,4999,5000,9999,10000,24999,25000,49
 nodes.get('#quantityInput').value='1000001';run('applyFilters()');
 assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
 assert.equal(get('displayMetrics(state.filtered[0]).marginPercent'),null);
-run("changeRegion('NASA')");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
+run("changeRegion('NASA')");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.1556);
 run("changeRegion('ROW')");assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
 console.log('NetSuite CTC-008 EMEA cost boundaries, profit/margins, upper-limit exclusion and all unrelated records verified.');
 
@@ -92,18 +96,20 @@ for(const [sku,cost] of [['CTC-009',1.6],['CTC-027',1.59]]){
  assert.ok(!context.direct.rows.some(r=>r.sku===sku),'Do not invent selling prices');
 }
 
-// Approved cost sources only, including after a selling-price sync.
-const approved=r=>(r.region==='EMEA'&&r.source.includes('saved search 7072'))||(r.region==='NASA'&&r.vendor==='PLI'&&r.validFrom==='2026-01-01'&&r.validTo==='2026-12-31');
-assert.deepEqual(context.direct.costBands,JSON.parse(execFileSync('git',['show','dbefa9b:pricing-data.json'],{encoding:'utf8'})).costBands.filter(approved));
-assert.deepEqual(context.direct.legacyCosts,[]);
-assert.equal(context.direct.costBands.length,47);
-for(const region of ['EMEA','NASA','ROW'])for(const sku of [...new Set(context.direct.rows.map(r=>r.sku))]){
- context.selectedSku=sku;context.selectedRegion=region;run("changeRegion(selectedRegion);el.product.value=selectedSku+' - '+direct.rows.find(r=>r.sku===selectedSku).product;el.tier.value='Base'");
- for(const qty of [1,19,20,999,1000,4999,5000,9999,10000,24999,25000,999999,1000000,1000001]){
-  nodes.get('#quantityInput').value=String(qty);run('applyFilters()');
-  const band=context.direct.costBands.find(r=>r.sku===sku&&r.region===region&&qty>=r.quantityMin&&(r.quantityMax===null||qty<=r.quantityMax));
-  const metrics=get('state.filtered.map(displayMetrics)');
-  for(const m of metrics){assert.equal(m.costPrice,band?.costPrice??null,`${sku}/${region}/${qty}`);if(!band){assert.equal(m.grossProfit,null);assert.equal(m.marginPercent,null);}}
- }
+// Restored fallback provenance remains explicit and follows the selected cost record.
+const restored=JSON.parse(execFileSync('git',['show','dbefa9b:pricing-data.json'],{encoding:'utf8'}));
+for(const key of ['costBands','legacyCosts'])assert.deepEqual(withoutFlags(context.direct[key]),restored[key]);
+for(const key of ['costBands','legacyCosts'])for(const r of context.direct[key]){
+ const approved=(r.region==='EMEA'&&r.source.includes('saved search 7072'))||(r.region==='NASA'&&r.vendor==='PLI');
+ assert.equal(Boolean(r.historical),!approved);
 }
-console.log('All active cards and regions use approved costs only; missing costs never fall back.');
+run("changeRegion('EMEA');el.product.value='CTC-007 - '+direct.rows.find(r=>r.sku==='CTC-007').product;el.tier.value='Base';el.quantity.value='10000';applyFilters()");
+assert.match(nodes.get('#resultsBody').innerHTML,/historical-cost/);assert.match(nodes.get('#resultsBody').innerHTML,/Historical cost/);
+assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.119);
+run("changeRegion('NASA')");assert.doesNotMatch(nodes.get('#resultsBody').innerHTML,/historical-cost/);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.153);
+run("changeRegion('EMEA');el.product.value='CTC-008 - '+direct.rows.find(r=>r.sku==='CTC-008').product;applyFilters()");
+assert.doesNotMatch(nodes.get('#resultsBody').innerHTML,/historical-cost/);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.4);
+run("changeRegion('NASA')");assert.match(nodes.get('#resultsBody').innerHTML,/historical-cost/);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.1556);
+run("changeRegion('ROW')");assert.doesNotMatch(nodes.get('#resultsBody').innerHTML,/historical-cost/);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),null);
+assert.match(fs.readFileSync('index.html','utf8'),/Yellow = historical cost/);
+console.log('Historical values restored exactly, yellow labels follow cost source, approved and missing costs are not highlighted.');

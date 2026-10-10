@@ -8,3 +8,10 @@
 .region-switch button{min-height:34px;padding:7px 11px;font-size:12px;border:0;background:transparent;color:var(--muted);border-radius:6px}
 .region-switch button[aria-pressed=true]{background:var(--accent);color:#fff}
 @media(max-width:560px){.topbar>nav{gap:8px;max-width:230px}.region-switch button{padding:7px 10px}}
+
+/* Cost provenance is shown by both color and text. */
+.cost-legend{display:flex;align-items:center;gap:10px;margin:18px 0 0;font-size:12px;line-height:1.5;color:#51445f}
+.historical-swatch{width:16px;height:16px;flex:0 0 16px;background:#fff0a6;border:1px solid #b58a00;border-radius:3px}
+.metric.historical-cost{background:#fff0a6;border-radius:7px;color:#4b3900;padding-top:10px;padding-bottom:10px}
+.historical-cost>span,.historical-cost small{color:#594300}
+.historical-cost small{font-size:11px;font-weight:650}
