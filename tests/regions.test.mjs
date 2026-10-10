@@ -36,7 +36,8 @@ assert.equal(get("pricingRegion({region:'NASA',tier:'Standard'})"),'NASA');asser
 console.log('Region controls, price/product isolation, regional cost selection, refresh persistence and missing ROW data passed.');
 
 // Direct NetSuite levels are independent of cost region; original cost records persist.
-context.direct=JSON.parse(fs.readFileSync('pricing-data.json'));
+// Historical regional-cost regression; NetSuite-only behaviour has its own tests.
+context.direct=JSON.parse(execFileSync('git',['show','dbefa9b:pricing-data.json'],{encoding:'utf8'}));
 run("setData(direct);el.product.value='CTM-004 - '+direct.rows.find(r=>r.sku==='CTM-004').product;el.tier.value='USA Standard';el.quantity.value='5000';applyFilters()");
 assert.equal(get('state.filtered.length'),1);assert.equal(get('state.filtered[0].sellingPrice'),1.37);
 const selling=get('state.filtered');run("changeRegion('NASA')");assert.deepEqual(get('state.filtered'),selling);assert.equal(get('displayMetrics(state.filtered[0]).costPrice'),.6198);

@@ -1,3 +1,4 @@
+import {prepareCosts} from '../netsuite-costs.mjs';
 import {prepareSellingUpdate} from '../pricing-files.mjs';
 import {prepareEditorUpdate} from '../pricing-editor.mjs';
 import {prepareCardUpdate} from '../card-management.mjs';
@@ -19,11 +20,12 @@ export function validateUpload(rows) {
 }
 export function buildUpdate(current, operation, preview) {
  if (!operation || typeof operation !== 'object') reject('A reviewed operation is required.');
- if(current.priceSource==='netsuite'&&operation.kind!=='netsuite')reject('Selling prices and cards are managed in NetSuite. Sync and review NetSuite changes.');
+ if(current.priceSource==='netsuite'&&!['netsuite','netsuite-costs'].includes(operation.kind))reject('Selling prices and cards are managed in NetSuite. Sync and review NetSuite changes.');
  const date=operation.date;
  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0,10)!==date) reject('Invalid review date.');
  let result;
  switch(operation.kind) {
+  case 'netsuite-costs': result=prepareCosts(current,operation); break;
   case 'upload': result=prepareSellingUpdate(validateUpload(operation.rows),current,date); break;
   case 'editor': result=prepareEditorUpdate(current,operation.edit,date); break;
   case 'card': result=prepareCardUpdate(current,operation.edit,date); break;
@@ -32,7 +34,7 @@ export function buildUpdate(current, operation, preview) {
    result=prepareNetSuite(current,preview,operation.mapping); break;
   default: reject('Unsupported admin operation.');
  }
- if (operation.kind!=='card' && !same(current.costBands,result.data.costBands)) reject('Selling-price changes cannot change costs.');
+ if (!['card','netsuite-costs'].includes(operation.kind) && !same(current.costBands,result.data.costBands)) reject('Selling-price changes cannot change costs.');
  if (new TextEncoder().encode(JSON.stringify(result.data)).length>1000000) reject('Updated pricing exceeds 1 MB.');
  return result.data;
 }

@@ -21,7 +21,7 @@ class AdminService{
 class Repository{constructor(){throw Error('Backend login must never construct a browser-token repository.');}}
 const source=fs.readFileSync('admin.mjs','utf8').replace(/^import .*;\n/gm,'');
 const component=()=>({invalidate(){},setBusy(){},stop(){},connected(){},reload(){},discard(){return true;}});
-vm.runInNewContext(source,{AdminService,Repository,initNetSuite:component,initCards:component,initEditor:component,readPricingFiles,prepareSellingUpdate,document:{getElementById:get,createElement:element},window:{ADMIN_BACKEND_URL:'https://emea-cards-admin.example.workers.dev',PRICING_DATA:data,addEventListener(){}},Uint8Array,Set,Number,console});
+vm.runInNewContext(source,{initCosts:()=>({invalidate(){}}),AdminService,Repository,initNetSuite:component,initCards:component,initEditor:component,readPricingFiles,prepareSellingUpdate,document:{getElementById:get,createElement:element},window:{ADMIN_BACKEND_URL:'https://emea-cards-admin.example.workers.dev',PRICING_DATA:data,addEventListener(){}},Uint8Array,Set,Number,console});
 await get('gateForm').onsubmit({preventDefault(){}});
 assert.equal(get('adminGate').hidden,true);assert.equal(get('adminPortal').hidden,false);assert.match(get('connectionStatus').textContent,/admin@example.test/);
 const bytes=new TextEncoder().encode([HEADERS,[card.sku,card.product,card.tier,card.sellingPrice]].map(row=>row.map(v=>JSON.stringify(String(v))).join(',')).join('\n'));

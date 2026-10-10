@@ -57,7 +57,7 @@ function syncRegionControls(){
 }
 function changeRegion(region){
   if(!REGIONS.includes(region)||region===state.region)return;
-  state.region=region;setData({rows:state.rows,costBands:state.costBands,cards:state.cards,generatedAt:state.generatedAt,priceSource:state.priceSource,legacyCosts:state.legacyCosts,netsuiteFetchedAt:state.netsuiteFetchedAt});
+  state.region=region;setData({rows:state.rows,costBands:state.costBands,cards:state.cards,generatedAt:state.generatedAt,priceSource:state.priceSource,legacyCosts:state.legacyCosts,netsuiteFetchedAt:state.netsuiteFetchedAt,costPolicy:state.costPolicy,costsCheckedAt:state.costsCheckedAt,costSupplierMappings:state.costSupplierMappings});
 }
 
 function money(value) {
@@ -86,6 +86,7 @@ function findCostBand(sku, qty) {
   return (
     state.costBands.find((band) => {
       if (band.sku !== sku) return false;
+      if (state.costPolicy === 'netsuite-only' && (band.sourceKind !== 'netsuite' || band.currency !== 'USD' || band.unit !== 'Each')) return false;
       // Legacy unscoped supplier bands are EMEA; NASA keeps its stored row costs.
       if ((band.region ? pricingRegion(band) : 'EMEA') !== state.region) return false;
       const min = band.quantityMin ?? 0;
@@ -99,7 +100,7 @@ function findCostBand(sku, qty) {
 
 function displayMetrics(row) {
   const costBand = findCostBand(row.sku, state.quantity);
-  const storedCost=state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null)?.costPrice:row.costPrice;
+  const storedCost=state.costPolicy==='netsuite-only'?null:state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null)?.costPrice:row.costPrice;
   const costPrice = costBand?.costPrice ?? storedCost ?? null;
   const grossProfit =
     Number.isFinite(row.sellingPrice) && Number.isFinite(costPrice)
@@ -146,7 +147,7 @@ function renderRows(rows) {
   el.body.innerHTML = rows.map(row => {
     const metrics = displayMetrics(row);
     const cost = findCostBand(row.sku, state.quantity);
-    const retained=state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null):null;
+    const retained=state.costPolicy==='netsuite-only'?null:state.priceSource==='netsuite'?state.legacyCosts?.find(c=>c.sku===row.sku&&c.region===state.region&&inQuantityRange(c,state.quantity)&&state.quantity!==null):null;
     const source = retained&&!cost ? `Preserved ${state.region} cost: ${retained.source} · ${bandLabel(retained)} units · source date ${retained.sourceDate}` : cost ? `${costLabels[cost.costBasis] || 'OPPIOT supplier cost'}: ${cost.source} · ${bandLabel(cost)} units · source date ${cost.sourceDate}` : Number.isFinite(row.costPrice) ? `Stored cost from the pricing row · ${row.vendor || row.source} · ${bandLabel(row)} units` : 'No matching cost is available. Margin cannot be determined.';
     return `<article class="result-card">
       <div class="result-meta"><div><span class="sku">${escapeHtml(row.sku)}</span><h3>${escapeHtml(row.product)}</h3></div><span class="tier-badge">${escapeHtml(displayTier(row.tier))}</span></div>
@@ -178,7 +179,7 @@ function fillPriceTypes(selected=el.tier.value) {
 function setData(data, initial=false) {
   if (!data || !Array.isArray(data.rows)) throw new Error('Pricing data is missing.');
   const selected=el.product.value, selectedTier=el.tier.value;
-  state.priceSource=data.priceSource;state.legacyCosts=data.legacyCosts||[];state.netsuiteFetchedAt=data.netsuiteFetchedAt;
+  state.costPolicy=data.costPolicy;state.costsCheckedAt=data.costsCheckedAt;state.costSupplierMappings=data.costSupplierMappings;state.priceSource=data.priceSource;state.legacyCosts=data.legacyCosts||[];state.netsuiteFetchedAt=data.netsuiteFetchedAt;
   state.rows=data.rows;state.costBands=Array.isArray(data.costBands)?data.costBands:[];state.cards=data.cards||[];state.generatedAt=data.generatedAt;
   syncRegionControls();
   const registered=[...new Map([...state.cards.filter(c=>state.priceSource==='netsuite'||(c.region?pricingRegion(c):'EMEA')===state.region),...regionRows()].map(r=>[r.sku,r])).values()];
@@ -192,6 +193,7 @@ function setData(data, initial=false) {
   notice.textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : '';
   if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: ${state.region==='NASA'?'PLI 2026 base card prices for CRD-004, CRD-012, CTC-007 and CTC-011; other NASA costs preserved':`preserved ${state.region} records`}. Cost region changes margins only; it does not filter NetSuite price levels.`;
   notice.hidden=state.priceSource!=='netsuite'&&!uploaded.length;
+  if(state.costPolicy==='netsuite-only'){const skus=new Set(state.rows.map(r=>r.sku));const matched=new Set(state.costBands.filter(b=>b.sourceKind==='netsuite'&&b.currency==='USD'&&b.unit==='Each'&&b.region===state.region&&skus.has(b.sku)).map(b=>b.sku));notice.textContent=`Selling: NetSuite USD per Each, checked ${state.netsuiteFetchedAt||'date unavailable'}. Costs: NetSuite only, export dated ${state.costsCheckedAt||'date unavailable'}. ${state.region}: ${matched.size}/${skus.size} cards have cost records; coverage varies by quantity. ${state.costSupplierMappings?.[state.region]?'':'Supplier mapping not confirmed for this region. '}Missing costs and margins are unavailable. Cost region does not select a selling price level.`;notice.hidden=false;}
   document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();
 }

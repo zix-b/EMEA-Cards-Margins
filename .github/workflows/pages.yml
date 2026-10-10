@@ -29,6 +29,8 @@ jobs:
           node-version: '22'
       - name: Test calculator, ZIP validation, admin flow and publication
         run: |
+          node tests/netsuite-costs.test.mjs
+          node tests/costs-ui.test.mjs
           node tests/calculator.test.mjs
           node tests/import.test.mjs
           node tests/files.test.mjs
