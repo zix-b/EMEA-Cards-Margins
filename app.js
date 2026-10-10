@@ -190,7 +190,7 @@ function setData(data, initial=false) {
   const uploaded=state.rows.filter(r=>r.category==='Admin pricing upload');
   const notice=document.querySelector('#dataNotice');
   notice.textContent=uploaded.length ? 'Pricing includes admin-approved uploads. Source dates and cost details are shown with each quote. Unchanged cards retain their existing prices.' : '';
-  if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: ${state.region==='NASA'?'PLI 2026 base card prices for CRD-004, CRD-012, CTC-007 and CTC-011; other NASA costs preserved':`preserved ${state.region} records`}. Cost region changes margins only; it does not filter NetSuite price levels.`;
+  if(state.priceSource==='netsuite')notice.textContent=`Selling prices: NetSuite USD per Each, checked ${data.netsuiteFetchedAt||data.generatedAt}. Costs: ${state.region==='NASA'?'PLI 2026 PDF base card prices only':state.region==='EMEA'?'NetSuite supplier purchase prices from saved search 7072 only':'no approved ROW cost source'}. Cost region changes margins only; it does not filter NetSuite price levels.`;
   notice.hidden=state.priceSource!=='netsuite'&&!uploaded.length;
   document.querySelector('#dataDate').textContent=`Dataset: ${data.generatedAt || 'Date unavailable'}`;
   applyFilters();
