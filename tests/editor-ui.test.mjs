@@ -42,3 +42,15 @@ snapshot=null;editor.reload();get('editorCard').value='CTC-007';change('editorCa
 console.log('Editor UI tests passed: read-only, edit, cancel, validation, explicit confirmation, failed-save draft retention, saved data.');
 
 const adminHTML=fs.readFileSync('admin.html','utf8');assert.ok(!adminHTML.includes('id="editorCost"')&&!adminHTML.includes('id="editorBasis"'));assert.ok(!adminHTML.includes('id="costBasis"'),'ZIP cost basis selector is removed');assert.ok(!adminHTML.includes('<th scope="col">costBasis</th>'),'Selling-only template excludes cost basis');
+
+// Current NetSuite-backed editor uses actual levels, persists an override and labels it red.
+snapshot={sha:'current',tree:'tree',data:JSON.parse(fs.readFileSync('pricing-data.json'))};
+editor.reload();get('editorCard').value='CTC-007';change('editorCard');
+assert.equal(get('editorRows').children.length,new Set(snapshot.data.rows.filter(r=>r.sku==='CTC-007').map(r=>r.tier)).size);
+click('editorEdit');input=get('editorRows').querySelectorAll('input').find(e=>e.attrs['aria-label']==='Base, 10,000–24,999 units');
+assert.ok(input);const previous=snapshot;input.value='.987';input.handlers.input();click('editorCancel');assert.equal(snapshot,previous);
+click('editorEdit');input=get('editorRows').querySelectorAll('input').find(e=>e.attrs['aria-label']==='Base, 10,000–24,999 units');input.value='.987';input.handlers.input();click('editorSave');await click('editorConfirm');
+assert.equal(snapshot.data.rows.find(r=>r.sku==='CTC-007'&&r.tier==='Base'&&r.quantityMin===10000).sellingPrice,.987);
+assert.ok(get('editorRows').querySelectorAll('label').some(e=>e.className.includes('manual-price')));
+assert.ok(get('editorRows').querySelectorAll('small').some(e=>e.textContent==='Manually updated'));
+console.log('Current NetSuite editor: cancel, save, exact levels and red manual labels passed.');

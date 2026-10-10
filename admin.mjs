@@ -1,8 +1,8 @@
 import {AdminService} from './admin-service.mjs?v=20261007-signin';
-import {initNetSuite} from './admin-netsuite.mjs?v=20261007-review';
+import {initNetSuite} from './admin-netsuite.mjs?v=20261010-overrides';
 import {initCards} from './admin-cards.mjs?v=20261007-email';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
-import {initEditor} from './admin-editor.mjs?v=20261007-email';
+import {initEditor} from './admin-editor.mjs?v=20261010-overrides';
 const $=id=>document.getElementById(id);
 let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null,netSuite=null;
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className='admin-message'+(error?' error':'');};

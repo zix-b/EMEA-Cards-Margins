@@ -54,3 +54,7 @@ References:
 - https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens
 
 Admin entry: `admin.html`. Worker request transports use manual redirect handling and reject non-success responses, including redirects. Never forward repository credentials to a redirect target.
+
+## Website price overrides
+
+The existing editor accepts numeric non-negative changes to existing NetSuite price bands only. The backend reconstructs the reviewed edit, preserves every other card and all costs, and publishes both pricing files with the existing backup and stale-write protections. Changed rows carry `manualOverride` metadata and display red with “Manually updated”. Subsequent NetSuite syncs retain these prices and refresh the underlying NetSuite reference value; changed or removed override bands block Apply for explicit resolution. NetSuite itself is never modified. Restore a prior pricing backup through the existing Git history recovery procedure to undo published changes.

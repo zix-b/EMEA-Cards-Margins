@@ -32,6 +32,13 @@ export function prepareDirect(current,preview){
   if(!products.has(r.sku))throw Error(`Unknown NetSuite card ${r.sku}.`);
   return {sku:r.sku,product:products.get(r.sku),tier:r.level,quantityMin:r.quantityMin,quantityMax:r.quantityMax,quantityLabel:`${r.quantityMin.toLocaleString('en-US')}–${r.quantityMax===null?'∞':r.quantityMax.toLocaleString('en-US')}`,sellingPrice:r.sellingPrice,costPrice:null,grossProfit:null,marginPercent:null,source:`NetSuite / ${r.level}`,sourceDate:date,category:'NetSuite selling prices'};
  });
+ // Preserve reviewed website overrides; reject changed source bands for explicit review.
+ for(const old of current.rows.filter(r=>r.manualOverride)){
+  const row=data.rows.find(r=>r.sku===old.sku&&r.tier===old.tier&&r.quantityMin===old.quantityMin&&r.quantityMax===old.quantityMax);
+  if(!row)throw Error(`NetSuite quantity bands changed for overridden ${old.sku} / ${old.tier}. Resolve the override before applying this sync.`);
+  row.manualOverride={...old.manualOverride,netSuitePrice:row.sellingPrice};
+  row.sellingPrice=old.sellingPrice;row.source='Manual website override';row.sourceDate=old.sourceDate;
+ }
  data.priceSource='netsuite';data.generatedAt=date;data.netsuiteFetchedAt=preview.fetchedAt;
  return {data,changes:data.rows.map(r=>{const existing=current.rows.filter(x=>x.sku===r.sku&&x.tier===r.tier);const exact=existing.find(x=>x.quantityMin===r.quantityMin&&x.quantityMax===r.quantityMax);return {...r,before:exact?.sellingPrice??(existing.length?'Different quantity bands':null),displayCost:null};}),pairs:new Set(preview.rows.map(r=>r.sku+'|'+r.level)).size,operation:{kind:'netsuite',date,preview:structuredClone(preview),mapping:{}}};
 }

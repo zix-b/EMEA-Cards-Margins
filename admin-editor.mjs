@@ -1,4 +1,4 @@
-import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261005-sheet';
+import {cards,createMatrix,prepareEditorUpdate,rebaseDraft,QUANTITIES,rangeLabel,tierLabel} from './pricing-editor.mjs?v=20261010-overrides';
 import {QUANTITY_BANDS} from './pricing-template.mjs?v=20261005-sheet';
 export function initEditor(session){
  const $=id=>document.getElementById(id);
@@ -17,7 +17,7 @@ export function initEditor(session){
  function draw(){
   $('editorColumns').replaceChildren();
   const head=node('tr'),first=node('th','Price Type');first.scope='col';head.append(first);
-  const groups=QUANTITY_BANDS.map(band=>({...band,segments:(matrix?.[0]?.cells||[]).flat().filter(s=>s.min>=band.min&&(band.max===null||s.min<=band.max))}));
+  const groups=(session.data().priceSource==='netsuite'?(matrix?.[0]?.cells||[]).flat().map(s=>({min:s.min,max:s.max,label:`QTY ${(s.min===1?0:s.min).toLocaleString('en-US')}`,range:rangeLabel(s.min,s.max)})):QUANTITY_BANDS).map(band=>({...band,segments:(matrix?.[0]?.cells||[]).flat().filter(s=>s.min>=band.min&&(band.max===null||s.min<=band.max))}));
   const detailed=groups.some(group=>group.segments.length>1);
   if(detailed)first.rowSpan=2;
   for(const group of groups){const th=node('th');th.scope=group.segments.length>1?'colgroup':'col';th.colSpan=group.segments.length||1;if(detailed&&group.segments.length===1)th.rowSpan=2;th.append(node('span',group.label),node('small',group.range));head.append(th);}
@@ -30,7 +30,8 @@ export function initEditor(session){
     const td=node('td');
     for(const segment of cell){
      const label=node('label');label.className='editor-cell';
-     if(editing){const input=node('input');input.type='number';input.min='0';input.step='any';input.value=segment.value;input.placeholder='Not set';input.setAttribute('aria-label',`${tierLabel(row.tier)}, ${rangeLabel(segment.min,segment.max)} units`);input.addEventListener('input',()=>{segment.value=input.value;prepared=null;$('editorConfirmation').hidden=true;sync();});label.append(input);}
+     if(session.data().rows[segment.index]?.manualOverride){label.className+=' manual-price';label.append(node('small','Manually updated'));}
+     if(editing){const input=node('input');input.type='number';input.min='0';input.step='any';input.value=segment.value;input.placeholder='Not set';input.readOnly=session.data().priceSource==='netsuite'&&segment.index===null;input.setAttribute('aria-label',`${tierLabel(row.tier)}, ${rangeLabel(segment.min,segment.max)} units`);input.addEventListener('input',()=>{segment.value=input.value;prepared=null;$('editorConfirmation').hidden=true;sync();});label.append(input);}
      else label.append(node('strong',segment.original===null?'—':String(segment.original)));
      td.append(label);
     }
@@ -44,7 +45,7 @@ export function initEditor(session){
   poll++;
   editing=false;isNew=false;prepared=null;draftSnapshot=null;conflict=false;
   $('editorConfirmation').hidden=true;
-  try{const data=session.data();matrix=$('editorCard').value?createMatrix(data,$('editorCard').value):null;const card=cards(data).find(c=>c.sku===$('editorCard').value);$('editorCardName').textContent=card?`${card.sku} · ${card.product}`:'Choose a card';status('Existing selling bands and supplier costs are preserved.');draw();}catch(error){matrix=null;draw();status(error.message,true);}
+  try{const data=session.data();matrix=$('editorCard').value?createMatrix(data,$('editorCard').value):null;const card=cards(data).find(c=>c.sku===$('editorCard').value);$('editorCardName').textContent=card?`${card.sku} · ${card.product}`:'Choose a card';status('Red = manually updated website price. NetSuite sync preserves these overrides. Costs remain unchanged.');draw();}catch(error){matrix=null;draw();status(error.message,true);}
  }
  function reload(){
   const selected=$('editorCard').value;$('editorCard').replaceChildren();

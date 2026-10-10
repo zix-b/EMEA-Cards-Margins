@@ -100,4 +100,6 @@
 #cardDetails { margin-top: 20px; }
 
 /* NetSuite is the sole selling-price source. Keep this external for CSP. */
-.netsuite-only .admin-tabs,.netsuite-only #uploadPanel,.netsuite-only #previewPanel,.netsuite-only #priceEditor{display:none!important}
+.netsuite-only #uploadPanel,.netsuite-only #previewPanel,.netsuite-only #editorAdd{display:none!important}
+
+.manual-price,.manual-price strong{color:#b42318!important}.manual-price small{display:block;color:#b42318;font-size:11px}

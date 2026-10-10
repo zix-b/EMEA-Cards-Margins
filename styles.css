@@ -15,3 +15,5 @@
 .metric.historical-cost{background:#fff0a6;border-radius:7px;color:#4b3900;padding-top:10px;padding-bottom:10px}
 .historical-cost>span,.historical-cost small{color:#594300}
 .historical-cost small{font-size:11px;font-weight:650}
+
+.manual-price strong,.manual-price small{color:#b42318}.manual-price small{font-size:11px;font-weight:650}.manual-swatch{width:16px;height:16px;flex:0 0 16px;background:#b42318;border-radius:3px}

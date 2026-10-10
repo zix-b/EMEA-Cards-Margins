@@ -14,6 +14,12 @@ const price=value=>{
 export const cards=listCards;
 export function createMatrix(data,sku,isNew=false,requestedTiers=[]){
  if(!isNew&&!cards(data).some(r=>r.sku===sku))throw new Error('Select an existing card.');
+ if(data.priceSource==='netsuite'&&!isNew&&data.rows.some(r=>r.sku===sku)&&!requestedTiers.some(t=>SUPPORTED_TIERS.includes(t))){
+  if(isNew)throw Error('Add new cards in NetSuite before syncing.');
+  const rows=data.rows.map((r,index)=>({...r,index})).filter(r=>r.sku===sku);
+  const bounds=[...new Set(rows.flatMap(r=>[r.quantityMin,...(r.quantityMax===null?[]:[r.quantityMax+1])]))].sort((a,b)=>a-b);
+  return [...new Set(rows.map(r=>r.tier))].map(tier=>({tier,cells:bounds.map((min,i)=>{const max=bounds[i+1]?bounds[i+1]-1:null,r=rows.find(r=>r.tier===tier&&min>=r.quantityMin&&min<=ceiling(r));return [{tier,min,max,index:r?.index??null,original:r?.sellingPrice??null,value:r?String(r.sellingPrice):''}];})}));
+ }
  const rows=isNew?[]:data.rows.map((r,index)=>({...r,index})).filter(r=>r.sku===sku&&SUPPORTED_TIERS.includes(r.tier));
  // One shared set of column boundaries aligns all four price types without changing any existing bands.
  const cuts=new Set(QUANTITIES.map(q=>q||1));
@@ -56,6 +62,21 @@ export function prepareEditorUpdate(current,{sku,product,matrix,isNew=false},dat
   const value=price(s.value);return s.original===null||value!==s.original;
  });
  if(!changes.length)throw new Error('No prices changed.');
+ if(current.priceSource==='netsuite'&&!isNew&&matrix.every(r=>current.rows.some(x=>x.sku===sku&&x.tier===r.tier))){
+  if(changes.some(s=>s.index===null))throw Error('Only existing NetSuite price bands can be edited.');
+  const data=clone(current);
+  // Keep original bands intact: a shared table can divide a source band visually.
+  for(const index of new Set(changes.map(s=>s.index))){
+   const parts=segments.filter(s=>s.index===index),values=new Set(parts.map(s=>price(s.value)));
+   if(values.size!==1)throw Error('This price spans several displayed columns. Enter the same price across its original quantity band.');
+   const row=data.rows[index],value=[...values][0];
+   row.manualOverride={netSuitePrice:row.manualOverride?.netSuitePrice??row.sellingPrice,updatedAt:date};
+   row.sellingPrice=value;row.source='Manual website override';row.sourceDate=date;
+   row.grossProfit=null;row.marginPercent=null;
+  }
+  data.generatedAt=date;
+  return {data,changes:changes.map(s=>({tier:s.tier,min:s.min,max:s.max,before:s.original,after:price(s.value)})),sku,product,isNew:false,operation:{kind:'editor',date,edit:{sku,product,matrix:structuredClone(matrix),isNew:false}}};
+ }
  const data=clone(current);
  const changedIndexes=new Set(changes.filter(s=>s.index!==null).map(s=>s.index));
  data.rows=data.rows.flatMap((row,index)=>{
