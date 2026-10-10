@@ -1,3 +1,15 @@
+## NetSuite cost authority from 10 October 2026
+
+All regions now require NetSuite supplier costs. The calculator excludes historical OPPIOT, workbook and PLI costs, including stored fallback rows. Historical records remain in the dataset for traceability only. Missing costs produce unavailable gross profit and margin, never zero or a legacy substitute.
+
+Selling prices and supplier costs have separate update paths and dates. The authenticated admin can upload the complete saved search 7072 CSV, confirm USD per Each and inclusive quantity bounds, review normalized bands and missing coverage, then apply. The backend parses and validates the original CSV independently and uses the existing atomic publication and backup flow. The full export is not committed. It is not an automatic live purchase-cost API sync.
+
+Only EMEA has a confirmed supplier mapping: FZCO and LLC must have identical schedules for every included SKU. Conflicting, overlapping, negative or incomplete paired schedules are rejected. NASA and ROW mappings await confirmation, so those regions show unavailable costs. The supplied export covers CTC-008 among ten active cards, plus stored CTC-009 and CTC-027 which have no active selling schedules. Nine active EMEA cards need additional NetSuite records. Do not certify complete pricing until mappings and missing records are resolved.
+
+Run `node --test tests/*.test.mjs` and `python3 tests/netsuite_test.py`. Deploy the updated authenticated Worker before the static admin UI, because the new supplier-cost operation requires server support. Review both frontend and Worker changes before release.
+
+The remainder describes historical workflows and is retained for reference.
+
 ## Current selling-price source (7 October 2026)
 
 The main calculator uses NetSuite USD/Each item price matrices for the 10 SKUs and populated levels listed in `netsuite-scope.json`. NetSuite level names and quantity bands are displayed directly. The regional buttons select the **cost region only**; they do not route or filter selling prices.

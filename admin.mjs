@@ -1,12 +1,13 @@
+import {initCosts} from './admin-costs.mjs';
 import {AdminService} from './admin-service.mjs?v=20261007-signin';
 import {initNetSuite} from './admin-netsuite.mjs?v=20261007-review';
 import {initCards} from './admin-cards.mjs?v=20261007-email';
 import {readPricingFiles,prepareSellingUpdate} from './pricing-files.mjs?v=20261005-sheet';
 import {initEditor} from './admin-editor.mjs?v=20261007-email';
 const $=id=>document.getElementById(id);
-let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null,netSuite=null;
+let repository=null,snapshot=null,preview=null,busy=false,editor=null,cardManager=null,netSuite=null,costs=null;
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className='admin-message'+(error?' error':'');};
-function invalidate(){netSuite?.invalidate();preview=null;$('previewPanel').hidden=true;$('confirmPublish').checked=false;$('publishButton').disabled=true;}
+function invalidate(){costs?.invalidate();netSuite?.invalidate();preview=null;$('previewPanel').hidden=true;$('confirmPublish').checked=false;$('publishButton').disabled=true;}
 function sourceControls(){const direct=(snapshot?.data||window.PRICING_DATA)?.priceSource==='netsuite';document.body?.classList?.toggle('netsuite-only',direct);}
 function controls(){sourceControls();editor?.setBusy(busy);cardManager?.setBusy(busy);for(const id of ['zipFile','gateLogout','gateLogin'])$(id).disabled=busy;$('validateButton').disabled=busy;$('publishButton').disabled=busy||!snapshot||!preview||!$('confirmPublish').checked;}
 function disconnect(preserveDraft=false){if(!preserveDraft){editor?.stop();cardManager?.stop();}repository?.clear();repository=null;snapshot=null;invalidate();$('connectionStatus').textContent='Signed out. Sign in with your approved email to administer pricing.';if(!preserveDraft)editor?.reload();controls();}
@@ -19,6 +20,7 @@ window.addEventListener('pagehide',lock);
 window.addEventListener('pageshow',event=>{if(event.persisted)lock();});
 
 const session={connect:()=>{$('adminGate').hidden=false;$('adminPortal').hidden=true;},data:()=>snapshot?.data||window.PRICING_DATA,snapshot:()=>snapshot,repository:()=>repository,setBusy:value=>{busy=value;controls();},saved:value=>{snapshot=value;window.PRICING_DATA=value.data;invalidate();$('connectionStatus').textContent=`Signed in · main ${value.sha.slice(0,7)}`;cardManager?.reload();}};
+costs=initCosts(session);
 sourceControls();
 editor=initEditor(session);
 cardManager=initCards({...session,beforeOpen:()=>editor.discard(),saved:value=>{session.saved(value);editor.reload();}});

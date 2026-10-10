@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';import {initCosts} from '../admin-costs.mjs';import {buildUpdate} from '../backend/operations.mjs';
+const nodes=new Map();const make=()=>({value:'',checked:false,disabled:false,files:[],children:[],textContent:'',handlers:{},addEventListener(n,f){this.handlers[n]=f;},replaceChildren(){this.children=[];},append(v){this.children.push(v);}});
+const get=id=>{if(!nodes.has(id))nodes.set(id,make());return nodes.get(id);};
+globalThis.document={getElementById:get,createElement:make};
+const data={rows:[{sku:'TEST',sellingPrice:1}],costBands:[],legacyCosts:[]};let saved=0,fail=false,connected=true;
+const repo={read:async()=>({sha:'a'.repeat(40),data}),publish:async(base,expected,msg,op)=>{assert.deepEqual(buildUpdate(base.data,op),expected);if(fail)throw Error('Repository changed');saved++;return {sha:'b'.repeat(40)};}};
+const controller=initCosts({repository:()=>connected?repo:null,setBusy(){},saved(){controller.invalidate();}});
+const text=['Inactive,Internal ID,Supplier Int ID,Supplier,Incoterm,Item Int ID,Item,Quantity From,Quantity To ,Unit Rate',...['FZCO','LLC'].map(s=>`No,1,1,Embed Singapore Pte Ltd (${s}),Ex-Works,1,TEST,1,100,0.5`)].join('\n');
+get('costFile').files=[{name:'export.csv',size:text.length,text:async()=>text}];get('costDate').value='2026-10-10';
+await get('costReview').handlers.click();assert.match(get('costStatus').textContent,/Confirm/);assert.equal(get('costApply').disabled,true);
+get('costBasisConfirmed').checked=true;await get('costReview').handlers.click();assert.equal(get('costRows').children.length,1);assert.match(get('costStatus').textContent,/NASA: 0/);
+await get('costApply').handlers.click();assert.equal(saved,0);
+get('costApprove').checked=true;get('costApprove').handlers.change();fail=true;await get('costApply').handlers.click();assert.equal(saved,0);assert.match(get('costStatus').textContent,/Repository changed/);assert.equal(get('costApprove').checked,false);
+fail=false;await get('costReview').handlers.click();get('costApprove').checked=true;await get('costApply').handlers.click();assert.equal(saved,1);await get('costApply').handlers.click();assert.equal(saved,1);
+connected=false;await get('costReview').handlers.click();assert.match(get('costStatus').textContent,/Sign in/);
+console.log('Supplier-cost UI: source confirmation, review, coverage, server-equivalent publish, stale failure, one-shot apply and sign-in gate passed.');

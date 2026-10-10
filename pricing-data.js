@@ -1,5 +1,5 @@
 window.PRICING_DATA = {
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-10",
   "rows": [
     {
       "sku": "CRD-004",
@@ -16816,6 +16816,45 @@ window.PRICING_DATA = {
       "vendor": "Embed Singapore Pte Ltd (FZCO / LLC)",
       "source": "NetSuite supplier tier purchase price, saved search 7072. FZCO and LLC rates agree. Ex-Works. USD per Each confirmed by owner. Checked 10 October 2026.",
       "sourceDate": "2026-10-10"
+    },
+    {
+      "sku": "CTC-027",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 1.59,
+      "costBasis": "supplier_purchase",
+      "sourceKind": "netsuite",
+      "currency": "USD",
+      "unit": "Each",
+      "source": "NetSuite supplier tier purchase price / saved search 7072 / Embed Singapore Pte Ltd (FZCO) and Embed Singapore Pte Ltd (LLC) / Ex-Works",
+      "sourceDate": "2026-10-10"
+    },
+    {
+      "sku": "CTC-009",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 1.6,
+      "costBasis": "supplier_purchase",
+      "sourceKind": "netsuite",
+      "currency": "USD",
+      "unit": "Each",
+      "source": "NetSuite supplier tier purchase price / saved search 7072 / Embed Singapore Pte Ltd (FZCO) and Embed Singapore Pte Ltd (LLC) / Ex-Works",
+      "sourceDate": "2026-10-10"
+    },
+    {
+      "sku": "CTC-008",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 0.4,
+      "costBasis": "supplier_purchase",
+      "sourceKind": "netsuite",
+      "currency": "USD",
+      "unit": "Each",
+      "source": "NetSuite supplier tier purchase price / saved search 7072 / Embed Singapore Pte Ltd (FZCO) and Embed Singapore Pte Ltd (LLC) / Ex-Works",
+      "sourceDate": "2026-10-10"
     }
   ],
   "legacyCosts": [
@@ -18111,5 +18150,13 @@ window.PRICING_DATA = {
     }
   ],
   "priceSource": "netsuite",
-  "netsuiteFetchedAt": "2026-10-07T12:44:31.352828+00:00"
+  "netsuiteFetchedAt": "2026-10-07T12:44:31.352828+00:00",
+  "costPolicy": "netsuite-only",
+  "costsCheckedAt": "2026-10-10",
+  "costSupplierMappings": {
+    "EMEA": [
+      "Embed Singapore Pte Ltd (FZCO)",
+      "Embed Singapore Pte Ltd (LLC)"
+    ]
+  }
 };
