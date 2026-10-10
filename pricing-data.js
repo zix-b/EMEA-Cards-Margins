@@ -13858,270 +13858,6 @@ window.PRICING_DATA = {
       "source": "Revised OPPIOT card pricing"
     },
     {
-      "sku": "CTC-008",
-      "quantityMin": 200,
-      "quantityMax": 499,
-      "costPrice": 0.376,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 500,
-      "quantityMax": 999,
-      "costPrice": 0.188,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 1000,
-      "quantityMax": 4999,
-      "costPrice": 0.131,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "costPrice": 0.126,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "costPrice": 0.119,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "costPrice": 0.119,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "costPrice": 0.119,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "costPrice": 0.118,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "costPrice": 0.118,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 500000,
-      "quantityMax": 699999,
-      "costPrice": 0.116,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-008",
-      "quantityMin": 700000,
-      "quantityMax": 999999,
-      "costPrice": 0.114,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 200,
-      "quantityMax": 499,
-      "costPrice": 0.85,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 500,
-      "quantityMax": 999,
-      "costPrice": 0.6,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 1000,
-      "quantityMax": 4999,
-      "costPrice": 0.52,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "costPrice": 0.45,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "costPrice": 0.42,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "costPrice": 0.41,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "costPrice": 0.39,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "costPrice": 0.39,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "costPrice": 0.38,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 500000,
-      "quantityMax": 699999,
-      "costPrice": 0.36,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-009",
-      "quantityMin": 700000,
-      "quantityMax": 999999,
-      "costPrice": 0.36,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 200,
-      "quantityMax": 499,
-      "costPrice": 0.838,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 500,
-      "quantityMax": 999,
-      "costPrice": 0.629,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 1000,
-      "quantityMax": 4999,
-      "costPrice": 0.537,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "costPrice": 0.473,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "costPrice": 0.454,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "costPrice": 0.449,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "costPrice": 0.449,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "costPrice": 0.435,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "costPrice": 0.415,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 500000,
-      "quantityMax": 699999,
-      "costPrice": 0.406,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
-      "sku": "CTC-027",
-      "quantityMin": 700000,
-      "quantityMax": 999999,
-      "costPrice": 0.405,
-      "sourceDate": "2026-04-20",
-      "source": "Revised OPPIOT card pricing"
-    },
-    {
       "sku": "CTC-803",
       "quantityMin": 200,
       "quantityMax": 499,
@@ -17047,6 +16783,39 @@ window.PRICING_DATA = {
       "sourceDate": "2025-12-31",
       "validFrom": "2026-01-01",
       "validTo": "2026-12-31"
+    },
+    {
+      "sku": "CTC-008",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 0.4,
+      "costBasis": "supplier_purchase",
+      "vendor": "Embed Singapore Pte Ltd (FZCO / LLC)",
+      "source": "NetSuite supplier tier purchase price, saved search 7072. FZCO and LLC rates agree. Ex-Works. USD per Each confirmed by owner. Checked 10 October 2026.",
+      "sourceDate": "2026-10-10"
+    },
+    {
+      "sku": "CTC-009",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 1.6,
+      "costBasis": "supplier_purchase",
+      "vendor": "Embed Singapore Pte Ltd (FZCO / LLC)",
+      "source": "NetSuite supplier tier purchase price, saved search 7072. FZCO and LLC rates agree. Ex-Works. USD per Each confirmed by owner. Checked 10 October 2026.",
+      "sourceDate": "2026-10-10"
+    },
+    {
+      "sku": "CTC-027",
+      "region": "EMEA",
+      "quantityMin": 1,
+      "quantityMax": 1000000,
+      "costPrice": 1.59,
+      "costBasis": "supplier_purchase",
+      "vendor": "Embed Singapore Pte Ltd (FZCO / LLC)",
+      "source": "NetSuite supplier tier purchase price, saved search 7072. FZCO and LLC rates agree. Ex-Works. USD per Each confirmed by owner. Checked 10 October 2026.",
+      "sourceDate": "2026-10-10"
     }
   ],
   "legacyCosts": [
@@ -17246,96 +17015,6 @@ window.PRICING_DATA = {
       "quantityMin": 1000000,
       "quantityMax": null,
       "costPrice": 0.1556,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 5000,
-      "quantityMax": 9999,
-      "costPrice": 0.126,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 10000,
-      "quantityMax": 24999,
-      "costPrice": 0.119,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 25000,
-      "quantityMax": 49999,
-      "costPrice": 0.119,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 50000,
-      "quantityMax": 99999,
-      "costPrice": 0.119,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 100000,
-      "quantityMax": 249999,
-      "costPrice": 0.118,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 250000,
-      "quantityMax": 499999,
-      "costPrice": 0.118,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 500000,
-      "quantityMax": 749999,
-      "costPrice": 0.116,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 750000,
-      "quantityMax": 999999,
-      "costPrice": 0.114,
-      "source": "Cards & Wearables Costing & Margins",
-      "sourceDate": "2025-12-03",
-      "vendor": "OPP"
-    },
-    {
-      "sku": "CTC-008",
-      "region": "EMEA",
-      "quantityMin": 1000000,
-      "quantityMax": null,
-      "costPrice": 0.127,
       "source": "Cards & Wearables Costing & Margins",
       "sourceDate": "2025-12-03",
       "vendor": "OPP"
